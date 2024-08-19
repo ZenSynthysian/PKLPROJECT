@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ptdImage from './../assets/ptd.png';
+// import anime from 'animejs';
 
 function Navbar() {
     const [open, setOpen] = useState(false);
@@ -28,9 +29,13 @@ function Navbar() {
                         </Link>
                     </div>
                     <div className="group w-full flex justify-center items-center">
-                        <div className="flex border-b-4 w-24 group-hover:w-full p-5 items-center ease-in-out transition-all duration-100 hover:bg-blue-400 hover:bg-opacity-30 justify-center border-blue-400">
-                            <span>Table</span>
-                        </div>
+                        <Link
+                            to={'/tablemenu'}
+                            className="flex border-b-4 w-24 group-hover:w-full p-5 items-center ease-in-out transition-all duration-100 hover:bg-blue-400 hover:bg-opacity-30 justify-center border-blue-400">
+                            <div>
+                                <span>Table</span>
+                            </div>
+                        </Link>
                     </div>
                 </div>
                 <div>
@@ -42,6 +47,13 @@ function Navbar() {
                         </div>
                     </button>
                 </div>
+                {open ? (
+                    <>
+                        <button
+                            className="w-screen h-screen"
+                            onClick={() => setOpen(false)}></button>
+                    </>
+                ) : null}
             </div>
         </>
     );
