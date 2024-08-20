@@ -3,8 +3,6 @@ import UserLayout from '../layout/UserLayout';
 import Menu from '../page/Menu';
 import PjkDocument from '../page/PjkDocument';
 import PjkDocumentLayout from '../component/PjkDocumentLayout';
-import TablePage from '../page/TablePage';
-import PjkDocumentTable from '../page/tablePage/PjkDocumentTable';
 
 const router = createBrowserRouter([
     {
@@ -22,14 +20,6 @@ const router = createBrowserRouter([
             {
                 path: '/pjk/test',
                 element: <PjkDocumentLayout />,
-            },
-            {
-                path: '/tablemenu',
-                element: <TablePage />,
-            },
-            {
-                path: '/tablemenu/pjk',
-                element: <PjkDocumentTable />,
             },
         ],
     },

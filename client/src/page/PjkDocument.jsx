@@ -3,10 +3,7 @@ function PjkDocument() {
         <>
             <div className="h-screen">
                 <div className="h-full flex justify-center items-center w-full">
-                    <div className="flex flex-col border-2 border-blue-900 p-3 rounded w-[80%]">
-                        <div className="flex justify-center pb-10">
-                            <span className="text-4xl text-blue-950">INPUT DATA DOKUMEN</span>
-                        </div>
+                    <div className="border-2 border-blue-900 p-3 w-[80%]">
                         <form
                             action=""
                             className="grid p-2 grid-cols-4 gap-3">
