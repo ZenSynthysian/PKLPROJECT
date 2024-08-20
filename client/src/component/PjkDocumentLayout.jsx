@@ -136,6 +136,11 @@ function PjkDocumentLayout() {
                                         <span>{wbsCC}</span>
                                     )}
                                 </td>
+                                <div className="flex gap-4 translate-x-[25.4rem]">
+                                    <td>SN</td>
+                                    <td>:</td>
+                                    <td>asd</td>
+                                </div>
                             </tr>
                             <tr>
                                 <td className="pr-7">2</td>
