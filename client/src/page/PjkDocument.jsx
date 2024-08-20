@@ -1,4 +1,24 @@
+import { useState } from 'react';
+import axios from 'axios';
+
 function PjkDocument() {
+    const [dataSend, setDataSend] = useState({});
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        try {
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            setDataSend(data);
+
+            axios.post(`${import.meta.env.VITE_SERVER_API}api/pkl`, dataSend, { withCredentials: true }).then((response) => {
+                window.location.href(`/pjk/detail/${dataSend.nomor_pjk}`);
+            });
+        } catch (error) {
+            console.log(error.message || error);
+        }
+    };
+
     return (
         <>
             <div className="h-screen">
@@ -9,6 +29,7 @@ function PjkDocument() {
                         </div>
                         <form
                             action=""
+                            onSubmit={handleSubmit}
                             className="grid p-2 grid-cols-4 gap-3">
                             <input
                                 type="text"
@@ -120,9 +141,13 @@ function PjkDocument() {
                             />
                             <input
                                 type="text"
-                                name="pejabat_yang_menjabat"
+                                name="pejabat_yang_berwenang"
                                 placeholder="PEJABAT YANG BERWENANG"
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
+                            />
+                            <input
+                                type="submit"
+                                value="kirim"
                             />
                         </form>
                     </div>

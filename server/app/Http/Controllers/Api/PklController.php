@@ -14,11 +14,11 @@ class PklController extends Controller
      */
     public function index()
     {
-        $data = Pkl::orderBy('pejabat_yang_menjabat','asc')->get();
+        $data = Pkl::orderBy('pejabat_yang_berwenang')->get();
         return response()->json([
-            'status'=>true,
-            'message'=>'Data ditemukan',
-            'data'=>$data
+            'status' => true,
+            'message' => 'Data ditemukan',
+            'data' => $data
         ], 200);
     }
 
@@ -30,38 +30,38 @@ class PklController extends Controller
         $dataPkl = new Pkl;
 
         $rules = [
-            'nomor_pjk'=>'required',
-            'kepada'=>'required',
-            'kode_anggaran'=>'required',
-            'wbs_cc'=>'required',
-            'refrensi'=>'required',
-            'no_permohonan_uang_muka'=>'required',
-            'jumlah_pencairan'=>'required',
-            'nama'=>'required',
-            'no_rekening'=>'required',
-            'nama_dan_alamat_bank'=>'required',
-            'unit_organisasi'=>'required',
-            'awal_pelaksanaan'=>'required',
-            'akhir_pelaksanaan'=>'required',
-            'jumlah_pengambilan'=>'required',
-            'jumlah_pjk'=>'required',
-            'jumlah_setor'=>'required',
-            'saldo'=>'required',
-            'pejabat_yang_menjabat'=>'required'
+            'nomor_pjk' => 'required',
+            'kepada' => 'required',
+            'kode_anggaran' => 'required',
+            'wbs_cc' => 'required',
+            'refrensi' => 'required',
+            'no_permohonan_uang_muka' => 'required',
+            'jumlah_pencairan' => 'required',
+            'nama' => 'required',
+            'no_rekening' => 'required',
+            'nama_dan_alamat_bank' => 'required',
+            'unit_organisasi' => 'required',
+            'awal_pelaksanaan' => 'required',
+            'akhir_pelaksanaan' => 'required',
+            'jumlah_pengambilan' => 'required',
+            'jumlah_pjk' => 'required',
+            'jumlah_setor' => 'required',
+            'saldo' => 'required',
+            'pejabat_yang_berwenang' => 'required'
         ];
-        $validator = Validator::make($request->all(),$rules);
-        if($validator->fails()){
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
             return response()->json([
-                'status'=>false,
-                'message'=>'Gagal memasukan data',
-                'data'=>$validator->errors()
+                'status' => false,
+                'message' => 'Gagal memasukan data',
+                'data' => $validator->errors()
             ]);
         }
 
         $dataPkl->nomor_pjk = $request->nomor_pjk;
         $dataPkl->kepada = $request->kepada;
         $dataPkl->kode_anggaran = $request->kode_anggaran;
-        $dataPkl->wbs_cc = $request->judul;
+        $dataPkl->wbs_cc = $request->wbs_cc;
         $dataPkl->refrensi = $request->refrensi;
         $dataPkl->no_permohonan_uang_muka = $request->no_permohonan_uang_muka;
         $dataPkl->jumlah_pencairan = $request->jumlah_pencairan;
@@ -75,32 +75,33 @@ class PklController extends Controller
         $dataPkl->jumlah_pjk = $request->jumlah_pjk;
         $dataPkl->jumlah_setor = $request->jumlah_setor;
         $dataPkl->saldo = $request->saldo;
-        $dataPkl->pejabat_yang_menjabat = $request->pejabat_yang_menjabat;
+        $dataPkl->pejabat_yang_berwenang = $request->pejabat_yang_berwenang;
 
         $post = $dataPkl->save();
 
         return response()->json([
-            'status'=>true,
-            'message'=>'Sukses memasukan data'
+            'status' => true,
+            'message' => 'Sukses memasukan data'
         ]);
     }
 
     /**
      * Display the specified resource.
      */
+
     public function show(string $id)
     {
         $data = Pkl::find($id);
-        if($data){
+        if ($data) {
             return response()->json([
-                'status'=>true,
-                'message'=>'Data ditemukan',
-                'data'=>$data
-            ],200);
-        }else{
+                'status' => true,
+                'message' => 'Data ditemukan',
+                'data' => $data
+            ], 200);
+        } else {
             return response()->json([
-                'status'=>false,
-                'message'=>'Data tidak ditemukan'
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
             ]);
         }
     }
@@ -111,39 +112,39 @@ class PklController extends Controller
     public function update(Request $request, string $id)
     {
         $dataPkl = Pkl::find($id);
-        if(empty($dataPkl)){
+        if (empty($dataPkl)) {
             return response()->json([
-                'status'=>false,
-                'message'=>'Data tidak ditemukan'
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
             ], 404);
         }
 
         $rules = [
-            'nomor_pjk'=>'required',
-            'kepada'=>'required',
-            'kode_anggaran'=>'required',
-            'wbs_cc'=>'required',
-            'refrensi'=>'required',
-            'no_permohonan_uang_muka'=>'required',
-            'jumlah_pencairan'=>'required',
-            'nama'=>'required',
-            'no_rekening'=>'required',
-            'nama_dan_alamat_bank'=>'required',
-            'unit_organisasi'=>'required',
-            'awal_pelaksanaan'=>'required',
-            'akhir_pelaksanaan'=>'required',
-            'jumlah_pengambilan'=>'required',
-            'jumlah_pjk'=>'required',
-            'jumlah_setor'=>'required',
-            'saldo'=>'required',
-            'pejabat_yang_menjabat'=>'required'
+            'nomor_pjk' => 'required',
+            'kepada' => 'required',
+            'kode_anggaran' => 'required',
+            'wbs_cc' => 'required',
+            'refrensi' => 'required',
+            'no_permohonan_uang_muka' => 'required',
+            'jumlah_pencairan' => 'required',
+            'nama' => 'required',
+            'no_rekening' => 'required',
+            'nama_dan_alamat_bank' => 'required',
+            'unit_organisasi' => 'required',
+            'awal_pelaksanaan' => 'required',
+            'akhir_pelaksanaan' => 'required',
+            'jumlah_pengambilan' => 'required',
+            'jumlah_pjk' => 'required',
+            'jumlah_setor' => 'required',
+            'saldo' => 'required',
+            'pejabat_yang_menjabat' => 'required'
         ];
-        $validator = Validator::make($request->all(),$rules);
-        if($validator->fails()){
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
             return response()->json([
-                'status'=>false,
-                'message'=>'Gagal update data',
-                'data'=>$validator->errors()
+                'status' => false,
+                'message' => 'Gagal update data',
+                'data' => $validator->errors()
             ]);
         }
 
@@ -169,8 +170,8 @@ class PklController extends Controller
         $post = $dataPkl->save();
 
         return response()->json([
-            'status'=>true,
-            'message'=>'Sukses update data'
+            'status' => true,
+            'message' => 'Sukses update data'
         ]);
     }
 
@@ -180,10 +181,10 @@ class PklController extends Controller
     public function destroy(string $id)
     {
         $dataPKl = Pkl::find($id);
-        if(empty($dataPkl)){
+        if (empty($dataPkl)) {
             return response()->json([
-                'status'=>false,
-                'message'=>'Data tidak ditemukan'
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
             ], 404);
         }
 
@@ -192,8 +193,8 @@ class PklController extends Controller
         $post = $dataPkl->delete();
 
         return response()->json([
-            'status'=>true,
-            'message'=>'Sukses delete data'
+            'status' => true,
+            'message' => 'Sukses delete data'
         ]);
     }
 }

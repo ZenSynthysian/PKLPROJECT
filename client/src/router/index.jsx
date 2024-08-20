@@ -20,7 +20,7 @@ const router = createBrowserRouter([
                 element: <PjkDocument />,
             },
             {
-                path: '/pjk/test',
+                path: '/pjk/detail/:nomorpjk',
                 element: <PjkDocumentLayout />,
             },
             {
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
                 element: <TablePage />,
             },
             {
-                path: '/tablemenu/pjk',
+                path: '/tablemenu/pjk/',
                 element: <PjkDocumentTable />,
             },
         ],

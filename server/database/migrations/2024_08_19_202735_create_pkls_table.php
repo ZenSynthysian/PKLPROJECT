@@ -30,7 +30,7 @@ return new class extends Migration
             $table->integer('jumlah_pjk');
             $table->integer('jumlah_setor');
             $table->integer('saldo');
-            $table->string('pejabat_yang_menjabat');
+            $table->string('pejabat_yang_berwenang');
             $table->timestamps();
         });
     }

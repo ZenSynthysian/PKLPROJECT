@@ -1,8 +1,10 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as XLSX from 'xlsx';
+import axios from 'axios';
 
 function PjkDocumentTable() {
     const tableRef = useRef(null);
+    const [table, setTable] = useState([]);
 
     const exportToExcel = () => {
         // Get the HTML table element
@@ -34,6 +36,21 @@ function PjkDocumentTable() {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         XLSX.writeFile(wb, 'table.xlsx');
     };
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                await axios.get(`${import.meta.env.VITE_SERVER_API}api/pkl`, { withCredentials: true }).then((response) => {
+                    setTable(response.data.data);
+                });
+            } catch (error) {
+                console.log(error.message || error);
+            }
+        }
+
+        fetchData();
+    }, [table]);
+
     return (
         <>
             <div className="flex justify-center items-center pt-32 overflow-auto pl-32 pr-32 w-fit">
@@ -76,285 +93,43 @@ function PjkDocumentTable() {
                             {/* </tr> */}
 
                             {/* t body area */}
-                            <tr className="transition-all duration-100 ease-in-out hover:bg-gray-200">
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="border-blue-400 whitespace-nowrap text-center flex gap-3">
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Open</div>
-                                    </button>
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Export Excel</div>
-                                    </button>
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Print</div>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr className="transition-all duration-100 ease-in-out hover:bg-gray-200">
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="border-blue-400 whitespace-nowrap text-center flex gap-3">
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Open</div>
-                                    </button>
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Export Excel</div>
-                                    </button>
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Print</div>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr className="transition-all duration-100 ease-in-out hover:bg-gray-200">
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="border-blue-400 whitespace-nowrap text-center flex gap-3">
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Open</div>
-                                    </button>
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Export Excel</div>
-                                    </button>
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Print</div>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr className="transition-all duration-100 ease-in-out hover:bg-gray-200">
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="border-blue-400 whitespace-nowrap text-center flex gap-3">
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Open</div>
-                                    </button>
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Export Excel</div>
-                                    </button>
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Print</div>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr className="transition-all duration-100 ease-in-out hover:bg-gray-200">
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="border-blue-400 whitespace-nowrap text-center flex gap-3">
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Open</div>
-                                    </button>
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Export Excel</div>
-                                    </button>
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Print</div>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr className="transition-all duration-100 ease-in-out hover:bg-gray-200">
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="border-blue-400 whitespace-nowrap text-center flex gap-3">
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Open</div>
-                                    </button>
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Export Excel</div>
-                                    </button>
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Print</div>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr className="transition-all duration-100 ease-in-out hover:bg-gray-200">
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="border-blue-400 whitespace-nowrap text-center flex gap-3">
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Open</div>
-                                    </button>
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Export Excel</div>
-                                    </button>
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Print</div>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr className="transition-all duration-100 ease-in-out hover:bg-gray-200">
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="border-blue-400 whitespace-nowrap text-center flex gap-3">
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Open</div>
-                                    </button>
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Export Excel</div>
-                                    </button>
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Print</div>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr className="transition-all duration-100 ease-in-out hover:bg-gray-200">
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">1</td>
-                                <td className="border-blue-400 whitespace-nowrap text-center flex gap-3">
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Open</div>
-                                    </button>
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Export Excel</div>
-                                    </button>
-                                    <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                        <div>Print</div>
-                                    </button>
-                                </td>
-                            </tr>
+                            {table.map((data, index) => {
+                                return (
+                                    <tr
+                                        className="transition-all duration-100 ease-in-out hover:bg-gray-200"
+                                        key={data.id}>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{index + 1}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.nomor_pjk}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.kepada}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.kode_anggaran}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.wbs_cc}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.refrensi}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.no_permohonan_uang_muka}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.jumlah_pencairan}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.nama}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.no_rekening}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.nama_dan_alamat_bank}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.unit_organisasi}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{`${data.awal_pelaksanaan} s/d ${data.akhir_pelaksanaan}`}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.jumlah_pengambilan}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.jumlah_pjk}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.jumlah_setor}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.saldo}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.pejabat_yang_berwenang}</td>
+                                        <td className="border-blue-400 whitespace-nowrap text-center flex gap-3">
+                                            <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
+                                                <div>Open</div>
+                                            </button>
+                                            <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
+                                                <div>Export Excel</div>
+                                            </button>
+                                            <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
+                                                <div>Print</div>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
                         </tbody>
                     </table>
                 </div>
