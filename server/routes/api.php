@@ -11,7 +11,7 @@ Route::get('/user', function (Request $request) {
 // Rute untuk metode 'index'
 Route::get('pkl', [PklController::class, 'index']);
 
-Route::get('pkl/{id}', [PklController::class, 'show']);
+Route::get('pkl/{nomor_pjk}', [PklController::class, 'show']);
 
 Route::post('pkl', [PklController::class, 'store']);
 

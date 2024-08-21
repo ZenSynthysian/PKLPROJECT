@@ -89,9 +89,9 @@ class PklController extends Controller
      * Display the specified resource.
      */
 
-    public function show(string $id)
+    public function show(string $nomor_pjk)
     {
-        $data = Pkl::find($id);
+        $data = Pkl::where('nomor_pjk',$nomor_pjk)->first();
         if ($data) {
             return response()->json([
                 'status' => true,
