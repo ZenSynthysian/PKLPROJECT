@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 20, 2024 at 04:53 AM
+-- Generation Time: Aug 21, 2024 at 08:16 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -175,7 +175,13 @@ CREATE TABLE `pkl` (
   `jumlah_pjk` int(50) NOT NULL,
   `jumlah_setor` int(50) NOT NULL,
   `saldo` int(50) NOT NULL,
-  `pejabat_yang_menjabat` varchar(255) NOT NULL,
+  `pejabat_yang_berwenang` varchar(255) NOT NULL,
+  `tempat_tanggal_tanda_tangan` date NOT NULL,
+  `nik` varchar(255) NOT NULL,
+  `nama_ttd` varchar(255) NOT NULL,
+  `catatan_kadiv` varchar(255) NOT NULL,
+  `nama_catatan_kadiv` varchar(255) NOT NULL,
+  `sn` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -184,10 +190,10 @@ CREATE TABLE `pkl` (
 -- Dumping data for table `pkl`
 --
 
-INSERT INTO `pkl` (`id`, `nomor_pjk`, `kepada`, `kode_anggaran`, `wbs_cc`, `refrensi`, `no_permohonan_uang_muka`, `jumlah_pencairan`, `nama`, `no_rekening`, `nama_dan_alamat_bank`, `unit_organisasi`, `awal_pelaksanaan`, `akhir_pelaksanaan`, `jumlah_pengambilan`, `jumlah_pjk`, `jumlah_setor`, `saldo`, `pejabat_yang_menjabat`, `created_at`, `updated_at`) VALUES
-(1, '123', 'alif', '123', '123', 'alif', '123', 123, 'alif', '123', '123', '123', '2024-08-08', '2024-08-20', 123, 123, 123, 123, 'alif', '2024-08-19 20:57:50', '2024-08-19 20:57:50'),
-(2, '1234', 'dimas', '1234', '1234', '1234', '1234', 1234, 'dimas', '1234', '1234', '1234', '2024-08-05', '2024-08-23', 1234, 1234, 1234, 1234, 'dimas', '2024-08-19 21:00:00', '2024-08-19 21:00:00'),
-(3, '12345', 'marsel', '12345', '12345', '12345', '12345', 12345, 'marsel', '12345', '12345', '12345', '2024-08-20', '2024-08-20', 12345, 12345, 12345, 12345, 'marsel', '2024-08-19 21:01:10', '2024-08-19 21:01:10');
+INSERT INTO `pkl` (`id`, `nomor_pjk`, `kepada`, `kode_anggaran`, `wbs_cc`, `refrensi`, `no_permohonan_uang_muka`, `jumlah_pencairan`, `nama`, `no_rekening`, `nama_dan_alamat_bank`, `unit_organisasi`, `awal_pelaksanaan`, `akhir_pelaksanaan`, `jumlah_pengambilan`, `jumlah_pjk`, `jumlah_setor`, `saldo`, `pejabat_yang_berwenang`, `tempat_tanggal_tanda_tangan`, `nik`, `nama_ttd`, `catatan_kadiv`, `nama_catatan_kadiv`, `sn`, `created_at`, `updated_at`) VALUES
+(1, '49', 'alif zaidan', '49', '59', 'alif zaidan', '09', 9, 'alif zaidan', '09', '09', '9999', '2023-11-22', '2024-11-23', 23923, 2323, 3232, 2323, 'alif zaidan', '0000-00-00', '', '', '', '', '', '2024-08-19 20:57:50', '2024-08-20 19:02:57'),
+(2, '1234', 'dimas', '1234', '1234', '1234', '1234', 1234, 'dimas', '1234', '1234', '1234', '2024-08-05', '2024-08-23', 1234, 1234, 1234, 1234, 'dimas', '0000-00-00', '', '', '', '', '', '2024-08-19 21:00:00', '2024-08-19 21:00:00'),
+(3, '12345', 'marsel', '12345', '12345', '12345', '12345', 12345, 'marsel', '12345', '12345', '12345', '2024-08-20', '2024-08-20', 12345, 12345, 12345, 12345, 'marsel', '0000-00-00', '', '', '', '', '', '2024-08-19 21:01:10', '2024-08-19 21:01:10');
 
 -- --------------------------------------------------------
 

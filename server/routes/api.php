@@ -15,6 +15,6 @@ Route::get('pkl/{nomor_pjk}', [PklController::class, 'show']);
 
 Route::post('pkl', [PklController::class, 'store']);
 
-Route::put('pkl/{id}', [PklController::class, 'update']);
+Route::put('pkl/{nomor_pjk}', [PklController::class, 'update']);
 
-Route::delete('pkl/{id}', [PklController::class, 'destroy']);
+Route::delete('pkl/{nomor_pjk}', [PklController::class, 'destroy']);
