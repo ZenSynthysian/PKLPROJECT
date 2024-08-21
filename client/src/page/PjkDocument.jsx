@@ -145,9 +145,19 @@ function PjkDocument() {
                                 placeholder="PEJABAT YANG BERWENANG"
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
                             />
+                            <div className="flex flex-col">
+                                <div className="flex justify-center items-center text-xs">TANGGAL TANDA TANGAN</div>
+                                <input
+                                    type="date"
+                                    name="tanggal_tanda_tangan"
+                                    placeholder="TANGGAL TANDA TANGAN"
+                                    className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
+                                />
+                            </div>
                             <input
                                 type="submit"
-                                value="kirim"
+                                value="SUBMIT"
+                                className="cursor-grab bg-blue-50 rounded border-2 border-blue-300 animate-pulse"
                             />
                         </form>
                     </div>

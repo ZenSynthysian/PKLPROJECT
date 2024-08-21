@@ -7,7 +7,7 @@ function Navbar() {
 
     return (
         <>
-            <div className="fixed flex z-10 no-printme">
+            <div className="fixed flex z-20 no-printme">
                 <div
                     className={`fixed transition-all backdrop-blur-sm duration-100 flex flex-col items-center ${
                         open ? 'w-80' : 'w-0'
@@ -50,7 +50,7 @@ function Navbar() {
             {open ? (
                 <>
                     <button
-                        className="w-screen h-screen"
+                        className="absolute z-10 w-screen h-[100vh]"
                         onClick={() => setOpen(false)}></button>
                 </>
             ) : null}
