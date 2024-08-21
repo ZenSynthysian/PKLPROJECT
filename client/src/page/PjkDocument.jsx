@@ -12,7 +12,7 @@ function PjkDocument() {
             setDataSend(data);
 
             axios.post(`${import.meta.env.VITE_SERVER_API}api/pkl`, dataSend, { withCredentials: true }).then((response) => {
-                window.location.href(`/pjk/detail/${dataSend.nomor_pjk}`);
+                window.location.replace(`/pjk/detail/${dataSend.nomor_pjk}`);
             });
         } catch (error) {
             console.log(error.message || error);

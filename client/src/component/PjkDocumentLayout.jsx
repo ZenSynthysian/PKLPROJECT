@@ -1,31 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PtdPng from '../assets/ptd.png';
 import { numberToWord } from '../helper/numberConverter';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 function PjkDocumentLayout() {
+    const { nomorpjkparam } = useParams();
+    const [dataPjk, setDataPjk] = useState([]);
     const [editMode, setEditMode] = useState(false);
-    const [nomorPjk, setNomorPjk] = useState('[Kode]');
-    const [kepadaYth, setKepadaYth] = useState('[KADIV ...]');
-    const [KodeAnggaran, setKodeAnggaran] = useState('C51');
-    const [wbsCC, setWbsCC] = useState(null);
-    const [referensi, setReferensi] = useState(null);
-    const [noPermohonanUangMuka, setNoPermohonanUangMuka] = useState(null);
-    const [noTandaTerimaUang, setNoTandaTerimaUang] = useState(null);
-    const [nama, setNama] = useState(null);
-    const [noRekening, setNoRekening] = useState(null);
-    const [namaDanAlamatBank, setNamaDanAlamatBank] = useState(null);
-    const [unitOrganisasi, setUnitOrganisasi] = useState(null);
-    const [pelaksanaanDariTanggal, setPelaksanaanDariTanggal] = useState('');
-    const [pelaksanaanSampaiTanggal, setPelaksanaanSampaiTanggal] = useState('');
-    const [nilaiJumlahPengambilan, setNilaiJumlahPengambilan] = useState(0);
-    const [nilaiJumlahPjk, setNilaiJumlahPjk] = useState(0);
-    const [nilaiJumlahSetor, setNilaiJumlahSetor] = useState(0);
-    const [nilaiSaldo, setNilaiSaldo] = useState(0);
-    const [tempatTanggalTandaTangan, setTempatTanggalTandaTangan] = useState('[Tempat, Tanggal]');
-    const [nik, setNik] = useState('[NIK]');
-    const [namaTTD, setNamaTTD] = useState('[NAMA]');
-    const [catatanKadiv, setCatatanKadiv] = useState('[KADIV ...]');
-    const [namaCatatanKadiv, setNamaCatatanKadiv] = useState('[NAMA]');
+    const [docData, setDocData] = useState({});
+
+    // const [nomorPjk, setNomorPjk] = useState('');
+    // const [kepadaYth, setKepadaYth] = useState('[KADIV ...]');
+    // const [KodeAnggaran, setKodeAnggaran] = useState('C51');
+    // const [wbsCC, setWbsCC] = useState(null);
+    // const [referensi, setReferensi] = useState(null);
+    // const [noPermohonanUangMuka, setNoPermohonanUangMuka] = useState(null);
+    // const [noTandaTerimaUang, setNoTandaTerimaUang] = useState(null);
+    // const [nama, setNama] = useState(null);
+    // const [noRekening, setNoRekening] = useState(null);
+    // const [namaDanAlamatBank, setNamaDanAlamatBank] = useState(null);
+    // const [unitOrganisasi, setUnitOrganisasi] = useState(null);
+    // const [pelaksanaanDariTanggal, setPelaksanaanDariTanggal] = useState('');
+    // const [pelaksanaanSampaiTanggal, setPelaksanaanSampaiTanggal] = useState('');
+    // const [nilaiJumlahPengambilan, setNilaiJumlahPengambilan] = useState(0);
+    // const [nilaiJumlahPjk, setNilaiJumlahPjk] = useState(0);
+    // const [nilaiJumlahSetor, setNilaiJumlahSetor] = useState(0);
+    // const [nilaiSaldo, setNilaiSaldo] = useState(0);
+    // const [tempatTanggalTandaTangan, setTempatTanggalTandaTangan] = useState('[Tempat, Tanggal]');
+    // const [nik, setNik] = useState('[NIK]');
+    // const [namaTTD, setNamaTTD] = useState('[NAMA]');
+    // const [catatanKadiv, setCatatanKadiv] = useState('[KADIV ...]');
+    // const [namaCatatanKadiv, setNamaCatatanKadiv] = useState('[NAMA]');
 
     const formatDate = (dateStr) => {
         // Extract year, month, and day from YYYY-MM-DD format
@@ -37,6 +43,49 @@ function PjkDocumentLayout() {
     const toggleEditMode = () => {
         setEditMode(!editMode);
     };
+
+    function handleChange(e) {
+        setDocData({ ...docData, [e.target.name]: e.target.value });
+    }
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                axios.get(`${import.meta.env.VITE_SERVER_API}api/pkl/${nomorpjkparam}`, { withCredentials: true }).then((response) => {
+                    setDataPjk(response.data.data);
+                });
+            } catch (error) {
+                console.log(error.message || error);
+            }
+        }
+
+        fetchData();
+
+        if (editMode) {
+            //
+        } else {
+            setDocData({
+                nomor_pjk: dataPjk?.nomor_pjk,
+                kepada: dataPjk?.kepada,
+                kode_anggaran: dataPjk?.kode_anggaran,
+                wbs_cc: dataPjk?.wbs_cc,
+                refrensi: dataPjk?.refrensi,
+                no_permohonan_uang_muka: dataPjk?.no_permohonan_uang_muka,
+                jumlah_pencairan: dataPjk?.jumlah_pencairan,
+                nama: dataPjk?.nama,
+                no_rekening: dataPjk?.no_rekening,
+                nama_dan_alamat_bank: dataPjk?.nama_dan_alamat_bank,
+                unit_organisasi: dataPjk?.unit_organisasi,
+                awal_pelaksanaan: dataPjk?.awal_pelaksanaan,
+                akhir_pelaksanaan: dataPjk?.akhir_pelaksanaan,
+                jumlah_pengambilan: dataPjk?.jumlah_pengambilan,
+                jumlah_pjk: dataPjk?.jumlah_pjk,
+                jumlah_setor: dataPjk?.jumlah_setor,
+                saldo: dataPjk?.saldo,
+                pejabat_yang_berwenang: dataPjk?.pejabat_yang_berwenang,
+            });
+        }
+    }, [editMode, dataPjk, nomorpjkparam]);
 
     return (
         <>
@@ -71,12 +120,12 @@ function PjkDocumentLayout() {
                                 <input
                                     className="relative z-20 outline-none border border-black w-32"
                                     type="text"
-                                    onChange={(e) => setNomorPjk(e.target.value)}
-                                    value={nomorPjk}
+                                    onChange={handleChange}
+                                    value={docData.nomor_pjk}
                                     name="nomor_pjk"
                                 />
                             ) : (
-                                <span id="nomor_pjk">{nomorPjk}</span>
+                                <span id="nomor_pjk">{docData.nomor_pjk}</span>
                             )}
                         </span>
                     </div>
@@ -89,12 +138,12 @@ function PjkDocumentLayout() {
                                         <input
                                             className="relative z-20 outline-none border border-black w-32"
                                             type="text"
-                                            onChange={(e) => setKepadaYth(e.target.value)}
-                                            value={kepadaYth}
+                                            onChange={handleChange}
+                                            value={docData.kepada}
                                             name="kepada"
                                         />
                                     ) : (
-                                        <span>{kepadaYth}</span>
+                                        <span>{docData.kepada}</span>
                                     )}
                                 </strong>
                             </div>
@@ -107,12 +156,12 @@ function PjkDocumentLayout() {
                                     <input
                                         className="relative z-20 outline-none  w-6"
                                         type="text"
-                                        onChange={(e) => setKodeAnggaran(e.target.value)}
-                                        value={KodeAnggaran}
-                                        name="anggaran"
+                                        onChange={handleChange}
+                                        value={docData.kode_anggaran}
+                                        name="kode_anggaran"
                                     />
                                 ) : (
-                                    <span>{KodeAnggaran}</span>
+                                    <span>{docData.kode_anggaran}</span>
                                 )}
                             </div>
                         </div>
@@ -128,12 +177,12 @@ function PjkDocumentLayout() {
                                         <input
                                             className="relative z-20 outline-none border border-black w-32"
                                             type="text"
-                                            onChange={(e) => setWbsCC(e.target.value)}
-                                            value={wbsCC}
+                                            onChange={handleChange}
+                                            value={docData.wbs_cc}
                                             name="wbs_cc"
                                         />
                                     ) : (
-                                        <span>{wbsCC}</span>
+                                        <span>{docData.wbs_cc}</span>
                                     )}
                                 </td>
                                 <div className="flex gap-4 translate-x-[25.4rem]">
@@ -151,12 +200,12 @@ function PjkDocumentLayout() {
                                         <input
                                             className="relative z-20 outline-none border border-black w-32"
                                             type="text"
-                                            onChange={(e) => setReferensi(e.target.value)}
-                                            value={referensi}
+                                            onChange={handleChange}
+                                            value={docData.refrensi}
                                             name="refrensi"
                                         />
                                     ) : (
-                                        <span>{referensi}</span>
+                                        <span>{docData.refrensi}</span>
                                     )}
                                 </td>
                             </tr>
@@ -169,12 +218,12 @@ function PjkDocumentLayout() {
                                         <input
                                             className="relative z-20 outline-none border border-black w-32"
                                             type="text"
-                                            onChange={(e) => setNoPermohonanUangMuka(e.target.value)}
-                                            value={noPermohonanUangMuka}
+                                            onChange={handleChange}
+                                            value={docData.no_permohonan_uang_muka}
                                             name="no_permohonan_uang_muka"
                                         />
                                     ) : (
-                                        <span>{noPermohonanUangMuka}</span>
+                                        <span>{docData.no_permohonan_uang_muka}</span>
                                     )}
                                 </td>
                             </tr>
@@ -187,12 +236,12 @@ function PjkDocumentLayout() {
                                         <input
                                             className="relative z-20 outline-none border border-black w-32"
                                             type="text"
-                                            onChange={(e) => setNoTandaTerimaUang(e.target.value)}
-                                            value={noTandaTerimaUang}
+                                            onChange={handleChange}
+                                            value={'null'}
                                             name="no_tanda_terima_uang"
                                         />
                                     ) : (
-                                        <span>{noTandaTerimaUang}</span>
+                                        <span>{'null'}</span>
                                     )}
                                 </td>
                             </tr>
@@ -212,12 +261,12 @@ function PjkDocumentLayout() {
                                         <input
                                             className="relative z-20 outline-none border border-black w-32"
                                             type="text"
-                                            onChange={(e) => setNama(e.target.value)}
-                                            value={nama}
+                                            onChange={handleChange}
+                                            value={docData.nama}
                                             name="nama"
                                         />
                                     ) : (
-                                        <span>{nama}</span>
+                                        <span>{docData.nama}</span>
                                     )}
                                 </td>
                             </tr>
@@ -229,12 +278,12 @@ function PjkDocumentLayout() {
                                         <input
                                             className="relative z-20 outline-none border border-black w-32"
                                             type="text"
-                                            onChange={(e) => setNoRekening(e.target.value)}
-                                            value={noRekening}
+                                            onChange={handleChange}
+                                            value={docData.no_rekening}
                                             name="no_rekening"
                                         />
                                     ) : (
-                                        <span>{noRekening}</span>
+                                        <span>{docData.no_rekening}</span>
                                     )}
                                 </td>
                             </tr>
@@ -246,12 +295,12 @@ function PjkDocumentLayout() {
                                         <input
                                             className="relative z-20 outline-none border border-black w-32"
                                             type="text"
-                                            onChange={(e) => setNamaDanAlamatBank(e.target.value)}
-                                            value={namaDanAlamatBank}
+                                            onChange={handleChange}
+                                            value={docData.nama_dan_alamat_bank}
                                             name="nama_dan_alamat_bank"
                                         />
                                     ) : (
-                                        <span>{namaDanAlamatBank}</span>
+                                        <span>{docData.nama_dan_alamat_bank}</span>
                                     )}
                                 </td>
                             </tr>
@@ -263,12 +312,12 @@ function PjkDocumentLayout() {
                                         <input
                                             className="relative z-20 outline-none border border-black w-32"
                                             type="text"
-                                            onChange={(e) => setUnitOrganisasi(e.target.value)}
-                                            value={unitOrganisasi}
+                                            onChange={handleChange}
+                                            value={docData.unit_organisasi}
                                             name="unit_organisasi"
                                         />
                                     ) : (
-                                        <span>{unitOrganisasi}</span>
+                                        <span>{docData.unit_organisasi}</span>
                                     )}
                                 </td>
                             </tr>
@@ -287,14 +336,14 @@ function PjkDocumentLayout() {
                                         {editMode ? (
                                             <input
                                                 type="date"
-                                                name="pelaksanaan_dari_tanggal"
-                                                value={pelaksanaanDariTanggal}
-                                                onChange={(e) => setPelaksanaanDariTanggal(e.target.value)}
+                                                name="awal_pelaksanaan"
+                                                value={docData.awal_pelaksanaan}
+                                                onChange={handleChange}
                                                 className="outline-none border-none bg-transparent"
                                             />
                                         ) : (
                                             <div className="flex items-center">
-                                                <div>{formatDate(pelaksanaanDariTanggal)}</div>
+                                                <div>{docData.awal_pelaksanaan}</div>
                                             </div>
                                         )}
                                     </div>
@@ -304,14 +353,14 @@ function PjkDocumentLayout() {
                                         {editMode ? (
                                             <input
                                                 type="date"
-                                                name="pelaksanaan_sampai_tanggal"
-                                                onChange={(e) => setPelaksanaanSampaiTanggal(e.target.value)}
-                                                value={pelaksanaanSampaiTanggal}
+                                                name="akhir_pelaksanaan"
+                                                onChange={handleChange}
+                                                value={docData.akhir_pelaksanaan}
                                                 className="outline-none border-none bg-transparent"
                                             />
                                         ) : (
                                             <div className="flex items-center">
-                                                <span>{formatDate(pelaksanaanSampaiTanggal)}</span>
+                                                <span>{docData.akhir_pelaksanaan}</span>
                                             </div>
                                         )}
                                     </div>
@@ -338,13 +387,13 @@ function PjkDocumentLayout() {
                                         <input
                                             className="relative z-20 outline-none border border-black w-32"
                                             type="text"
-                                            onChange={(e) => setNilaiJumlahPengambilan(e.target.value)}
-                                            value={nilaiJumlahPengambilan}
-                                            name="nilai_jumlah_pengambilan"
+                                            onChange={handleChange}
+                                            value={docData.jumlah_pengambilan}
+                                            name="jumlah_pengambilan"
                                         />
                                     ) : (
                                         <div className="flex items-center justify-end pr-1 w-full border border-black">
-                                            <span>{nilaiJumlahPengambilan}</span>
+                                            <span>{docData.jumlah_pengambilan}</span>
                                         </div>
                                     )}
                                 </td>
@@ -358,7 +407,7 @@ function PjkDocumentLayout() {
                                 <td className="pl-7 absolute w-[35.7rem]">
                                     <div className="flex flex-col items-center">
                                         <div className="w-full ab h-3 border border-black border-b-transparent">
-                                            <div className="-translate-y-[0.14rem]">{numberToWord(nilaiJumlahPengambilan)} RUPIAH</div>
+                                            <div className="-translate-y-[0.14rem]">{numberToWord(docData.jumlah_pengambilan)} RUPIAH</div>
                                         </div>
                                         <div className="w-full border border-black">
                                             <div className="h-4"></div>
@@ -389,13 +438,13 @@ function PjkDocumentLayout() {
                                         <input
                                             className="relative z-20 outline-none border border-black w-32"
                                             type="text"
-                                            onChange={(e) => setNilaiJumlahPjk(e.target.value)}
-                                            value={nilaiJumlahPjk}
-                                            name="nilai_jumlah_pjk"
+                                            onChange={handleChange}
+                                            value={docData.jumlah_pjk}
+                                            name="jumlah_pjk"
                                         />
                                     ) : (
                                         <div className="flex items-center pr-1 w-full border border-black justify-end">
-                                            <span>{nilaiJumlahPjk}</span>
+                                            <span>{docData.jumlah_pjk}</span>
                                         </div>
                                     )}
                                 </td>
@@ -407,7 +456,7 @@ function PjkDocumentLayout() {
                                 <td className="pl-7 absolute w-[35.7rem]">
                                     <div className="flex flex-col items-center">
                                         <div className="w-full ab h-3 border border-black border-b-transparent">
-                                            <div className="-translate-y-[0.14rem]">{numberToWord(nilaiJumlahPjk)} RUPIAH</div>
+                                            <div className="-translate-y-[0.14rem]">{numberToWord(docData.jumlah_pjk)} RUPIAH</div>
                                         </div>
                                         <div className="w-full border border-black">
                                             <div className="h-4"></div>
@@ -437,13 +486,13 @@ function PjkDocumentLayout() {
                                         <input
                                             className="relative z-20 outline-none border border-black w-32"
                                             type="text"
-                                            onChange={(e) => setNilaiJumlahSetor(e.target.value)}
-                                            value={nilaiJumlahSetor}
-                                            name="nilai_jumlah_setor"
+                                            onChange={handleChange}
+                                            value={docData.jumlah_setor}
+                                            name="jumlah_setor"
                                         />
                                     ) : (
                                         <div className="flex items-center pr-1 w-full border border-black justify-end">
-                                            <span>{nilaiJumlahSetor}</span>
+                                            <span>{docData.jumlah_setor}</span>
                                         </div>
                                     )}
                                 </td>
@@ -455,7 +504,7 @@ function PjkDocumentLayout() {
                                 <td className="pl-7 absolute w-[35.7rem]">
                                     <div className="flex flex-col items-center">
                                         <div className="w-full ab h-3 border border-black border-b-transparent">
-                                            <div className="-translate-y-[0.14rem]">{numberToWord(nilaiJumlahSetor)} RUPIAH</div>
+                                            <div className="-translate-y-[0.14rem]">{numberToWord(docData.jumlah_setor)} RUPIAH</div>
                                         </div>
                                         <div className="w-full border border-black">
                                             <div className="h-4"></div>
@@ -486,13 +535,13 @@ function PjkDocumentLayout() {
                                         <input
                                             className="relative z-20 outline-none border border-black w-32"
                                             type="text"
-                                            onChange={(e) => setNilaiSaldo(e.target.value)}
-                                            value={nilaiSaldo}
-                                            name="nilai_saldo"
+                                            onChange={handleChange}
+                                            value={docData.saldo}
+                                            name="saldo"
                                         />
                                     ) : (
                                         <div className="flex items-center pr-1 w-full border border-black justify-end">
-                                            <span>{nilaiSaldo}</span>
+                                            <span>{docData.saldo}</span>
                                         </div>
                                     )}
                                 </td>
@@ -503,7 +552,7 @@ function PjkDocumentLayout() {
                                 <td className="pl-7 absolute w-[35.7rem]">
                                     <div className="flex flex-col items-center">
                                         <div className="w-full ab h-3 border border-black border-b-transparent">
-                                            <div className="-translate-y-[0.14rem]">{numberToWord(nilaiSaldo)} RUPIAH</div>
+                                            <div className="-translate-y-[0.14rem]">{numberToWord(docData.saldo)} RUPIAH</div>
                                         </div>
                                         <div className="w-full border border-black">
                                             <div className="h-4"></div>
@@ -515,7 +564,7 @@ function PjkDocumentLayout() {
                         </table>
                     </div>
                     <p className="pt-6 pl-8">Dokumen pendukung PertanggungJawaban :</p>
-                    {/* gap-28 on parrent div*/}
+                    {/* gap-28 on parrent div */}
                     <div className="flex flex-col ">
                         <div className="pl-[67px]">
                             <div className="flex gap-6">
@@ -531,24 +580,24 @@ function PjkDocumentLayout() {
                                         <input
                                             className="relative z-20 outline-none border border-black w-32"
                                             type="text"
-                                            onChange={(e) => setTempatTanggalTandaTangan(e.target.value)}
-                                            value={tempatTanggalTandaTangan}
+                                            // onChange={(e) => setTempatTanggalTandaTangan(e.target.value)} //tempat_tanggal_tanda_tangan
+                                            value={'tempatTanggalTandaTangan'}
                                             name="tempat_tanggal_tanda_tangan"
                                         />
                                     ) : (
-                                        <div className="text-center">{tempatTanggalTandaTangan}</div>
+                                        <div className="text-center">{'tempatTanggalTandaTangan'}</div>
                                     )}
                                     <div className="flex flex-col">
                                         {editMode ? (
                                             <input
                                                 className="relative z-20 outline-none border border-black w-32"
                                                 type="text"
-                                                onChange={(e) => setNamaTTD(e.target.value)}
-                                                value={namaTTD}
+                                                // onChange={(e) => setNamaTTD(e.target.value)}
+                                                value={'namaTTD'}
                                                 name="nama_ttd"
                                             />
                                         ) : (
-                                            <div className="font-bold text-center">{namaTTD}</div>
+                                            <div className="font-bold text-center">{'namaTTD'}</div>
                                         )}
                                         <div className="border-b-2 border-black w-44"></div>
                                         <div>
@@ -558,12 +607,12 @@ function PjkDocumentLayout() {
                                                     <input
                                                         className="relative z-20 outline-none border border-black w-32"
                                                         type="text"
-                                                        onChange={(e) => setNik(e.target.value)}
-                                                        value={nik}
+                                                        // onChange={(e) => setNik(e.target.value)}
+                                                        value={'nik'}
                                                         name="nik"
                                                     />
                                                 ) : (
-                                                    <span className="font-bold">{nik}</span>
+                                                    <span className="font-bold">{'nik'}</span>
                                                 )}
                                             </p>
                                         </div>
@@ -589,12 +638,12 @@ function PjkDocumentLayout() {
                                         <input
                                             className="relative z-20 outline-none border border-black w-32"
                                             type="text"
-                                            onChange={(e) => setCatatanKadiv(e.target.value)}
-                                            value={catatanKadiv}
+                                            // onChange={(e) => setCatatanKadiv(e.target.value)}
+                                            value={'catatanKadiv'}
                                             name="catatan"
                                         />
                                     ) : (
-                                        <div className="font-bold">{catatanKadiv}</div>
+                                        <div className="font-bold">{'catatanKadiv'}</div>
                                     )}
                                 </div>
                                 <div>
@@ -602,12 +651,12 @@ function PjkDocumentLayout() {
                                         <input
                                             className="relative z-20 outline-none border border-black w-32"
                                             type="text"
-                                            onChange={(e) => setNamaCatatanKadiv(e.target.value)}
-                                            value={namaCatatanKadiv}
+                                            // onChange={(e) => setNamaCatatanKadiv(e.target.value)}
+                                            value={'namaCatatanKadiv'}
                                             name="catatan"
                                         />
                                     ) : (
-                                        <div className="font-bold underline">{namaCatatanKadiv}</div>
+                                        <div className="font-bold underline">{'namaCatatanKadiv'}</div>
                                     )}
                                     <div className="">Pejabat yang berwenang</div>
                                 </div>

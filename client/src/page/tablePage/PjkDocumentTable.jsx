@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import * as XLSX from 'xlsx';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function PjkDocumentTable() {
     const tableRef = useRef(null);
@@ -49,7 +50,7 @@ function PjkDocumentTable() {
         }
 
         fetchData();
-    }, [table]);
+    }, []);
 
     return (
         <>
@@ -118,10 +119,9 @@ function PjkDocumentTable() {
                                         <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.pejabat_yang_berwenang}</td>
                                         <td className="border-blue-400 whitespace-nowrap text-center flex gap-3">
                                             <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                                <div>Open</div>
-                                            </button>
-                                            <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                                <div>Export Excel</div>
+                                                <Link to={`/pjk/detail/${data.nomor_pjk}`}>
+                                                    <div>Open</div>
+                                                </Link>
                                             </button>
                                             <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
                                                 <div>Print</div>

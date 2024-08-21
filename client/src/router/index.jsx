@@ -20,7 +20,7 @@ const router = createBrowserRouter([
                 element: <PjkDocument />,
             },
             {
-                path: '/pjk/detail/:nomorpjk',
+                path: '/pjk/detail/:nomorpjkparam',
                 element: <PjkDocumentLayout />,
             },
             {
