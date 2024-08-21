@@ -47,7 +47,13 @@ class PklController extends Controller
             'jumlah_pjk' => 'required',
             'jumlah_setor' => 'required',
             'saldo' => 'required',
-            'pejabat_yang_berwenang' => 'required'
+            'pejabat_yang_berwenang' => 'required',
+            'tempat_tanggal_tanda_tangan' => 'required',
+            'nik' => 'required',
+            'nama_ttd' => 'required',
+            'catatan_kadiv' => 'required',
+            'nama_catatan_kadiv' => 'required',
+            'sn' => 'required'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -76,6 +82,12 @@ class PklController extends Controller
         $dataPkl->jumlah_setor = $request->jumlah_setor;
         $dataPkl->saldo = $request->saldo;
         $dataPkl->pejabat_yang_berwenang = $request->pejabat_yang_berwenang;
+        $dataPkl->tempat_tanggal_tanda_tangan = $request->tempat_tanggal_tanda_tangan;
+        $dataPkl->nik = $request->nik;
+        $dataPkl->nama_ttd = $request->nama_ttd;
+        $dataPkl->catatan_kadiv = $request->catatan_kadiv;
+        $dataPkl->nama_catatan_kadiv = $request->nama_catatan_kadiv;
+        $dataPkl->sn = $request->sn;
 
         $post = $dataPkl->save();
 
@@ -109,9 +121,9 @@ class PklController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $nomor_pjk)
     {
-        $dataPkl = Pkl::find($id);
+        $dataPkl = Pkl::where('nomor_pjk',$nomor_pjk)->first();
         if (empty($dataPkl)) {
             return response()->json([
                 'status' => false,
@@ -137,7 +149,13 @@ class PklController extends Controller
             'jumlah_pjk' => 'required',
             'jumlah_setor' => 'required',
             'saldo' => 'required',
-            'pejabat_yang_menjabat' => 'required'
+            'pejabat_yang_berwenang' => 'required',
+            'tempat_tanggal_tanda_tangan' => 'required',
+            'nik' => 'required',
+            'nama_ttd' => 'required',
+            'catatan_kadiv' => 'required',
+            'nama_catatan_kadiv' => 'required',
+            'sn' => 'required'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -151,7 +169,7 @@ class PklController extends Controller
         $dataPkl->nomor_pjk = $request->nomor_pjk;
         $dataPkl->kepada = $request->kepada;
         $dataPkl->kode_anggaran = $request->kode_anggaran;
-        $dataPkl->wbs_cc = $request->judul;
+        $dataPkl->wbs_cc = $request->wbs_cc;
         $dataPkl->refrensi = $request->refrensi;
         $dataPkl->no_permohonan_uang_muka = $request->no_permohonan_uang_muka;
         $dataPkl->jumlah_pencairan = $request->jumlah_pencairan;
@@ -165,7 +183,13 @@ class PklController extends Controller
         $dataPkl->jumlah_pjk = $request->jumlah_pjk;
         $dataPkl->jumlah_setor = $request->jumlah_setor;
         $dataPkl->saldo = $request->saldo;
-        $dataPkl->pejabat_yang_menjabat = $request->pejabat_yang_menjabat;
+        $dataPkl->pejabat_yang_berwenang = $request->pejabat_yang_berwenang;
+        $dataPkl->tempat_tanggal_tanda_tangan = $request->tempat_tanggal_tanda_tangan;
+        $dataPkl->nik = $request->nik;
+        $dataPkl->nama_ttd = $request->nama_ttd;
+        $dataPkl->catatan_kadiv = $request->catatan_kadiv;
+        $dataPkl->nama_catatan_kadiv = $request->nama_catatan_kadiv;
+        $dataPkl->sn = $request->sn;
 
         $post = $dataPkl->save();
 
@@ -178,9 +202,9 @@ class PklController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $nomor_pjk)
     {
-        $dataPKl = Pkl::find($id);
+        $dataPKl = Pkl::where('nomor_pjk',$nomor_pjk)->first();
         if (empty($dataPkl)) {
             return response()->json([
                 'status' => false,
