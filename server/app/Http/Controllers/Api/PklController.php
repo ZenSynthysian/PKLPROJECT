@@ -208,11 +208,11 @@ class PklController extends Controller
      */
     public function destroy(string $nomor_pjk)
     {
-        $dataPKl = Pkl::where('nomor_pjk', $nomor_pjk)->first();
-        if (empty($dataPkl)) {
+        $dataPkl = Pkl::where('nomor_pjk', $nomor_pjk)->first();
+        if(empty($dataPkl)){
             return response()->json([
-                'status' => false,
-                'message' => 'Data tidak ditemukan'
+                'status'=>false,
+                'message'=>'Data tidak ditemukan'
             ], 404);
         }
 
@@ -221,8 +221,8 @@ class PklController extends Controller
         $post = $dataPkl->delete();
 
         return response()->json([
-            'status' => true,
-            'message' => 'Sukses delete data'
+            'status'=>true,
+            'message'=>'Sukses delete data'
         ]);
     }
 }
