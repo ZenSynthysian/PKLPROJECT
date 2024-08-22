@@ -33,7 +33,7 @@ class PklController extends Controller
             'nomor_pjk' => 'required',
             'kepada' => 'required',
             'kode_anggaran' => 'required',
-            'wbs_cc' => 'required',
+            //'wbs_cc' => 'required',
             'refrensi' => 'required',
             'no_permohonan_uang_muka' => 'required',
             'jumlah_pencairan' => 'required',
@@ -49,11 +49,12 @@ class PklController extends Controller
             'saldo' => 'required',
             'pejabat_yang_berwenang' => 'required',
             'tempat_tanggal_tanda_tangan' => 'required',
-            'nik' => 'required',
-            'nama_ttd' => 'required',
-            'catatan_kadiv' => 'required',
-            'nama_catatan_kadiv' => 'required',
-            'sn' => 'required'
+            //'nik' => 'required',
+            //'nama_ttd' => 'required',
+            //'catatan_kadiv' => 'required',
+            //'nama_catatan_kadiv' => 'required',
+            //'sn' => 'required',
+            //'nomor_tanda_terima_uang' => 'required'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -67,7 +68,7 @@ class PklController extends Controller
         $dataPkl->nomor_pjk = $request->nomor_pjk;
         $dataPkl->kepada = $request->kepada;
         $dataPkl->kode_anggaran = $request->kode_anggaran;
-        $dataPkl->wbs_cc = $request->wbs_cc;
+        // $dataPkl->wbs_cc = $request->wbs_cc;
         $dataPkl->refrensi = $request->refrensi;
         $dataPkl->no_permohonan_uang_muka = $request->no_permohonan_uang_muka;
         $dataPkl->jumlah_pencairan = $request->jumlah_pencairan;
@@ -83,11 +84,12 @@ class PklController extends Controller
         $dataPkl->saldo = $request->saldo;
         $dataPkl->pejabat_yang_berwenang = $request->pejabat_yang_berwenang;
         $dataPkl->tempat_tanggal_tanda_tangan = $request->tempat_tanggal_tanda_tangan;
-        $dataPkl->nik = $request->nik;
-        $dataPkl->nama_ttd = $request->nama_ttd;
-        $dataPkl->catatan_kadiv = $request->catatan_kadiv;
-        $dataPkl->nama_catatan_kadiv = $request->nama_catatan_kadiv;
-        $dataPkl->sn = $request->sn;
+        // $dataPkl->nik = $request->nik;
+        // $dataPkl->nama_ttd = $request->nama_ttd;
+        //$dataPkl->catatan_kadiv = $request->catatan_kadiv;
+        //$dataPkl->nama_catatan_kadiv = $request->nama_catatan_kadiv;
+        // $dataPkl->sn = $request->sn;
+        //$dataPkl->nomor_tanda_terima_uang = $request->nomor_tanda_terima_uang;
 
         $post = $dataPkl->save();
 
@@ -103,7 +105,7 @@ class PklController extends Controller
 
     public function show(string $nomor_pjk)
     {
-        $data = Pkl::where('nomor_pjk',$nomor_pjk)->first();
+        $data = Pkl::where('nomor_pjk', $nomor_pjk)->first();
         if ($data) {
             return response()->json([
                 'status' => true,
@@ -123,7 +125,7 @@ class PklController extends Controller
      */
     public function update(Request $request, string $nomor_pjk)
     {
-        $dataPkl = Pkl::where('nomor_pjk',$nomor_pjk)->first();
+        $dataPkl = Pkl::where('nomor_pjk', $nomor_pjk)->first();
         if (empty($dataPkl)) {
             return response()->json([
                 'status' => false,
@@ -135,7 +137,7 @@ class PklController extends Controller
             'nomor_pjk' => 'required',
             'kepada' => 'required',
             'kode_anggaran' => 'required',
-            'wbs_cc' => 'required',
+            //'wbs_cc' => 'required',
             'refrensi' => 'required',
             'no_permohonan_uang_muka' => 'required',
             'jumlah_pencairan' => 'required',
@@ -151,11 +153,12 @@ class PklController extends Controller
             'saldo' => 'required',
             'pejabat_yang_berwenang' => 'required',
             'tempat_tanggal_tanda_tangan' => 'required',
-            'nik' => 'required',
-            'nama_ttd' => 'required',
-            'catatan_kadiv' => 'required',
-            'nama_catatan_kadiv' => 'required',
-            'sn' => 'required'
+            //'nik' => 'required',
+            //'nama_ttd' => 'required',
+            //'catatan_kadiv' => 'required',
+            //'nama_catatan_kadiv' => 'required',
+            //'sn' => 'required',
+            //'nomor_tanda_terima_uang' => 'required'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -169,7 +172,7 @@ class PklController extends Controller
         $dataPkl->nomor_pjk = $request->nomor_pjk;
         $dataPkl->kepada = $request->kepada;
         $dataPkl->kode_anggaran = $request->kode_anggaran;
-        $dataPkl->wbs_cc = $request->wbs_cc;
+        //  $dataPkl->wbs_cc = $request->wbs_cc;
         $dataPkl->refrensi = $request->refrensi;
         $dataPkl->no_permohonan_uang_muka = $request->no_permohonan_uang_muka;
         $dataPkl->jumlah_pencairan = $request->jumlah_pencairan;
@@ -185,11 +188,12 @@ class PklController extends Controller
         $dataPkl->saldo = $request->saldo;
         $dataPkl->pejabat_yang_berwenang = $request->pejabat_yang_berwenang;
         $dataPkl->tempat_tanggal_tanda_tangan = $request->tempat_tanggal_tanda_tangan;
-        $dataPkl->nik = $request->nik;
-        $dataPkl->nama_ttd = $request->nama_ttd;
-        $dataPkl->catatan_kadiv = $request->catatan_kadiv;
-        $dataPkl->nama_catatan_kadiv = $request->nama_catatan_kadiv;
-        $dataPkl->sn = $request->sn;
+        // $dataPkl->nik = $request->nik;
+        // $dataPkl->nama_ttd = $request->nama_ttd;
+        // $dataPkl->catatan_kadiv = $request->catatan_kadiv;
+        // $dataPkl->nama_catatan_kadiv = $request->nama_catatan_kadiv;
+        //$dataPkl->sn = $request->sn;
+        //$dataPkl->nomor_tanda_terima_uang = $request->nomor_tanda_terima_uang;
 
         $post = $dataPkl->save();
 
@@ -204,7 +208,7 @@ class PklController extends Controller
      */
     public function destroy(string $nomor_pjk)
     {
-        $dataPKl = Pkl::where('nomor_pjk',$nomor_pjk)->first();
+        $dataPKl = Pkl::where('nomor_pjk', $nomor_pjk)->first();
         if (empty($dataPkl)) {
             return response()->json([
                 'status' => false,
