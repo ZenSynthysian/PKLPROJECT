@@ -2,10 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import * as XLSX from 'xlsx';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 function PjkDocumentTable() {
     const tableRef = useRef(null);
     const [table, setTable] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
 
     const exportToExcel = () => {
         // Get the HTML table element
@@ -41,20 +43,95 @@ function PjkDocumentTable() {
     useEffect(() => {
         async function fetchData() {
             try {
-                await axios.get(`${import.meta.env.VITE_SERVER_API}api/pkl`, { withCredentials: true }).then((response) => {
-                    setTable(response.data.data);
-                });
+                const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pkl`, { withCredentials: true });
+                setTable(response.data.data);
             } catch (error) {
                 console.log(error.message || error);
             }
         }
 
         fetchData();
-    }, []);
+    }, [searchValue]); // Dependency array includes searchValue
+
+    function handleChange(e) {
+        setSearchValue(e.target.value);
+    }
+
+    async function handleClear() {
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pkl`, { withCredentials: true });
+            setTable(response.data.data);
+        } catch (error) {
+            console.log(error.message || error);
+        }
+    }
+
+    async function handleDelete(nomor_pjk) {
+        try {
+            Swal.fire({
+                title: 'Data akan dihapus permanen?',
+                showDenyButton: true,
+                confirmButtonText: 'Hapus',
+                denyButtonText: `Batal`,
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    await axios.delete(`${import.meta.env.VITE_SERVER_API}api/pkl/${nomor_pjk}`, { withCredentials: true });
+                    Swal.fire('Data Terhapus!', '', 'success');
+
+                    // Update the table state to reflect the deletion
+                    setTable((prevTable) => prevTable.filter((item) => item.nomor_pjk !== nomor_pjk));
+                } else if (result.isDenied) {
+                    Swal.fire('Data Batal di Hapus', '', 'info');
+                }
+            });
+        } catch (error) {
+            console.log(error.message || error);
+        }
+    }
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+
+        try {
+            await axios.get(`${import.meta.env.VITE_SERVER_API}api/pkl/${searchValue}`, { withCredentials: true }).then((response) => {
+                const a = [];
+                a.push(response.data.data);
+
+                setTable(a);
+            });
+        } catch (error) {
+            console.log(error.message || error);
+        }
+    }
 
     return (
         <>
-            <div className="flex justify-center items-center pt-32 overflow-auto pl-32 pr-32 w-fit">
+            <div className="flex flex-col justify-center items-center pt-32 overflow-auto pl-32 pr-32 w-fit">
+                <div className="flex justify-start w-full">
+                    <form
+                        action=""
+                        onSubmit={handleSubmit}>
+                        <div>
+                            <input
+                                type="text"
+                                name="search"
+                                placeholder="Nomor PJK"
+                                onChange={handleChange}
+                                className="border-2 border-blue-500 m-1 w-72"
+                            />
+                            <input
+                                type="submit"
+                                value="Search"
+                                className="border-2 border-blue-500 rounded w-24 cursor-grab animate-pulse hover:bg-blue-50 transition-all ease-in-out duration-100"
+                            />
+                        </div>
+                    </form>
+                    <button
+                        onClick={handleClear}
+                        className="border-2 border-blue-500 rounded w-24 cursor-grab hover:bg-blue-50 transition-all ease-in-out duration-100 m-1">
+                        Clear
+                    </button>
+                </div>
                 <div className="border-2 border-blue-400">
                     <table
                         id="table-main"
@@ -123,8 +200,10 @@ function PjkDocumentTable() {
                                                     <div>Open</div>
                                                 </Link>
                                             </button>
-                                            <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                                <div>Print</div>
+                                            <button
+                                                onClick={() => handleDelete(data.nomor_pjk)}
+                                                className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
+                                                <div className="text-red-600">Delete</div>
                                             </button>
                                         </td>
                                     </tr>

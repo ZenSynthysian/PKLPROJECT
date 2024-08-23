@@ -5,6 +5,7 @@ import PjkDocument from '../page/PjkDocument';
 import PjkDocumentLayout from '../component/PjkDocumentLayout';
 import TablePage from '../page/TablePage';
 import PjkDocumentTable from '../page/tablePage/PjkDocumentTable';
+import NotFound from '../page/NotFound';
 
 const router = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
             {
                 path: '/tablemenu/pjk/',
                 element: <PjkDocumentTable />,
+            },
+            {
+                path: '*',
+                element: <NotFound />,
             },
         ],
     },

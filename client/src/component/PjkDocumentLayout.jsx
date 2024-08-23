@@ -19,6 +19,18 @@ function PjkDocumentLayout() {
         setEditMode(!editMode);
     };
 
+    function handleSave() {
+        try {
+            axios.put(`${import.meta.env.VITE_SERVER_API}api/pkl/${nomorpjkparam}`, docData, { withCredentials: true }).then((response) => {
+                alert(response.data.message);
+            });
+
+            setEditMode(false);
+        } catch (error) {
+            console.log(error.message || error);
+        }
+    }
+
     function handleChange(e) {
         setDocData({ ...docData, [e.target.name]: e.target.value });
     }
@@ -34,7 +46,7 @@ function PjkDocumentLayout() {
         }
 
         fetchData();
-    }, [nomorpjkparam]);
+    }, [nomorpjkparam, dataPjk]);
 
     useEffect(() => {
         if (!editMode) {
@@ -75,8 +87,15 @@ function PjkDocumentLayout() {
                 <button
                     onClick={toggleEditMode}
                     className="no-printme p-1 w-[20%] transition-all duration-100 ease-in-out ho16er:border-blue-700 rounded border-2 items-center border-black">
-                    {editMode ? 'Save' : 'Edit'}
+                    {editMode ? 'Cancel' : 'Edit'}
                 </button>
+                {editMode ? (
+                    <button
+                        onClick={handleSave}
+                        className="no-printme p-1 w-[20%] transition-all duration-100 ease-in-out ho16er:border-blue-700 rounded border-2 items-center border-black">
+                        Save
+                    </button>
+                ) : null}
             </div>
             <div className="relative pb-10 flex printme justify-center items-center border-black">
                 <div className="border-[1mm] border-black w-[8.5in] h-[11in] text-[11px]">
@@ -568,7 +587,7 @@ function PjkDocumentLayout() {
 
                         <div className="pr-14">
                             <div className="flex justify-end">
-                                <div className="flex flex-col gap-16">
+                                <div className="flex flex-col gap-[3.8rem]">
                                     {editMode ? (
                                         <input
                                             className="relative z-20 outline-none border border-black w-32"

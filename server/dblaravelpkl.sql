@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 21, 2024 at 08:16 AM
+-- Generation Time: Aug 23, 2024 at 04:49 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -158,30 +158,31 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `pkl` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nomor_pjk` varchar(255) NOT NULL,
-  `kepada` varchar(255) NOT NULL,
-  `kode_anggaran` varchar(255) NOT NULL,
-  `wbs_cc` varchar(255) NOT NULL,
-  `refrensi` varchar(255) NOT NULL,
-  `no_permohonan_uang_muka` varchar(255) NOT NULL,
-  `jumlah_pencairan` int(50) NOT NULL,
-  `nama` varchar(255) NOT NULL,
-  `no_rekening` varchar(255) NOT NULL,
-  `nama_dan_alamat_bank` varchar(255) NOT NULL,
-  `unit_organisasi` varchar(255) NOT NULL,
-  `awal_pelaksanaan` date NOT NULL,
-  `akhir_pelaksanaan` date NOT NULL,
-  `jumlah_pengambilan` int(50) NOT NULL,
-  `jumlah_pjk` int(50) NOT NULL,
-  `jumlah_setor` int(50) NOT NULL,
-  `saldo` int(50) NOT NULL,
-  `pejabat_yang_berwenang` varchar(255) NOT NULL,
-  `tempat_tanggal_tanda_tangan` date NOT NULL,
-  `nik` varchar(255) NOT NULL,
-  `nama_ttd` varchar(255) NOT NULL,
-  `catatan_kadiv` varchar(255) NOT NULL,
-  `nama_catatan_kadiv` varchar(255) NOT NULL,
-  `sn` varchar(255) NOT NULL,
+  `nomor_pjk` varchar(255) DEFAULT NULL,
+  `kepada` varchar(255) DEFAULT NULL,
+  `kode_anggaran` varchar(255) DEFAULT NULL,
+  `wbs_cc` varchar(255) DEFAULT NULL,
+  `refrensi` varchar(255) DEFAULT NULL,
+  `no_permohonan_uang_muka` varchar(255) DEFAULT NULL,
+  `jumlah_pencairan` int(50) DEFAULT NULL,
+  `nama` varchar(255) DEFAULT NULL,
+  `no_rekening` varchar(255) DEFAULT NULL,
+  `nama_dan_alamat_bank` varchar(255) DEFAULT NULL,
+  `unit_organisasi` varchar(255) DEFAULT NULL,
+  `awal_pelaksanaan` date DEFAULT NULL,
+  `akhir_pelaksanaan` date DEFAULT NULL,
+  `jumlah_pengambilan` int(50) DEFAULT NULL,
+  `jumlah_pjk` int(50) DEFAULT NULL,
+  `jumlah_setor` int(50) DEFAULT NULL,
+  `saldo` int(50) DEFAULT NULL,
+  `pejabat_yang_berwenang` varchar(255) DEFAULT NULL,
+  `tempat_tanggal_tanda_tangan` date DEFAULT NULL,
+  `nik` varchar(255) DEFAULT NULL,
+  `nama_ttd` varchar(255) DEFAULT NULL,
+  `catatan_kadiv` varchar(255) DEFAULT NULL,
+  `nama_catatan_kadiv` varchar(255) DEFAULT NULL,
+  `sn` varchar(255) DEFAULT NULL,
+  `nomor_tanda_terima_uang` varchar(32) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -190,10 +191,11 @@ CREATE TABLE `pkl` (
 -- Dumping data for table `pkl`
 --
 
-INSERT INTO `pkl` (`id`, `nomor_pjk`, `kepada`, `kode_anggaran`, `wbs_cc`, `refrensi`, `no_permohonan_uang_muka`, `jumlah_pencairan`, `nama`, `no_rekening`, `nama_dan_alamat_bank`, `unit_organisasi`, `awal_pelaksanaan`, `akhir_pelaksanaan`, `jumlah_pengambilan`, `jumlah_pjk`, `jumlah_setor`, `saldo`, `pejabat_yang_berwenang`, `tempat_tanggal_tanda_tangan`, `nik`, `nama_ttd`, `catatan_kadiv`, `nama_catatan_kadiv`, `sn`, `created_at`, `updated_at`) VALUES
-(1, '49', 'alif zaidan', '49', '59', 'alif zaidan', '09', 9, 'alif zaidan', '09', '09', '9999', '2023-11-22', '2024-11-23', 23923, 2323, 3232, 2323, 'alif zaidan', '0000-00-00', '', '', '', '', '', '2024-08-19 20:57:50', '2024-08-20 19:02:57'),
-(2, '1234', 'dimas', '1234', '1234', '1234', '1234', 1234, 'dimas', '1234', '1234', '1234', '2024-08-05', '2024-08-23', 1234, 1234, 1234, 1234, 'dimas', '0000-00-00', '', '', '', '', '', '2024-08-19 21:00:00', '2024-08-19 21:00:00'),
-(3, '12345', 'marsel', '12345', '12345', '12345', '12345', 12345, 'marsel', '12345', '12345', '12345', '2024-08-20', '2024-08-20', 12345, 12345, 12345, 12345, 'marsel', '0000-00-00', '', '', '', '', '', '2024-08-19 21:01:10', '2024-08-19 21:01:10');
+INSERT INTO `pkl` (`id`, `nomor_pjk`, `kepada`, `kode_anggaran`, `wbs_cc`, `refrensi`, `no_permohonan_uang_muka`, `jumlah_pencairan`, `nama`, `no_rekening`, `nama_dan_alamat_bank`, `unit_organisasi`, `awal_pelaksanaan`, `akhir_pelaksanaan`, `jumlah_pengambilan`, `jumlah_pjk`, `jumlah_setor`, `saldo`, `pejabat_yang_berwenang`, `tempat_tanggal_tanda_tangan`, `nik`, `nama_ttd`, `catatan_kadiv`, `nama_catatan_kadiv`, `sn`, `nomor_tanda_terima_uang`, `created_at`, `updated_at`) VALUES
+(10, '22113', 'dimasadw', '12fwa345', NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 312312, 'Ujang', '2024-08-09', NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-21 23:08:52', '2024-08-21 23:08:52'),
+(11, '22113', 'dimasadw', '12fwa345', NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 312312, 'Ujang', '2024-08-09', NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-21 23:08:58', '2024-08-21 23:08:58'),
+(12, '22113555', 'dimasadw', '12fwa345', NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 312312, 'Ujang', '2024-08-09', NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-21 23:09:07', '2024-08-21 23:42:49'),
+(14, '22113555111333', 'dimasadw', '12fwa345', NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 312312, 'Ujang', '2024-08-09', NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-21 23:09:37', '2024-08-21 23:09:37');
 
 -- --------------------------------------------------------
 
@@ -336,7 +338,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `pkl`
 --
 ALTER TABLE `pkl`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`

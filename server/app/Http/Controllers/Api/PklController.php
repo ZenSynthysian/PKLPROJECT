@@ -68,7 +68,7 @@ class PklController extends Controller
         $dataPkl->nomor_pjk = $request->nomor_pjk;
         $dataPkl->kepada = $request->kepada;
         $dataPkl->kode_anggaran = $request->kode_anggaran;
-        // $dataPkl->wbs_cc = $request->wbs_cc;
+        $dataPkl->wbs_cc = $request->wbs_cc;
         $dataPkl->refrensi = $request->refrensi;
         $dataPkl->no_permohonan_uang_muka = $request->no_permohonan_uang_muka;
         $dataPkl->jumlah_pencairan = $request->jumlah_pencairan;
@@ -172,7 +172,7 @@ class PklController extends Controller
         $dataPkl->nomor_pjk = $request->nomor_pjk;
         $dataPkl->kepada = $request->kepada;
         $dataPkl->kode_anggaran = $request->kode_anggaran;
-        //  $dataPkl->wbs_cc = $request->wbs_cc;
+        $dataPkl->wbs_cc = $request->wbs_cc;
         $dataPkl->refrensi = $request->refrensi;
         $dataPkl->no_permohonan_uang_muka = $request->no_permohonan_uang_muka;
         $dataPkl->jumlah_pencairan = $request->jumlah_pencairan;
@@ -209,10 +209,10 @@ class PklController extends Controller
     public function destroy(string $nomor_pjk)
     {
         $dataPkl = Pkl::where('nomor_pjk', $nomor_pjk)->first();
-        if(empty($dataPkl)){
+        if (empty($dataPkl)) {
             return response()->json([
-                'status'=>false,
-                'message'=>'Data tidak ditemukan'
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
             ], 404);
         }
 
@@ -221,8 +221,8 @@ class PklController extends Controller
         $post = $dataPkl->delete();
 
         return response()->json([
-            'status'=>true,
-            'message'=>'Sukses delete data'
+            'status' => true,
+            'message' => 'Sukses delete data'
         ]);
     }
 }
