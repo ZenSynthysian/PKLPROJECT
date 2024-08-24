@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 23, 2024 at 04:49 AM
+-- Generation Time: Aug 24, 2024 at 04:44 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -150,6 +150,14 @@ CREATE TABLE `personal_access_tokens` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `personal_access_tokens`
+--
+
+INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
+(2, 'App\\Models\\User', 5, 'api-pkl', '576e67335606bdef50fd8b31d4082e93dcb7c86381063eb1ddbb7a2e9153088e', '[\"*\"]', NULL, NULL, '2024-08-24 07:34:25', '2024-08-24 07:34:25'),
+(3, 'App\\Models\\User', 6, 'api-pkl', '111e2d36be0a1da305fed2e2f2e12800b762f11c8feee388177f128dc519cdcc', '[\"*\"]', NULL, NULL, '2024-08-24 07:35:21', '2024-08-24 07:35:21');
+
 -- --------------------------------------------------------
 
 --
@@ -192,10 +200,10 @@ CREATE TABLE `pkl` (
 --
 
 INSERT INTO `pkl` (`id`, `nomor_pjk`, `kepada`, `kode_anggaran`, `wbs_cc`, `refrensi`, `no_permohonan_uang_muka`, `jumlah_pencairan`, `nama`, `no_rekening`, `nama_dan_alamat_bank`, `unit_organisasi`, `awal_pelaksanaan`, `akhir_pelaksanaan`, `jumlah_pengambilan`, `jumlah_pjk`, `jumlah_setor`, `saldo`, `pejabat_yang_berwenang`, `tempat_tanggal_tanda_tangan`, `nik`, `nama_ttd`, `catatan_kadiv`, `nama_catatan_kadiv`, `sn`, `nomor_tanda_terima_uang`, `created_at`, `updated_at`) VALUES
-(10, '22113', 'dimasadw', '12fwa345', NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 312312, 'Ujang', '2024-08-09', NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-21 23:08:52', '2024-08-21 23:08:52'),
 (11, '22113', 'dimasadw', '12fwa345', NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 312312, 'Ujang', '2024-08-09', NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-21 23:08:58', '2024-08-21 23:08:58'),
-(12, '22113555', 'dimasadw', '12fwa345', NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 312312, 'Ujang', '2024-08-09', NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-21 23:09:07', '2024-08-21 23:42:49'),
-(14, '22113555111333', 'dimasadw', '12fwa345', NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 312312, 'Ujang', '2024-08-09', NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-21 23:09:37', '2024-08-21 23:09:37');
+(12, '22113', 'dimasadwswsws', '12fwa345', NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 312312, 'Ujang', '2024-08-09', NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-21 23:09:07', '2024-08-21 23:42:49'),
+(14, '22113555111333', 'dimasadw', '12fwa345', NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 312312, 'Ujang', '2024-08-09', NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-21 23:09:37', '2024-08-21 23:09:37'),
+(16, '22113', 'dimasadw111111', '12fwa345', NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 312312, 'Ujang', '2024-08-09', NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-21 23:08:58', '2024-08-21 23:08:58');
 
 -- --------------------------------------------------------
 
@@ -212,6 +220,14 @@ CREATE TABLE `sessions` (
   `last_activity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `sessions`
+--
+
+INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('bYGbaqgdONzicRB7MawD8XjwphRmSdMSKR3V2FVB', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiT2FXSGZGWVlwNDd6MFVBS2E5VDRGend4VWZWTjBhZU1nYWoyRXJuVyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1724501730),
+('HKAW8qBwi8GFMrkqSTM5TQeQUa1X5buL1iWQblH5', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZmVjejVjOUJRVkg0MzZUUVVDQ1hyU3F2djhrVUJGcWlORlBGVkViQiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1724501718);
+
 -- --------------------------------------------------------
 
 --
@@ -221,13 +237,21 @@ CREATE TABLE `sessions` (
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `nik` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `nik`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(5, 'alif', '123', NULL, '$2y$12$ZPr6zgjT2dRDnxs7cwqVM.R6PXPgJbpyqQlrZJR8cpctZ9Xh6fuqy', NULL, '2024-08-24 07:33:03', '2024-08-24 07:33:03'),
+(6, 'marsel', '1234', NULL, '$2y$12$xOX44N2xAOAZgCyWDxPW6eIZp8uHmlXEYSM5bfmtvMi.SD5bYrmV.', NULL, '2024-08-24 07:35:12', '2024-08-24 07:35:12');
 
 --
 -- Indexes for dumped tables
@@ -304,7 +328,7 @@ ALTER TABLE `sessions`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
+  ADD UNIQUE KEY `users_email_unique` (`nik`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -332,19 +356,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pkl`
 --
 ALTER TABLE `pkl`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

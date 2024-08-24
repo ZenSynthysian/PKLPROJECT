@@ -105,7 +105,7 @@ class PklController extends Controller
 
     public function show(string $nomor_pjk)
     {
-        $data = Pkl::where('nomor_pjk', $nomor_pjk)->first();
+        $data = Pkl::where('nomor_pjk', $nomor_pjk)->get();
         if ($data) {
             return response()->json([
                 'status' => true,
