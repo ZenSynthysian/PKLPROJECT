@@ -55,8 +55,6 @@ function numberToWords(num) {
     return value;
 }
 
-console.log(numberToWords(8981347800000));
-
 // Contoh penggunaan
 
 export const numberToWord = numberToWords;

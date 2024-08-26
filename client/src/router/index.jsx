@@ -6,6 +6,8 @@ import PjkDocumentLayout from '../component/PjkDocumentLayout';
 import TablePage from '../page/TablePage';
 import PjkDocumentTable from '../page/tablePage/PjkDocumentTable';
 import NotFound from '../page/NotFound';
+import LoginPage from '../page/userPage/LoginPage';
+import PrivateRoute from '../helper/PrivateRoute';
 
 const router = createBrowserRouter([
     {
@@ -14,27 +16,55 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Menu />,
+                element: (
+                    <PrivateRoute>
+                        <Menu />
+                    </PrivateRoute>
+                ),
             },
             {
                 path: '/pjk',
-                element: <PjkDocument />,
+                element: (
+                    <PrivateRoute>
+                        <PjkDocument />
+                    </PrivateRoute>
+                ),
             },
             {
                 path: '/pjk/detail/:nomorpjkparam',
-                element: <PjkDocumentLayout />,
+                element: (
+                    <PrivateRoute>
+                        <PjkDocumentLayout />
+                    </PrivateRoute>
+                ),
             },
             {
                 path: '/tablemenu',
-                element: <TablePage />,
+                element: (
+                    <PrivateRoute>
+                        <TablePage />
+                    </PrivateRoute>
+                ),
             },
             {
                 path: '/tablemenu/pjk/',
-                element: <PjkDocumentTable />,
+                element: (
+                    <PrivateRoute>
+                        <PjkDocumentTable />
+                    </PrivateRoute>
+                ),
             },
             {
                 path: '*',
-                element: <NotFound />,
+                element: (
+                    <PrivateRoute>
+                        <NotFound />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: '/login',
+                element: <LoginPage />,
             },
         ],
     },

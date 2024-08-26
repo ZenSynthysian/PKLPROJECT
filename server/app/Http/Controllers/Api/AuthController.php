@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function registeruser(Request $request){
+    public function registeruser(Request $request)
+    {
         $dataUser = new User();
         $rules = [
             'name' => 'required',
@@ -25,7 +26,7 @@ class AuthController extends Controller
                 'status' => false,
                 'message' => 'proses validasi gagal',
                 'data' => $validator->errors()
-            ],401);
+            ], 401);
         }
 
         $dataUser->name = $request->name;
@@ -53,10 +54,10 @@ class AuthController extends Controller
                 'status' => false,
                 'message' => 'proses login gagal',
                 'data' => $validator->errors()
-            ],401);
+            ], 401);
         }
-  
-        if(!Auth::attempt($request->only(['nik', 'password']))){
+
+        if (!Auth::attempt($request->only(['nik', 'password']))) {
             return response()->json([
                 'status' => false,
                 'message' => 'nik dan password tidak sesuai'
@@ -75,7 +76,7 @@ class AuthController extends Controller
     }
 
     public function logoutuser(Request $request)
-    
+
     {
         // mastiin pengguna terautentikasi
         if (!$request->user()) {
@@ -84,7 +85,7 @@ class AuthController extends Controller
                 'message' => 'Pengguna tidak terautentikasi'
             ], 401);
         }
-        
+
         $request->user()->currentAccessToken()->delete();
 
         return response()->json([

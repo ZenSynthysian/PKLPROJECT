@@ -7,7 +7,7 @@ function PjkDocument() {
             const formData = new FormData(event.target);
             const data = Object.fromEntries(formData);
 
-            axios.post(`${import.meta.env.VITE_SERVER_API}api/pkl`, data, { withCredentials: true }).then((response) => {
+            axios.post(`${import.meta.env.VITE_SERVER_API}api/pkl`, data, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }).then((response) => {
                 window.location.replace(`/pjk/detail/${data.nomor_pjk}`);
             });
         } catch (error) {
@@ -17,9 +17,9 @@ function PjkDocument() {
 
     return (
         <>
-            <div className="h-screen">
+            <div className="h-screen w-screen">
                 <div className="h-full flex justify-center items-center w-full">
-                    <div className="flex flex-col border-2 border-blue-900 p-3 rounded w-[80%]">
+                    <div className="bg-white shadow-2xl flex flex-col border-2 border-blue-900 p-3 rounded w-[80%]">
                         <div className="flex justify-center pb-10">
                             <span className="text-4xl text-blue-950">INPUT DATA DOKUMEN</span>
                         </div>
@@ -66,7 +66,7 @@ function PjkDocument() {
                             <input
                                 type="text"
                                 name="jumlah_pencairan"
-                                placeholder="JUMLAH PENCAIRAN"
+                                placeholder="NO TANDA TERIMA UANG"
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
                             />
                             <input

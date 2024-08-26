@@ -50,7 +50,7 @@ function Navbar() {
             {open ? (
                 <>
                     <button
-                        className="absolute z-10 w-screen h-[100vh]"
+                        className="absolute bg-transparent z-10 w-screen h-[100vh]"
                         onClick={() => setOpen(false)}></button>
                 </>
             ) : null}

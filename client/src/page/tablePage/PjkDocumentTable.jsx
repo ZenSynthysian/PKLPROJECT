@@ -43,7 +43,7 @@ function PjkDocumentTable() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pkl`, { withCredentials: true });
+                const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pkl`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
                 setTable(response.data.data);
             } catch (error) {
                 console.log(error.message || error);
@@ -59,7 +59,7 @@ function PjkDocumentTable() {
 
     async function handleClear() {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pkl`, { withCredentials: true });
+            const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pkl`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
             setTable(response.data.data);
         } catch (error) {
             console.log(error.message || error);
@@ -75,7 +75,7 @@ function PjkDocumentTable() {
                 denyButtonText: `Batal`,
             }).then(async (result) => {
                 if (result.isConfirmed) {
-                    await axios.delete(`${import.meta.env.VITE_SERVER_API}api/pkl/${nomor_pjk}`, { withCredentials: true });
+                    await axios.delete(`${import.meta.env.VITE_SERVER_API}api/pkl/${nomor_pjk}`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
                     Swal.fire('Data Terhapus!', '', 'success');
 
                     // Update the table state to reflect the deletion
@@ -93,12 +93,14 @@ function PjkDocumentTable() {
         e.preventDefault();
 
         try {
-            await axios.get(`${import.meta.env.VITE_SERVER_API}api/pkl/${searchValue}`, { withCredentials: true }).then((response) => {
-                const a = [];
-                a.push(response.data.data);
-
-                setTable(a);
-            });
+            await axios
+                .get(`${import.meta.env.VITE_SERVER_API}api/pkl/${searchValue}`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+                .then((response) => {
+                    // const a = [];
+                    // a.push(response.data.data);
+                    // console.log(response.data.data);
+                    setTable(response.data.data);
+                });
         } catch (error) {
             console.log(error.message || error);
         }
@@ -131,8 +133,15 @@ function PjkDocumentTable() {
                         className="border-2 border-blue-500 rounded w-24 cursor-grab hover:bg-blue-50 transition-all ease-in-out duration-100 m-1">
                         Clear
                     </button>
+                    <div className="flex justify-center items-center ">
+                        <button
+                            className="pl-4 pr-4 border-2 border-blue-500 rounded hover:text-pink-700 transition-all ease-in-out duration-100"
+                            onClick={exportToExcel}>
+                            Export Semua
+                        </button>
+                    </div>
                 </div>
-                <div className="border-2 border-blue-400">
+                <div className="border-2 border-blue-400 bg-white">
                     <table
                         id="table-main"
                         ref={tableRef}>
@@ -156,15 +165,6 @@ function PjkDocumentTable() {
                             <th className="p-1 border-r-2 border-blue-400 whitespace-nowrap">Saldo</th>
                             <th className="p-1 border-r-2 whitespace-nowrap">Pejabat yang Berwenang</th>
                             <th className="p-1 whitespace-nowrap">Tools</th>
-                            <th>
-                                <div className="flex justify-center items-center ">
-                                    <button
-                                        className="h-full p-2 border-2 border-blue-500 rounded hover:bg-blue-500 hover:text-white transition-all ease-in-out duration-100"
-                                        onClick={exportToExcel}>
-                                        Export Semua
-                                    </button>
-                                </div>
-                            </th>
                         </thead>
                         <tbody>
                             {/* <tr className="bg-indigo-950 text-gray-300"> */}
@@ -177,32 +177,32 @@ function PjkDocumentTable() {
                                         className="transition-all duration-100 ease-in-out hover:bg-gray-200"
                                         key={data.id}>
                                         <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{index + 1}</td>
-                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.nomor_pjk}</td>
-                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.kepada}</td>
-                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.kode_anggaran}</td>
-                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.wbs_cc}</td>
-                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.refrensi}</td>
-                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.no_permohonan_uang_muka}</td>
-                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.jumlah_pencairan}</td>
-                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.nama}</td>
-                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.no_rekening}</td>
-                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.nama_dan_alamat_bank}</td>
-                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.unit_organisasi}</td>
-                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{`${data.awal_pelaksanaan} s/d ${data.akhir_pelaksanaan}`}</td>
-                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.jumlah_pengambilan}</td>
-                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.jumlah_pjk}</td>
-                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.jumlah_setor}</td>
-                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.saldo}</td>
-                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data.pejabat_yang_berwenang}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data?.nomor_pjk}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data?.kepada}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data?.kode_anggaran}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data?.wbs_cc}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data?.refrensi}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data?.no_permohonan_uang_muka}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data?.jumlah_pencairan}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data?.nama}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data?.no_rekening}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data?.nama_dan_alamat_bank}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data?.unit_organisasi}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{`${data?.awal_pelaksanaan} s/d ${data?.akhir_pelaksanaan}`}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data?.jumlah_pengambilan}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data?.jumlah_pjk}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data?.jumlah_setor}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data?.saldo}</td>
+                                        <td className="p-1 border-r-2 border-blue-400 whitespace-nowrap text-center ">{data?.pejabat_yang_berwenang}</td>
                                         <td className="border-blue-400 whitespace-nowrap text-center flex gap-3">
-                                            <button className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
-                                                <Link to={`/pjk/detail/${data.nomor_pjk}`}>
-                                                    <div>Open</div>
-                                                </Link>
-                                            </button>
-                                            <button
-                                                onClick={() => handleDelete(data.nomor_pjk)}
+                                            <Link
+                                                to={`/pjk/detail/${data?.nomor_pjk}`}
                                                 className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
+                                                <div>Open</div>
+                                            </Link>
+                                            <button
+                                                onClick={() => handleDelete(data?.nomor_pjk)}
+                                                className="p-3 hover:bg-indigo-950 bg-transparent hover:text-white transition-all ease-in-out duration-100">
                                                 <div className="text-red-600">Delete</div>
                                             </button>
                                         </td>

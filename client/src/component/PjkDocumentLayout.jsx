@@ -3,29 +3,43 @@ import PtdPng from '../assets/ptd.png';
 import { numberToWord } from '../helper/numberConverter';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { CurrencyFormater } from '../helper/CurrencyFormater';
+import { monthNameFormater } from '../helper/monthNameFormater';
 
 function PjkDocumentLayout() {
     const { nomorpjkparam } = useParams();
     const [dataPjk, setDataPjk] = useState([]);
     const [editMode, setEditMode] = useState(false);
     const [docData, setDocData] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
 
     const formatDate = (dateStr) => {
         const [year, month, day] = String(dateStr).split('-');
         return `${day}/${month}/${year}`;
+    };
+    const formatDateTandaTangan = (dateStr) => {
+        const [year, month, day] = String(dateStr).split('-');
+        const nameMonth = monthNameFormater(month).toUpperCase();
+        return `${day} ${nameMonth} ${year}`;
     };
 
     const toggleEditMode = () => {
         setEditMode(!editMode);
     };
 
+    console.log(docData);
+
     function handleSave() {
         try {
-            axios.put(`${import.meta.env.VITE_SERVER_API}api/pkl/${nomorpjkparam}`, docData, { withCredentials: true }).then((response) => {
-                alert(response.data.message);
-            });
+            setIsLoading(true);
+            axios
+                .put(`${import.meta.env.VITE_SERVER_API}api/pkl/${nomorpjkparam}`, docData, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+                .then((response) => {
+                    console.log(response.data);
+                });
 
             setEditMode(false);
+            setIsLoading(false);
         } catch (error) {
             console.log(error.message || error);
         }
@@ -38,15 +52,20 @@ function PjkDocumentLayout() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pkl/${nomorpjkparam}`, { withCredentials: true });
-                setDataPjk(response.data.data);
+                const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pkl/${nomorpjkparam}`, {
+                    withCredentials: true,
+                    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+                });
+                setDataPjk(response.data.data[0]);
             } catch (error) {
                 console.log(error.message || error);
             }
         }
 
+        console.log('test');
+
         fetchData();
-    }, [nomorpjkparam, dataPjk]);
+    }, [nomorpjkparam, editMode]);
 
     useEffect(() => {
         if (!editMode) {
@@ -72,6 +91,7 @@ function PjkDocumentLayout() {
                 saldo: dataPjk?.saldo,
                 pejabat_yang_berwenang: dataPjk?.pejabat_yang_berwenang,
                 tempat_tanggal_tanda_tangan: dataPjk?.tempat_tanggal_tanda_tangan,
+                valuta: dataPjk?.valuta,
             });
         }
     }, [dataPjk, editMode]);
@@ -98,7 +118,7 @@ function PjkDocumentLayout() {
                 ) : null}
             </div>
             <div className="relative pb-10 flex printme justify-center items-center border-black">
-                <div className="border-[1mm] border-black w-[8.5in] h-[11in] text-[11px]">
+                <div className={'border-[1mm] border-black w-[8.5in] bg-white h-[11in] text-[11px]'}>
                     <div className="border-b-[1mm] border-black flex flex-col justify-center items-center p-3">
                         <div className="absolute w-[8.5in] translate-x-3">
                             <img
@@ -390,9 +410,19 @@ function PjkDocumentLayout() {
                                 <td>Jumlah Pengambilan</td>
                                 <td className="pl-16">:</td>
                                 <td className="pl-7">
-                                    <div className="flex items-center pl-1 w-[20%] border border-black">
-                                        <span>[IDR]</span>
-                                    </div>
+                                    {editMode ? (
+                                        <input
+                                            className="relative z-20 outline-none border border-black w-32"
+                                            type="text"
+                                            onChange={handleChange}
+                                            value={docData.valuta}
+                                            name="valuta"
+                                        />
+                                    ) : (
+                                        <div className="flex items-center pl-1 w-[20%] border border-black">
+                                            <span>{docData.valuta}</span>
+                                        </div>
+                                    )}
                                 </td>
                                 <td className="pl-7 w-[2in]">
                                     {editMode ? (
@@ -405,7 +435,7 @@ function PjkDocumentLayout() {
                                         />
                                     ) : (
                                         <div className="flex items-center justify-end pr-1 w-full border border-black">
-                                            <span>{docData.jumlah_pengambilan}</span>
+                                            <span>{CurrencyFormater(`${docData.valuta}`, docData.jumlah_pengambilan)},00</span>
                                         </div>
                                     )}
                                 </td>
@@ -442,7 +472,7 @@ function PjkDocumentLayout() {
                                 <td className="pl-16">:</td>
                                 <td className="pl-7">
                                     <div className="flex items-center pl-1 w-[20%] border border-black">
-                                        <span>[IDR]</span>
+                                        <span>{docData.valuta}</span>
                                     </div>
                                 </td>
                                 <td className="pl-7 w-[2.in]">
@@ -456,7 +486,7 @@ function PjkDocumentLayout() {
                                         />
                                     ) : (
                                         <div className="flex items-center pr-1 w-full border border-black justify-end">
-                                            <span>{docData.jumlah_pjk}</span>
+                                            <span>{CurrencyFormater(`${docData.valuta}`, docData.jumlah_pjk)},00</span>
                                         </div>
                                     )}
                                 </td>
@@ -490,7 +520,7 @@ function PjkDocumentLayout() {
                                 <td className="pl-16">:</td>
                                 <td className="pl-7">
                                     <div className="flex items-center pl-1 w-[20%] border border-black">
-                                        <span>[IDR]</span>
+                                        <span>{docData.valuta}</span>
                                     </div>
                                 </td>
                                 <td className="pl-7 w-[2.in]">
@@ -504,7 +534,7 @@ function PjkDocumentLayout() {
                                         />
                                     ) : (
                                         <div className="flex items-center pr-1 w-full border border-black justify-end">
-                                            <span>{docData.jumlah_setor}</span>
+                                            <span>{CurrencyFormater(`${docData.valuta}`, docData.jumlah_setor)}</span>
                                         </div>
                                     )}
                                 </td>
@@ -539,7 +569,7 @@ function PjkDocumentLayout() {
                                 <td className="pl-16">:</td>
                                 <td className="pl-7">
                                     <div className="flex items-center pl-1 w-[20%] border border-black">
-                                        <span>[IDR]</span>
+                                        <span>{docData.valuta}</span>
                                     </div>
                                 </td>
                                 <td className="pl-7 w-[2.in]">
@@ -553,7 +583,7 @@ function PjkDocumentLayout() {
                                         />
                                     ) : (
                                         <div className="flex items-center pr-1 w-full border border-black justify-end">
-                                            <span>{docData.saldo}</span>
+                                            <span>{CurrencyFormater(`${docData.valuta}`, docData.saldo)}</span>
                                         </div>
                                     )}
                                 </td>
@@ -597,7 +627,7 @@ function PjkDocumentLayout() {
                                             name="tempat_tanggal_tanda_tangan"
                                         />
                                     ) : (
-                                        <div className="text-center">Bandung, {docData.tempat_tanggal_tanda_tangan}</div>
+                                        <div className="text-center">Bandung, {formatDateTandaTangan(docData.tempat_tanggal_tanda_tangan)}</div>
                                     )}
                                     <div className="flex flex-col">
                                         {editMode ? (

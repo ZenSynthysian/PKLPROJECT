@@ -1,13 +1,14 @@
 import { Outlet } from 'react-router-dom';
 import Navbar from '../component/Navbar';
-// import Footer from '../component/Footer';
+import CursorAnimation from '../component/CursorAnimation';
 
 function UserLayout() {
     return (
         <>
-            <div className="container">
+            <div className="container relative">
+                <CursorAnimation />
                 <Navbar />
-                <Outlet></Outlet>
+                <Outlet />
                 {/* <Footer /> */}
             </div>
         </>
