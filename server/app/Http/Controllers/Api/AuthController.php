@@ -64,10 +64,32 @@ class AuthController extends Controller
         }
 
         $dataUser = User::where('nik', $request->nik)->first();
+        $loginToken = $dataUser->createToken('api-pkl')->plainTextToken;
+        session(['token' => $loginToken]);
+
         return response()->json([
             'status' => true,
             'message' => 'berhasil proses login',
-            'token' => $dataUser->createToken('api-pkl')->plainTextToken
+            'token' => session('token')
+        ]);
+    }
+
+    public function logoutUser(Request $request)
+    
+    {
+        // mastiin pengguna terautentikasi
+        if (!$request->user()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Pengguna tidak terautentikasi'
+            ], 401);
+        }
+        
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Sukses log out'
         ]);
     }
 }
