@@ -30,6 +30,6 @@ Route::put('pkl/{nomor_pjk}', [PklController::class, 'update'])->middleware('aut
 Route::delete('pkl/{nomor_pjk}', [PklController::class, 'destroy'])->middleware('auth:sanctum');
 
 // Rute untuk autentikasi pengguna
-Route::post('registerUser', [AuthController::class, 'registerUser']);
-Route::post('loginUser', [AuthController::class, 'loginUser']);
-Route::post('logoutUser', [AuthController::class, 'logoutUser'])->middleware('auth:sanctum');
+Route::post('registeruser', [AuthController::class, 'registeruser']);
+Route::post('loginuser', [AuthController::class, 'loginuser']);
+Route::post('logoutuser', [AuthController::class, 'logoutuser'])->middleware('auth:sanctum');

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function registerUser(Request $request){
+    public function registeruser(Request $request){
         $dataUser = new User();
         $rules = [
             'name' => 'required',
@@ -39,7 +39,7 @@ class AuthController extends Controller
         ], 200);
     }
 
-    public function loginUser(Request $request)
+    public function loginuser(Request $request)
     {
         $dataUser = new User();
         $rules = [
@@ -65,16 +65,16 @@ class AuthController extends Controller
 
         $dataUser = User::where('nik', $request->nik)->first();
         $loginToken = $dataUser->createToken('api-pkl')->plainTextToken;
-        session(['token' => $loginToken]);
-
         return response()->json([
             'status' => true,
             'message' => 'berhasil proses login',
-            'token' => session('token')
+            'token' => $loginToken,
+            'name' => $dataUser->name,
+            'nik' => $dataUser->nik
         ]);
     }
 
-    public function logoutUser(Request $request)
+    public function logoutuser(Request $request)
     
     {
         // mastiin pengguna terautentikasi
