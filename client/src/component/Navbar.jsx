@@ -1,9 +1,26 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ptdImage from './../assets/ptd.png';
+import axios from 'axios';
 
 function Navbar() {
     const [open, setOpen] = useState(false);
+
+    function handleLogout() {
+        try {
+            axios
+                .post(`${import.meta.env.VITE_SERVER_API}api/logoutuser`, {}, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+                .then(() => {
+                    localStorage.clear();
+                    window.location.replace('/');
+                })
+                .catch((error) => {
+                    return console.log(error.message || error);
+                });
+        } catch (error) {
+            return console.log(error.message || error);
+        }
+    }
 
     return (
         <>
@@ -18,6 +35,27 @@ function Navbar() {
                             alt=""
                         />
                     </div>
+                    {localStorage.getItem('token') == null ? (
+                        <div className="group w-full flex justify-center items-center">
+                            <Link
+                                to={'/tablemenu'}
+                                className="flex border-b-4 w-24 group-hover:w-full p-5 items-center ease-in-out transition-all duration-100 hover:bg-pink-800 hover:bg-opacity-30 justify-center border-pink-800">
+                                <div>
+                                    <span>Login</span>
+                                </div>
+                            </Link>
+                        </div>
+                    ) : (
+                        <div className="group w-full flex justify-center items-center">
+                            <div
+                                onClick={handleLogout}
+                                className="cursor-grab flex border-b-4 w-24 group-hover:w-full p-5 items-center ease-in-out transition-all duration-100 hover:bg-pink-800 hover:bg-opacity-30 justify-center border-pink-800">
+                                <div>
+                                    <span>Logout</span>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                     <div className="group w-full flex justify-center items-center">
                         <Link
                             to={'/'}

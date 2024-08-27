@@ -17,10 +17,15 @@ function PjkDocumentLayout() {
         const [year, month, day] = String(dateStr).split('-');
         return `${day}/${month}/${year}`;
     };
+
     const formatDateTandaTangan = (dateStr) => {
-        const [year, month, day] = String(dateStr).split('-');
-        const nameMonth = monthNameFormater(month).toUpperCase();
-        return `${day} ${nameMonth} ${year}`;
+        try {
+            const [year, month, day] = String(dateStr).split('-');
+            const nameMonth = monthNameFormater(month).toUpperCase();
+            return `${day} ${nameMonth} ${year}`;
+        } catch (error) {
+            null;
+        }
     };
 
     const toggleEditMode = () => {

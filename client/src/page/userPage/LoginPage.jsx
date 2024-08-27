@@ -1,8 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Navigate } from 'react-router-dom';
 
 function LoginPage() {
     const [showPassword, setShowPassword] = useState(false);
+
+    useEffect(() => {
+        if (localStorage.getItem('token') != null) {
+            window.location.replace('/');
+        }
+    }, []);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -11,16 +18,23 @@ function LoginPage() {
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData);
 
-            axios.post(`${import.meta.env.VITE_SERVER_API}api/loginuser`, data, { withCredentials: true }).then((response) => {
-                localStorage.setItem('name', response.data.name);
-                localStorage.setItem('token', response.data.token);
-                localStorage.setItem('nik', response.data.nik);
-            });
+            axios
+                .post(`${import.meta.env.VITE_SERVER_API}api/loginuser`, data, { withCredentials: true })
+                .then((response) => {
+                    localStorage.setItem('name', response.data.name);
+                    localStorage.setItem('token', response.data.token);
+                    localStorage.setItem('nik', response.data.nik);
+                    window.location.replace('/');
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        alert(error.response.data.message);
+                    }
+                });
         } catch (error) {
-            console.log(error.message || error);
+            return console.log(error.message || error);
         }
     }
-
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
     };
