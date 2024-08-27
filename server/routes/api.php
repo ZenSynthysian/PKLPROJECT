@@ -23,7 +23,7 @@ Route::get('/', function(){
 Route::get('pkl', [PklController::class, 'index'])->middleware('auth:sanctum');
 
 // Rute tanpa autentikasi untuk melihat detail PKL
-Route::get('pkl/{nomor_pjk}', [PklController::class, 'show']);
+Route::get('pkl/{nomor_pjk}', [PklController::class, 'show'])->middleware('auth:sanctum');
 
 // Rute untuk operasi CRUD lainnya
 Route::post('pkl', [PklController::class, 'store'])->middleware('auth:sanctum');
@@ -34,10 +34,10 @@ Route::delete('pkl/{nomor_pjk}', [PklController::class, 'destroy'])->middleware(
 Route::post('registeruser', [AuthController::class, 'registeruser']);
 Route::post('loginuser', [AuthController::class, 'loginuser']);
 Route::post('logoutuser', [AuthController::class, 'logoutuser'])->middleware('auth:sanctum');
-Route::get('user', [AuthController::class, 'index']);
-Route::get('user/{id}', [AuthController::class, 'show']);
-Route::put('user/{id}', [AuthController::class, 'update']);
-Route::delete('user/{id}', [AuthController::class, 'destroy']);
+Route::get('user', [AuthController::class, 'index'])->middleware('auth:sanctum');
+Route::get('user/{id}', [AuthController::class, 'show'])->middleware('auth:sanctum');
+Route::put('user/{id}', [AuthController::class, 'update'])->middleware('auth:sanctum');
+Route::delete('user/{id}', [AuthController::class, 'destroy'])->middleware('auth:sanctum');
 
 // data user
 Route::get('datauser', [UserController::class, 'index'])->middleware('auth:sanctum');

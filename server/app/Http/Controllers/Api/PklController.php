@@ -90,7 +90,7 @@ class PklController extends Controller
         $dataPkl->nama_catatan_kadiv = $request->nama_catatan_kadiv;
         $dataPkl->sn = $request->sn;
         $dataPkl->nomor_tanda_terima_uang = $request->nomor_tanda_terima_uang;
-        //$dataPkl->valuta = $request->valuta;
+        $dataPkl->valuta = $request->valuta;
 
 
         $post = $dataPkl->save();
