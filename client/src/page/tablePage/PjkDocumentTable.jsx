@@ -200,11 +200,13 @@ function PjkDocumentTable() {
                                                 className="p-3 hover:bg-indigo-950 hover:text-white transition-all ease-in-out duration-100">
                                                 <div>Open</div>
                                             </Link>
-                                            <button
-                                                onClick={() => handleDelete(data?.nomor_pjk)}
-                                                className="p-3 hover:bg-indigo-950 bg-transparent hover:text-white transition-all ease-in-out duration-100">
-                                                <div className="text-red-600">Delete</div>
-                                            </button>
+                                            {localStorage.getItem('role') != 'admin' ? null : (
+                                                <button
+                                                    onClick={() => handleDelete(data?.nomor_pjk)}
+                                                    className="p-3 hover:bg-indigo-950 bg-transparent hover:text-white transition-all ease-in-out duration-100">
+                                                    <div className="text-red-600">Delete</div>
+                                                </button>
+                                            )}
                                         </td>
                                     </tr>
                                 );

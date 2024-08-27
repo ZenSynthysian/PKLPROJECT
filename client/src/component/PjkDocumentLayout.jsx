@@ -75,6 +75,7 @@ function PjkDocumentLayout() {
     useEffect(() => {
         if (!editMode) {
             setDocData({
+                nik: dataPjk?.nik,
                 nomor_pjk: dataPjk?.nomor_pjk,
                 kepada: dataPjk?.kepada,
                 sn: dataPjk?.sn,
@@ -654,13 +655,14 @@ function PjkDocumentLayout() {
                                                     <input
                                                         className="relative z-20 outline-none border border-black w-32"
                                                         type="text"
-                                                        // onChange={(e) => setNik(e.target.value)}
-                                                        value={'nik'}
+                                                        onChange={handleChange}
+                                                        value={docData.nik}
                                                         name="nik"
                                                     />
                                                 ) : (
-                                                    <span className="font-bold">{'nik'}</span>
+                                                    <span className="font-bold">{docData.nik}</span>
                                                 )}
+                                                {console.log(docData)}
                                             </p>
                                         </div>
                                         <div>Pejabat yang berwenang</div>

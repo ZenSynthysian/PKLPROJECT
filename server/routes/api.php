@@ -12,7 +12,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 // Route untuk halaman utama (tanpa autentikasi)
-Route::get('/', function(){
+Route::get('/', function () {
     return response()->json([
         'status' => false,
         'message' => 'akses tidak diperbolehkan'
@@ -39,7 +39,7 @@ Route::get('user/{id}', [AuthController::class, 'show'])->middleware('auth:sanct
 Route::put('user/{id}', [AuthController::class, 'update'])->middleware('auth:sanctum');
 Route::delete('user/{id}', [AuthController::class, 'destroy'])->middleware('auth:sanctum');
 
-// data user
+// data Pribadi
 Route::get('datauser', [UserController::class, 'index'])->middleware('auth:sanctum');
 Route::get('datauser/{id}', [UserController::class, 'show'])->middleware('auth:sanctum');
 Route::post('datauser', [UserController::class, 'store'])->middleware('auth:sanctum');

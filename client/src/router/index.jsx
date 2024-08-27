@@ -8,6 +8,14 @@ import PjkDocumentTable from '../page/tablePage/PjkDocumentTable';
 import NotFound from '../page/NotFound';
 import LoginPage from '../page/userPage/LoginPage';
 import PrivateRoute from '../helper/PrivateRoute';
+import AdminMenu from '../page/adminPage/AdminMenu';
+import PrivateAdminRoute from '../helper/PrivateAdminRoute';
+import UserConfiguration from '../page/adminPage/UserConfiguration';
+import UserInput from '../page/adminPage/UserInput';
+import EditUser from '../page/adminPage/EditUser';
+import DataPribadiConfiguration from '../page/adminPage/DataPribadiConfiguration';
+import EditDataPribadi from '../page/adminPage/EditDataPribadi';
+import DataPribadiInput from '../page/adminPage/DataPribadiInput';
 
 const router = createBrowserRouter([
     {
@@ -61,6 +69,62 @@ const router = createBrowserRouter([
             {
                 path: '/login',
                 element: <LoginPage />,
+            },
+            {
+                path: '/adminmenu',
+                element: (
+                    <PrivateAdminRoute>
+                        <AdminMenu />
+                    </PrivateAdminRoute>
+                ),
+            },
+            {
+                path: '/userconfiguration',
+                element: (
+                    <PrivateAdminRoute>
+                        <UserConfiguration />
+                    </PrivateAdminRoute>
+                ),
+            },
+            {
+                path: '/userconfiguration/newuser',
+                element: (
+                    <PrivateAdminRoute>
+                        <UserInput />
+                    </PrivateAdminRoute>
+                ),
+            },
+            {
+                path: '/userconfiguration/edituser/:id',
+                element: (
+                    <PrivateAdminRoute>
+                        <EditUser />
+                    </PrivateAdminRoute>
+                ),
+            },
+            {
+                path: '/datapribadiconfiguration',
+                element: (
+                    <PrivateAdminRoute>
+                        <DataPribadiConfiguration />
+                    </PrivateAdminRoute>
+                ),
+            },
+            {
+                path: '/datapribadiconfiguration/editdatapribadi/:id',
+                element: (
+                    <PrivateAdminRoute>
+                        <EditDataPribadi />
+                    </PrivateAdminRoute>
+                ),
+            },
+            {
+                path: '/datapribadiconfiguration/newdatapribadi',
+                element: (
+                    <PrivateAdminRoute>
+                        <DataPribadiInput />
+                    </PrivateAdminRoute>
+                ),
             },
         ],
     },

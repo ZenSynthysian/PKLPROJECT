@@ -64,7 +64,7 @@ class UserController extends Controller
 
     public function show(string $id)
     {
-        $data = Datauser::find($id);
+        $data = Datauser::whereAny(['id', 'nama'], 'LIKE', '%' . $id . '%')->first();
         if ($data) {
             return response()->json([
                 'status' => true,
@@ -145,4 +145,3 @@ class UserController extends Controller
         ]);
     }
 }
-

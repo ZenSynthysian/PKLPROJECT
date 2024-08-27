@@ -1,13 +1,54 @@
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 function PjkDocument() {
+    const [kepada, setKepada] = useState('');
+    const [pejabatYangBerwenang, setPejabatYangBerwenang] = useState('');
+    const [nama, setNama] = useState('');
+    const [noRek, setNoRek] = useState('');
+    const [namaDanAlamatBank, setNamaDanAlamatBank] = useState('');
+    const [unitOrganisasi, setUnitOrganisasi] = useState('');
+
+    useEffect(() => {
+        try {
+            axios
+                .get(`${import.meta.env.VITE_SERVER_API}api/datauser/${nama}`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+                .then((response) => {
+                    console.log('a');
+                    setNoRek(response.data.data.no_rek);
+                    setNamaDanAlamatBank(response.data.data.nama_alamat_bank);
+                    setUnitOrganisasi(response.data.data.unit_organisasi);
+                })
+                .catch(() => {
+                    setNoRek('');
+                    setNamaDanAlamatBank('');
+                    setUnitOrganisasi('');
+                });
+        } catch (error) {
+            console.log(error.message || error);
+        }
+    }, [nama]);
+
+    function handleKepadaChange(e) {
+        setKepada(e.target.value);
+    }
+    function handlePejabatYangBerwenangChange(e) {
+        setPejabatYangBerwenang(e.target.value);
+    }
+
+    function handleNamaChange(e) {
+        setNama(e.target.value);
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
         try {
             const formData = new FormData(event.target);
             const data = Object.fromEntries(formData);
 
-            axios.post(`${import.meta.env.VITE_SERVER_API}api/pkl`, data, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }).then((response) => {
+            console.log(data);
+
+            axios.post(`${import.meta.env.VITE_SERVER_API}api/pkl`, data, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }).then(() => {
                 window.location.replace(`/pjk/detail/${data.nomor_pjk}`);
             });
         } catch (error) {
@@ -37,6 +78,7 @@ function PjkDocument() {
                                 type="text"
                                 name="kepada"
                                 placeholder="KEPADA"
+                                onChange={handleKepadaChange}
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
                             />
                             <input
@@ -72,24 +114,31 @@ function PjkDocument() {
                             <input
                                 type="text"
                                 name="nama"
+                                onChange={handleNamaChange}
                                 placeholder="NAMA"
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
                             />
                             <input
                                 type="text"
                                 name="no_rekening"
+                                value={noRek}
+                                onChange={(e) => setNoRek(e.target.value)}
                                 placeholder="NO. REK"
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
                             />
                             <input
                                 type="text"
                                 name="nama_dan_alamat_bank"
+                                value={namaDanAlamatBank}
+                                onChange={(e) => setNamaDanAlamatBank(e.target.value)}
                                 placeholder="NAMA & ALAMAT BANK"
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
                             />
                             <input
                                 type="text"
                                 name="unit_organisasi"
+                                value={unitOrganisasi}
+                                onChange={(e) => setUnitOrganisasi(e.target.value)}
                                 placeholder="UNIT ORGANISASI"
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
                             />
@@ -138,11 +187,18 @@ function PjkDocument() {
                             <input
                                 type="text"
                                 name="pejabat_yang_berwenang"
+                                onChange={handlePejabatYangBerwenangChange}
                                 placeholder="PEJABAT YANG BERWENANG"
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
                             />
+                            <input
+                                type="text"
+                                name="nik"
+                                placeholder={`NIK ${pejabatYangBerwenang}`}
+                                className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
+                            />
                             <div className="flex flex-col">
-                                <div className="flex justify-center items-center text-xs">TANGGAL TANDA TANGAN</div>
+                                <div className="flex justify-center items-center text-xs">TANGGAL TANDA TANGAN {`${pejabatYangBerwenang}`}</div>
                                 <input
                                     type="date"
                                     name="tempat_tanggal_tanda_tangan"
@@ -150,6 +206,12 @@ function PjkDocument() {
                                     className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
                                 />
                             </div>
+                            <input
+                                type="text"
+                                name="nama_catatan_kadiv"
+                                placeholder={`PEJABAT BERWENANG DI ${kepada}`}
+                                className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
+                            />
                             <input
                                 type="submit"
                                 value="SUBMIT"
