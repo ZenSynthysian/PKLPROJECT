@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2024 at 06:03 AM
+-- Generation Time: Aug 27, 2024 at 08:34 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -55,16 +55,18 @@ CREATE TABLE `data_pribadi` (
   `id` int(225) NOT NULL,
   `nama` varchar(225) NOT NULL,
   `no_rek` varchar(225) NOT NULL,
-  `nama&alamat_bank` varchar(225) NOT NULL,
-  `unit_organisasi` varchar(225) NOT NULL
+  `nama_alamat_bank` varchar(225) NOT NULL,
+  `unit_organisasi` varchar(225) NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `data_pribadi`
 --
 
-INSERT INTO `data_pribadi` (`id`, `nama`, `no_rek`, `nama&alamat_bank`, `unit_organisasi`) VALUES
-(1, 'Diah Paramitha', '130101006322508', 'BANK RAKYAT INDONESIA', 'PF');
+INSERT INTO `data_pribadi` (`id`, `nama`, `no_rek`, `nama_alamat_bank`, `unit_organisasi`, `created_at`, `updated_at`) VALUES
+(3, 'marseli', '1234', 'pahlawan', 'pm', '2024-08-26 21:47:48', '2024-08-26 21:47:48');
 
 -- --------------------------------------------------------
 
@@ -333,6 +335,7 @@ CREATE TABLE `users` (
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
+  `role` enum('admin','user') NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -341,10 +344,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `nik`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(5, 'alif', '123', NULL, '$2y$12$ZPr6zgjT2dRDnxs7cwqVM.R6PXPgJbpyqQlrZJR8cpctZ9Xh6fuqy', NULL, '2024-08-24 07:33:03', '2024-08-24 07:33:03'),
-(6, 'marsel', '1234', NULL, '$2y$12$xOX44N2xAOAZgCyWDxPW6eIZp8uHmlXEYSM5bfmtvMi.SD5bYrmV.', NULL, '2024-08-24 07:35:12', '2024-08-24 07:35:12'),
-(7, 'dimas', '111222', NULL, '$2y$12$8ofRhNT9LHRw4ZZyI6bQT.8GBuf2m6SZHbvwQwDoiV4DK.V7WLwi6', NULL, '2024-08-25 01:27:52', '2024-08-25 01:27:52');
+INSERT INTO `users` (`id`, `name`, `nik`, `email_verified_at`, `password`, `remember_token`, `role`, `created_at`, `updated_at`) VALUES
+(5, 'alif', '123', NULL, '$2y$12$ZPr6zgjT2dRDnxs7cwqVM.R6PXPgJbpyqQlrZJR8cpctZ9Xh6fuqy', NULL, 'admin', '2024-08-24 07:33:03', '2024-08-24 07:33:03'),
+(6, 'marsel', '1234', NULL, '$2y$12$xOX44N2xAOAZgCyWDxPW6eIZp8uHmlXEYSM5bfmtvMi.SD5bYrmV.', NULL, 'user', '2024-08-24 07:35:12', '2024-08-24 07:35:12'),
+(8, 'contoh1', '3212', NULL, '$2y$12$CniQcF.Wh03xo/byOu4P6.rU3k4Ws0V3X3bu9Pt3WbPSeDvTQJBVO', NULL, 'admin', '2024-08-26 22:55:38', '2024-08-26 22:55:38');
 
 --
 -- Indexes for dumped tables
@@ -437,7 +440,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `data_pribadi`
 --
 ALTER TABLE `data_pribadi`
-  MODIFY `id` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -473,7 +476,7 @@ ALTER TABLE `pkl`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
