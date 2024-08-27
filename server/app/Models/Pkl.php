@@ -35,6 +35,7 @@ class Pkl extends Model
         'catatan_kadiv',
         'nama_catatan_kadiv',
         'sn',
-        'nomor_tanda_terima_uang'
+        'nomor_tanda_terima_uang',
+        'valuta'
     ];
 }

@@ -17,7 +17,8 @@ class AuthController extends Controller
         $rules = [
             'name' => 'required',
             'nik' => 'required',
-            'password' => 'required'
+            'password' => 'required',
+            'role' => 'required'
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -32,6 +33,7 @@ class AuthController extends Controller
         $dataUser->name = $request->name;
         $dataUser->nik = $request->nik;
         $dataUser->password = Hash::make($request->password);
+        $dataUser->role = $request->role;
         $dataUser->save();
 
         return response()->json([
@@ -71,7 +73,9 @@ class AuthController extends Controller
             'message' => 'berhasil proses login',
             'token' => $loginToken,
             'name' => $dataUser->name,
-            'nik' => $dataUser->nik
+            'nik' => $dataUser->nik,
+            'role' => $dataUser->role
+
         ]);
     }
 
@@ -93,4 +97,90 @@ class AuthController extends Controller
             'message' => 'Sukses log out'
         ]);
     }
+
+    public function index()
+    {
+        $data = User::orderBy('id')->get();
+        return response()->json([
+            'status' => true,
+            'message' => 'Data ditemukan',
+            'data' => $data
+        ], 200);
+    }
+
+    public function show(string $id)
+    {
+        $data = User::find($id);
+        if ($data) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data ditemukan',
+                'data' => $data
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
+            ]);
+        }
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $dataUser = User::find($id);
+        if (empty($dataUser)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
+            ], 404);
+        }
+
+        $rules = [
+            'name' => 'required',
+            'nik' => 'required',
+            'role' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Gagal update data',
+                'data' => $validator->errors()
+            ]);
+        }
+
+        $dataUser->name = $request->name;
+        $dataUser->nik = $request->nik;
+        $dataUser->role = $request->role;
+
+
+
+        $post = $dataUser->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Sukses update data'
+        ]);
+    }
+
+    public function destroy(string $id)
+    {
+        $dataUser = User::find($id);
+        if (empty($dataUser)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
+            ], 404);
+        }
+
+
+
+        $post = $dataUser->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Sukses delete data'
+        ]);
+    }
+
 }

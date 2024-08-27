@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\PklController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,3 +34,14 @@ Route::delete('pkl/{nomor_pjk}', [PklController::class, 'destroy'])->middleware(
 Route::post('registeruser', [AuthController::class, 'registeruser']);
 Route::post('loginuser', [AuthController::class, 'loginuser']);
 Route::post('logoutuser', [AuthController::class, 'logoutuser'])->middleware('auth:sanctum');
+Route::get('user', [AuthController::class, 'index']);
+Route::get('user/{id}', [AuthController::class, 'show']);
+Route::put('user/{id}', [AuthController::class, 'update']);
+Route::delete('user/{id}', [AuthController::class, 'destroy']);
+
+// data user
+Route::get('datauser', [UserController::class, 'index'])->middleware('auth:sanctum');
+Route::get('datauser/{id}', [UserController::class, 'show'])->middleware('auth:sanctum');
+Route::post('datauser', [UserController::class, 'store'])->middleware('auth:sanctum');
+Route::put('datauser/{id}', [UserController::class, 'update'])->middleware('auth:sanctum');
+Route::delete('datauser/{id}', [UserController::class, 'destroy'])->middleware('auth:sanctum');
