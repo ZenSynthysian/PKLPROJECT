@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2024 at 05:29 AM
+-- Generation Time: Aug 27, 2024 at 06:03 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -44,6 +44,27 @@ CREATE TABLE `cache_locks` (
   `owner` varchar(255) NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_pribadi`
+--
+
+CREATE TABLE `data_pribadi` (
+  `id` int(225) NOT NULL,
+  `nama` varchar(225) NOT NULL,
+  `no_rek` varchar(225) NOT NULL,
+  `nama&alamat_bank` varchar(225) NOT NULL,
+  `unit_organisasi` varchar(225) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `data_pribadi`
+--
+
+INSERT INTO `data_pribadi` (`id`, `nama`, `no_rek`, `nama&alamat_bank`, `unit_organisasi`) VALUES
+(1, 'Diah Paramitha', '130101006322508', 'BANK RAKYAT INDONESIA', 'PF');
 
 -- --------------------------------------------------------
 
@@ -342,6 +363,12 @@ ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`);
 
 --
+-- Indexes for table `data_pribadi`
+--
+ALTER TABLE `data_pribadi`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -405,6 +432,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `data_pribadi`
+--
+ALTER TABLE `data_pribadi`
+  MODIFY `id` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
