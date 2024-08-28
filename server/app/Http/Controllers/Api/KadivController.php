@@ -29,7 +29,10 @@ class KadivController extends Controller
     {
         $dataKadiv = new Kadiv;
 
-        $validator = Validator::make($request->all());
+        $rules = [
+            'nama' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
@@ -107,7 +110,7 @@ class KadivController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $dataKadiv = Kadiv::where($id);
+        $dataKadiv = Kadiv::find($id);
         if (empty($dataKadiv)) {
             return response()->json([
                 'status' => false,
@@ -115,7 +118,10 @@ class KadivController extends Controller
             ], 404);
         }
 
-        $validator = Validator::make($request->all());
+        $rules = [
+            'nama' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
@@ -141,7 +147,7 @@ class KadivController extends Controller
      */
     public function destroy(string $id)
     {
-        $dataKadiv = Kadiv::where($id);
+        $dataKadiv = Kadiv::find($id);
         if (empty($dataKadiv)) {
             return response()->json([
                 'status' => false,

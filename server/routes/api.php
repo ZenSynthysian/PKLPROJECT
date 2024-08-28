@@ -52,8 +52,8 @@ Route::put('datauser/{id}', [UserController::class, 'update'])->middleware('auth
 Route::delete('datauser/{id}', [UserController::class, 'destroy'])->middleware('auth:sanctum');
 
 // kadiv
-Route::get('kadiv', [KadivController::class, 'index'])->middleware('auth:sanctum');
-Route::get('kadiv/{id}', [KadivController::class, 'show'])->middleware('auth:sanctum');
-Route::post('kadiv', [KadivController::class, 'store'])->middleware('auth:sanctum');
-Route::put('kadiv/{id}', [KadivController::class, 'update'])->middleware('auth:sanctum');
-Route::delete('kadiv/{id}', [KadivController::class, 'destroy'])->middleware('auth:sanctum');
+Route::get('kadiv', [KadivController::class, 'index']);
+Route::get('kadiv/{id}', [KadivController::class, 'show']);
+Route::post('kadiv', [KadivController::class, 'store']);
+Route::put('kadiv/{id}', [KadivController::class, 'update']);
+Route::delete('kadiv/{id}', [KadivController::class, 'destroy']);
