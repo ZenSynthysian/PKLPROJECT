@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\PklController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\KadivController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -49,3 +50,10 @@ Route::get('datauser/{id}', [UserController::class, 'show'])->middleware('auth:s
 Route::post('datauser', [UserController::class, 'store'])->middleware('auth:sanctum');
 Route::put('datauser/{id}', [UserController::class, 'update'])->middleware('auth:sanctum');
 Route::delete('datauser/{id}', [UserController::class, 'destroy'])->middleware('auth:sanctum');
+
+// kadiv
+Route::get('kadiv', [KadivController::class, 'index'])->middleware('auth:sanctum');
+Route::get('kadiv/{id}', [KadivController::class, 'show'])->middleware('auth:sanctum');
+Route::post('kadiv', [KadivController::class, 'store'])->middleware('auth:sanctum');
+Route::put('kadiv/{id}', [KadivController::class, 'update'])->middleware('auth:sanctum');
+Route::delete('kadiv/{id}', [KadivController::class, 'destroy'])->middleware('auth:sanctum');
