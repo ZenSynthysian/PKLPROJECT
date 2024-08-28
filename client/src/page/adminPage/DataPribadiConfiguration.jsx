@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -6,37 +6,43 @@ import Swal from 'sweetalert2';
 function DataPribadiConfiguration() {
     const [table, setTable] = useState([]);
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/datauser`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
-                setTable(response.data.data);
-            } catch (error) {
-                console.log(error.message || error);
-            }
+    const fetchData = useCallback(async () => {
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/datauser`, {
+                withCredentials: true,
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+            });
+            setTable(response.data.data);
+        } catch (error) {
+            console.log(error.message || error);
         }
+    }, []);
 
+    useEffect(() => {
         fetchData();
-    }, []); // Dependency array includes searchValue
+    }, [fetchData]);
 
     async function handleDelete(nomor_pjk) {
         try {
-            Swal.fire({
+            const result = await Swal.fire({
                 title: 'Data akan dihapus permanen?',
                 showDenyButton: true,
                 confirmButtonText: 'Hapus',
                 denyButtonText: `Batal`,
-            }).then(async (result) => {
-                if (result.isConfirmed) {
-                    await axios.delete(`${import.meta.env.VITE_SERVER_API}api/datauser/${nomor_pjk}`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
-                    Swal.fire('Data Terhapus!', '', 'success');
-
-                    // Update the table state to reflect the deletion
-                    setTable((prevTable) => prevTable.filter((item) => item.nomor_pjk !== nomor_pjk));
-                } else if (result.isDenied) {
-                    Swal.fire('Data Batal di Hapus', '', 'info');
-                }
             });
+
+            if (result.isConfirmed) {
+                await axios.delete(`${import.meta.env.VITE_SERVER_API}api/datauser/${nomor_pjk}`, {
+                    withCredentials: true,
+                    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+                });
+                Swal.fire('Data Terhapus!', '', 'success');
+
+                // Re-fetch data
+                fetchData();
+            } else if (result.isDenied) {
+                Swal.fire('Data Batal di Hapus', '', 'info');
+            }
         } catch (error) {
             console.log(error.message || error);
         }
@@ -44,7 +50,7 @@ function DataPribadiConfiguration() {
 
     return (
         <>
-            <div className="flex flex-col justify-center items-center pt-32 overflow-auto pl-32 pr-32 w-full">
+            <div className="flex flex-col justify-center items-center pt-32 overflow-auto pl-32 pr-32 w-screen">
                 <div className="flex justify-center w-full p-6">
                     <Link
                         to={'/datapribadiconfiguration/newdatapribadi'}
@@ -55,12 +61,12 @@ function DataPribadiConfiguration() {
                 <div className="border-2 border-blue-400 bg-white">
                     <table id="table-main">
                         <thead className="bg-indigo-950 text-gray-300">
-                            <th className="p-1 border-r-2 border-blue-400 whitespace-nowrap">No.</th>
-                            <th className="p-1 border-r-2 border-blue-400 whitespace-nowrap">Nama</th>
-                            <th className="p-1 border-r-2 border-blue-400 whitespace-nowrap">No Rekening</th>
-                            <th className="p-1 border-r-2 border-blue-400 whitespace-nowrap">Nama & Alamat Bank</th>
-                            <th className="p-1 border-r-2 border-blue-400 whitespace-nowrap">Unit Organisasi</th>
-                            <th className="p-1 whitespace-nowrap">Tools</th>
+                            <th className="p-3 border-r-2 border-blue-400 whitespace-nowrap">No.</th>
+                            <th className="p-1 w-[12rem] border-r-2 border-blue-400 whitespace-nowrap">Nama</th>
+                            <th className="p-1 w-[12rem] border-r-2 border-blue-400 whitespace-nowrap">No Rekening</th>
+                            <th className="p-1 w-[12rem] border-r-2 border-blue-400 whitespace-nowrap">Nama & Alamat Bank</th>
+                            <th className="p-1 w-[12rem] border-r-2 border-blue-400 whitespace-nowrap">Unit Organisasi</th>
+                            <th className="p-1 w-[12rem] whitespace-nowrap">Tools</th>
                         </thead>
                         <tbody>
                             {/* <tr className="bg-indigo-950 text-gray-300"> */}

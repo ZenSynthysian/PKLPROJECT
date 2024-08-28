@@ -30,6 +30,10 @@ Route::post('pkl', [PklController::class, 'store'])->middleware('auth:sanctum');
 Route::put('pkl/{nomor_pjk}', [PklController::class, 'update'])->middleware('auth:sanctum');
 Route::delete('pkl/{nomor_pjk}', [PklController::class, 'destroy'])->middleware('auth:sanctum');
 
+// Rute untuk delete Selection
+Route::post('pkl/bulk-delete', [PklController::class, 'bulkDelete'])
+    ->middleware('auth:sanctum');
+
 // Rute untuk autentikasi pengguna
 Route::post('registeruser', [AuthController::class, 'registeruser']);
 Route::post('loginuser', [AuthController::class, 'loginuser']);

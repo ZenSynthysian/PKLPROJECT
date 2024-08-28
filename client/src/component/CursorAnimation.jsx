@@ -60,8 +60,8 @@ function CursorAnimation() {
 
     return (
         <>
-            <div className="bg-pink-800 rounded-full absolute h-2 w-2 curs-animate-high pointer-events-none"></div>
-            <div className="curs-animate absolute pointer-events-none border border-pink-800 rounded-full h-6 w-6 z-30 flex justify-center items-center overflow-visible"></div>
+            <div className="bg-pink-800 no-printme rounded-full absolute h-2 w-2 curs-animate-high pointer-events-none"></div>
+            <div className="curs-animate no-printme absolute pointer-events-none border border-pink-800 rounded-full h-6 w-6 z-30 flex justify-center items-center overflow-visible"></div>
         </>
     );
 }

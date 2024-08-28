@@ -228,4 +228,39 @@ class PklController extends Controller
             'message' => 'Sukses delete data'
         ]);
     }
+
+    public function bulkDelete(Request $request)
+    {
+        // Validate the request
+        $request->validate([
+            'ids' => 'required|array', // Ensure 'ids' is an array
+            'ids.*' => 'exists:pkl,nomor_pjk' // Ensure each ID exists in the table
+        ]);
+
+        // Fetch the IDs to be deleted
+        $ids = $request->input('ids');
+
+        // Attempt to delete the records
+        try {
+            $deletedCount = Pkl::whereIn('nomor_pjk', $ids)->delete();
+
+            if ($deletedCount === 0) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'No data found for deletion'
+                ], 404);
+            }
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Selected data has been permanently deleted'
+            ], 200);
+        } catch (\Exception $e) {
+            // Log the exception message if needed
+            return response()->json([
+                'status' => false,
+                'message' => 'Failed to delete selected data'
+            ], 500);
+        }
+    }
 }

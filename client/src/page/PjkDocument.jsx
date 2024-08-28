@@ -14,7 +14,6 @@ function PjkDocument() {
             axios
                 .get(`${import.meta.env.VITE_SERVER_API}api/datauser/${nama}`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
                 .then((response) => {
-                    console.log('a');
                     setNoRek(response.data.data.no_rek);
                     setNamaDanAlamatBank(response.data.data.nama_alamat_bank);
                     setUnitOrganisasi(response.data.data.unit_organisasi);
@@ -46,11 +45,34 @@ function PjkDocument() {
             const formData = new FormData(event.target);
             const data = Object.fromEntries(formData);
 
-            console.log(data);
+            axios
+                .post(
+                    `${import.meta.env.VITE_SERVER_API}api/datauser`,
+                    {
+                        nama: nama,
+                        no_rek: noRek,
+                        nama_alamat_bank: namaDanAlamatBank,
+                        unit_organisasi: unitOrganisasi,
+                    },
+                    { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+                )
+                .then((response) => {
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        console.error('ERROR ON POST api/datauser ' + error.response.data.message);
+                    }
+                });
 
-            axios.post(`${import.meta.env.VITE_SERVER_API}api/pkl`, data, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }).then(() => {
-                window.location.replace(`/pjk/detail/${data.nomor_pjk}`);
-            });
+            axios
+                .post(`${import.meta.env.VITE_SERVER_API}api/pkl`, data, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+                .then(() => {
+                    window.location.replace(`/pjk/detail/${data.nomor_pjk}`);
+                })
+                .catch((error) => {
+                    console.error('ERROR ON POST api/pkl ' + error.response.data.message || error);
+                });
         } catch (error) {
             console.log(error.message || error);
         }

@@ -11,7 +11,7 @@ function PjkDocumentLayout() {
     const [dataPjk, setDataPjk] = useState([]);
     const [editMode, setEditMode] = useState(false);
     const [docData, setDocData] = useState({});
-    const [isLoading, setIsLoading] = useState(false);
+    // const [isLoading, setIsLoading] = useState(false);
 
     const formatDate = (dateStr) => {
         const [year, month, day] = String(dateStr).split('-');
@@ -32,11 +32,9 @@ function PjkDocumentLayout() {
         setEditMode(!editMode);
     };
 
-    console.log(docData);
-
     function handleSave() {
         try {
-            setIsLoading(true);
+            // setIsLoading(true);
             axios
                 .put(`${import.meta.env.VITE_SERVER_API}api/pkl/${nomorpjkparam}`, docData, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
                 .then((response) => {
@@ -44,7 +42,7 @@ function PjkDocumentLayout() {
                 });
 
             setEditMode(false);
-            setIsLoading(false);
+            // setIsLoading(false);
         } catch (error) {
             console.log(error.message || error);
         }
@@ -66,8 +64,6 @@ function PjkDocumentLayout() {
                 console.log(error.message || error);
             }
         }
-
-        console.log('test');
 
         fetchData();
     }, [nomorpjkparam, editMode]);
@@ -98,13 +94,14 @@ function PjkDocumentLayout() {
                 pejabat_yang_berwenang: dataPjk?.pejabat_yang_berwenang,
                 tempat_tanggal_tanda_tangan: dataPjk?.tempat_tanggal_tanda_tangan,
                 valuta: dataPjk?.valuta,
+                nama_catatan_kadiv: dataPjk?.nama_catatan_kadiv,
             });
         }
     }, [dataPjk, editMode]);
 
     return (
         <>
-            <div className="w-full flex justify-center items-center gap-4 p-3">
+            <div className="w-screen flex justify-center items-center gap-4 p-3">
                 <button
                     onClick={window.print}
                     className="no-printme p-1 w-[20%] transition-all duration-100 ease-in-out ho16er:border-blue-700 rounded border-2 items-center border-black">
@@ -123,7 +120,7 @@ function PjkDocumentLayout() {
                     </button>
                 ) : null}
             </div>
-            <div className="relative pb-10 flex printme justify-center items-center border-black">
+            <div className="relative pb-10 flex printme justify-center w-screen items-center border-black">
                 <div className={'border-[1mm] border-black w-[8.5in] bg-white h-[11in] text-[11px]'}>
                     <div className="border-b-[1mm] border-black flex flex-col justify-center items-center p-3">
                         <div className="absolute w-[8.5in] translate-x-3">
@@ -662,7 +659,6 @@ function PjkDocumentLayout() {
                                                 ) : (
                                                     <span className="font-bold">{docData.nik}</span>
                                                 )}
-                                                {console.log(docData)}
                                             </p>
                                         </div>
                                         <div>Pejabat yang berwenang</div>
@@ -687,9 +683,9 @@ function PjkDocumentLayout() {
                                         <input
                                             className="relative z-20 outline-none border border-black w-32"
                                             type="text"
-                                            // onChange={(e) => setCatatanKadiv(e.target.value)}
-                                            value={'catatanKadiv'}
-                                            name="catatan"
+                                            onChange={handleChange}
+                                            value={docData.kepada}
+                                            name="catatan_kadiv"
                                         />
                                     ) : (
                                         <div className="font-bold">{docData.kepada}</div>
@@ -700,12 +696,12 @@ function PjkDocumentLayout() {
                                         <input
                                             className="relative z-20 outline-none border border-black w-32"
                                             type="text"
-                                            // onChange={(e) => setNamaCatatanKadiv(e.target.value)}
-                                            value={'namaCatatanKadiv'}
-                                            name="catatan"
+                                            onChange={handleChange}
+                                            value={docData.nama_catatan_kadiv}
+                                            name="nama_catatan_kadiv"
                                         />
                                     ) : (
-                                        <div className="font-bold border-b-2 border-black w-fit">{'namaCatatanKadiv'}</div>
+                                        <div className="font-bold border-b-2 border-black w-fit">{docData?.nama_catatan_kadiv}</div>
                                     )}
                                     <div className="">Pejabat yang berwenang</div>
                                 </div>

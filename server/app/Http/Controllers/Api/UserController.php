@@ -64,8 +64,37 @@ class UserController extends Controller
 
     public function show(string $id)
     {
-        $data = Datauser::whereAny(['id', 'nama'], 'LIKE', '%' . $id . '%')->first();
-        if ($data) {
+        // Fetch all data entries that have 'nama' or 'id' containing the specified ID
+        $data = Datauser::where('nama', 'LIKE', '%' . $id . '%')
+            ->orWhere('id', 'LIKE', '%' . $id . '%')
+            ->get();
+
+        if ($data->count() > 0) {
+            // Group by 'nama'
+            $groupedData = $data->groupBy('nama');
+
+            // Loop through each group
+            foreach ($groupedData as $nama => $items) {
+                if ($items->count() > 3) {
+                    // Sort by ID in descending order and get the top 3 entries
+                    $top3Items = $items->sortByDesc('id')->take(3);
+
+                    // Get IDs of entries to keep
+                    $keepIds = $top3Items->pluck('id')->toArray();
+
+                    // Delete entries not in the top 3
+                    Datauser::where('nama', $nama)
+                        ->whereNotIn('id', $keepIds)
+                        ->delete();
+                }
+            }
+
+            // Fetch the remaining data with the largest ID from the filtered data
+            $data = Datauser::where('nama', 'LIKE', '%' . $id . '%')
+                ->orWhere('id', 'LIKE', '%' . $id . '%')
+                ->orderByDesc('id')
+                ->first();
+
             return response()->json([
                 'status' => true,
                 'message' => 'Data ditemukan',
@@ -78,6 +107,8 @@ class UserController extends Controller
             ]);
         }
     }
+
+
 
     /**
      * Update the specified resource in storage.
