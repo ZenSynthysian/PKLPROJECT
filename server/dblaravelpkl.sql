@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2024 at 08:34 AM
+-- Generation Time: Aug 28, 2024 at 04:57 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -118,6 +118,21 @@ CREATE TABLE `job_batches` (
   `created_at` int(11) NOT NULL,
   `finished_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kadiv`
+--
+
+CREATE TABLE `kadiv` (
+  `id` int(11) NOT NULL,
+  `divisi` varchar(255) DEFAULT NULL,
+  `nama` varchar(255) DEFAULT NULL,
+  `nik` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -347,7 +362,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `nik`, `email_verified_at`, `password`, `remember_token`, `role`, `created_at`, `updated_at`) VALUES
 (5, 'alif', '123', NULL, '$2y$12$ZPr6zgjT2dRDnxs7cwqVM.R6PXPgJbpyqQlrZJR8cpctZ9Xh6fuqy', NULL, 'admin', '2024-08-24 07:33:03', '2024-08-24 07:33:03'),
 (6, 'marsel', '1234', NULL, '$2y$12$xOX44N2xAOAZgCyWDxPW6eIZp8uHmlXEYSM5bfmtvMi.SD5bYrmV.', NULL, 'user', '2024-08-24 07:35:12', '2024-08-24 07:35:12'),
-(8, 'contoh1', '3212', NULL, '$2y$12$CniQcF.Wh03xo/byOu4P6.rU3k4Ws0V3X3bu9Pt3WbPSeDvTQJBVO', NULL, 'admin', '2024-08-26 22:55:38', '2024-08-26 22:55:38');
+(8, 'contoh1', '3212', NULL, '$2y$12$CniQcF.Wh03xo/byOu4P6.rU3k4Ws0V3X3bu9Pt3WbPSeDvTQJBVO', NULL, 'admin', '2024-08-26 22:55:38', '2024-08-26 22:55:38'),
+(9, 'contoh121212', '32121212', NULL, '$2y$12$VtydQtDIbsGwD1IULpAbXOKiAUuA1H6uJZNNVB4g.3I1ay3IC5.4u', NULL, 'admin', '2024-08-27 00:12:03', '2024-08-27 00:12:03');
 
 --
 -- Indexes for dumped tables
@@ -389,6 +405,12 @@ ALTER TABLE `jobs`
 -- Indexes for table `job_batches`
 --
 ALTER TABLE `job_batches`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `kadiv`
+--
+ALTER TABLE `kadiv`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -455,6 +477,12 @@ ALTER TABLE `jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `kadiv`
+--
+ALTER TABLE `kadiv`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -476,7 +504,7 @@ ALTER TABLE `pkl`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
