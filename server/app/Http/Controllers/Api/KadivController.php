@@ -57,54 +57,76 @@ class KadivController extends Controller
      * Display the specified resource.
      */
 
-     public function show(string $id)
-     {
-         // Fetch all data entries that have 'nama' or 'id' containing the specified ID
-         $data = Kadiv::where('nama', 'LIKE', '%' . $id . '%')
-             ->orWhere('id', 'LIKE', '%' . $id . '%')
-             ->get();
- 
-         if ($data->count() > 0) {
-             // Group by 'nama'
-             $groupedData = $data->groupBy('nama');
- 
-             // Loop through each group
-             foreach ($groupedData as $nama => $items) {
-                 if ($items->count() > 3) {
-                     // Sort by ID in descending order and get the top 3 entries
-                     $top3Items = $items->sortByDesc('id')->take(3);
- 
-                     // Get IDs of entries to keep
-                     $keepIds = $top3Items->pluck('id')->toArray();
- 
-                     // Delete entries not in the top 3
-                     Kadiv::where('nama', $nama)
-                         ->whereNotIn('id', $keepIds)
-                         ->delete();
-                 }
-             }
- 
-             // Fetch the remaining data with the largest ID from the filtered data
-             $data = Kadiv::where('nama', 'LIKE', '%' . $id . '%')
-                 ->orWhere('id', 'LIKE', '%' . $id . '%')
-                 ->orderByDesc('id')
-                 ->first();
- 
-             return response()->json([
-                 'status' => true,
-                 'message' => 'Data ditemukan',
-                 'data' => $data
-             ], 200);
-         } else {
-             return response()->json([
-                 'status' => false,
-                 'message' => 'Data tidak ditemukan'
-             ]);
-         }
-     }
- 
- 
- 
+    public function show(string $id)
+    {
+        // Fetch all data entries that have 'nama' or 'id' containing the specified ID
+        $data = Kadiv::where('nama', 'LIKE', '%' . $id . '%')
+            ->orWhere('id', 'LIKE', '%' . $id . '%')
+            ->orWhere('divisi', 'LIKE', '%' . $id . '%')
+            ->get();
+
+        if ($data->count() > 0) {
+            // Fetch and process the data based on 'nama'
+            $dataByNama = Kadiv::where('nama', 'LIKE', '%' . $id . '%')
+                ->get();
+
+            foreach ($dataByNama->groupBy('nama') as $nama => $items) {
+                if ($items->count() > 3) {
+                    // Sort by ID in descending order and get the top 3 entries
+                    $top3Items = $items->sortByDesc('id')->take(3);
+
+                    // Get IDs of entries to keep
+                    $keepIds = $top3Items->pluck('id')->toArray();
+
+                    // Delete entries not in the top 3
+                    Kadiv::where('nama', $nama)
+                        ->whereNotIn('id', $keepIds)
+                        ->delete();
+                }
+            }
+
+            // Fetch and process the data based on 'divisi'
+            $dataByDivisi = Kadiv::where('divisi', 'LIKE', '%' . $id . '%')
+                ->get();
+
+            foreach ($dataByDivisi->groupBy('divisi') as $divisi => $items) {
+                if ($items->count() > 3) {
+                    // Sort by ID in descending order and get the top 3 entries
+                    $top3Items = $items->sortByDesc('id')->take(3);
+
+                    // Get IDs of entries to keep
+                    $keepIds = $top3Items->pluck('id')->toArray();
+
+                    // Delete entries not in the top 3
+                    Kadiv::where('divisi', $divisi)
+                        ->whereNotIn('id', $keepIds)
+                        ->delete();
+                }
+            }
+
+            // Fetch the remaining data with the largest ID from the filtered data
+            $data = Kadiv::where('nama', 'LIKE', '%' . $id . '%')
+                ->orWhere('id', 'LIKE', '%' . $id . '%')
+                ->orWhere('divisi', 'LIKE', '%' . $id . '%')
+                ->orderByDesc('id')
+                ->first();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Data ditemukan',
+                'data' => $data
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
+            ]);
+        }
+    }
+
+
+
+
     /**
      * Update the specified resource in storage.
      */

@@ -16,6 +16,9 @@ import EditUser from '../page/adminPage/EditUser';
 import DataPribadiConfiguration from '../page/adminPage/DataPribadiConfiguration';
 import EditDataPribadi from '../page/adminPage/EditDataPribadi';
 import DataPribadiInput from '../page/adminPage/DataPribadiInput';
+import DataKadivConfiguration from '../page/adminPage/DataKadivConfiguration';
+import EditDataKadiv from '../page/adminPage/EditDataKadiv';
+import DataKadivInput from '../page/adminPage/DataKadivInput';
 
 const router = createBrowserRouter([
     {
@@ -123,6 +126,30 @@ const router = createBrowserRouter([
                 element: (
                     <PrivateAdminRoute>
                         <DataPribadiInput />
+                    </PrivateAdminRoute>
+                ),
+            },
+            {
+                path: '/datakadivconfiguration',
+                element: (
+                    <PrivateAdminRoute>
+                        <DataKadivConfiguration />
+                    </PrivateAdminRoute>
+                ),
+            },
+            {
+                path: '/datakadivconfiguration/editdatakadiv/:id',
+                element: (
+                    <PrivateAdminRoute>
+                        <EditDataKadiv />
+                    </PrivateAdminRoute>
+                ),
+            },
+            {
+                path: '/datakadivconfiguration/newdatakadiv/',
+                element: (
+                    <PrivateAdminRoute>
+                        <DataKadivInput />
                     </PrivateAdminRoute>
                 ),
             },

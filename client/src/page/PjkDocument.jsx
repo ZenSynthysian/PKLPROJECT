@@ -8,6 +8,8 @@ function PjkDocument() {
     const [noRek, setNoRek] = useState('');
     const [namaDanAlamatBank, setNamaDanAlamatBank] = useState('');
     const [unitOrganisasi, setUnitOrganisasi] = useState('');
+    const [pejabatYangBerwenangDiDivisi, setPejabatYangBerwenangDiDivisi] = useState('');
+    const [nik, setNik] = useState('');
 
     useEffect(() => {
         try {
@@ -28,6 +30,42 @@ function PjkDocument() {
         }
     }, [nama]);
 
+    useEffect(() => {
+        try {
+            axios
+                .get(`${import.meta.env.VITE_SERVER_API}api/kadiv/${kepada}`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+                .then((response) => {
+                    console.log(kepada);
+                    console.log(response.data);
+                    setPejabatYangBerwenangDiDivisi(response.data.data.nama);
+                })
+                .catch(() => {
+                    setPejabatYangBerwenangDiDivisi('');
+                });
+        } catch (error) {
+            console.log(error.message || error);
+        }
+    }, [kepada]);
+
+    useEffect(() => {
+        try {
+            axios
+                .get(`${import.meta.env.VITE_SERVER_API}api/kadiv/${pejabatYangBerwenang}`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+                .then((response) => {
+                    setNik(response.data.data.nik);
+                })
+                .catch(() => {
+                    setNik('');
+                });
+        } catch (error) {
+            console.log(error.message || error);
+        }
+    }, [pejabatYangBerwenang]);
+
+    function handleNikChange(e) {
+        setNik(e.target.value);
+    }
+
     function handleKepadaChange(e) {
         setKepada(e.target.value);
     }
@@ -37,6 +75,10 @@ function PjkDocument() {
 
     function handleNamaChange(e) {
         setNama(e.target.value);
+    }
+
+    function handlePejabatDivisiChange(e) {
+        setPejabatYangBerwenangDiDivisi(e.target.value);
     }
 
     const handleSubmit = (event) => {
@@ -57,11 +99,47 @@ function PjkDocument() {
                     { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
                 )
                 .then((response) => {
-                    console.log(response.data);
+                    console.log(response.data.message);
                 })
                 .catch((error) => {
                     if (error.response) {
                         console.error('ERROR ON POST api/datauser ' + error.response.data.message);
+                    }
+                });
+
+            axios
+                .post(
+                    `${import.meta.env.VITE_SERVER_API}api/kadiv`,
+                    {
+                        divisi: kepada,
+                        nama: pejabatYangBerwenangDiDivisi,
+                    },
+                    { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+                )
+                .then((response) => {
+                    console.log(response.data.message);
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        console.error('ERROR ON POST api/kadiv ' + error.response.data.message);
+                    }
+                });
+
+            axios
+                .post(
+                    `${import.meta.env.VITE_SERVER_API}api/kadiv`,
+                    {
+                        nama: pejabatYangBerwenang,
+                        nik: nik,
+                    },
+                    { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+                )
+                .then((response) => {
+                    console.log(response.data.message);
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        console.error('ERROR ON POST api/kadiv ' + error.response.data.message);
                     }
                 });
 
@@ -216,6 +294,8 @@ function PjkDocument() {
                             <input
                                 type="text"
                                 name="nik"
+                                onChange={handleNikChange}
+                                value={nik}
                                 placeholder={`NIK ${pejabatYangBerwenang}`}
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
                             />
@@ -230,7 +310,9 @@ function PjkDocument() {
                             </div>
                             <input
                                 type="text"
+                                onChange={handlePejabatDivisiChange}
                                 name="nama_catatan_kadiv"
+                                value={pejabatYangBerwenangDiDivisi}
                                 placeholder={`PEJABAT BERWENANG DI ${kepada}`}
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
                             />

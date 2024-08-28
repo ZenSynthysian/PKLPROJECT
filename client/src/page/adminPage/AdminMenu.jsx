@@ -17,6 +17,11 @@ function AdminMenu() {
                         image={documentSVG}
                         tittle={'DATA PRIBADI'}
                     />
+                    <SelectionComponent
+                        link={'/datakadivconfiguration'}
+                        image={documentSVG}
+                        tittle={'DATA KADIV'}
+                    />
                 </div>
             </div>
         </>

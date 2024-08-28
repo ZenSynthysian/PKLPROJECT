@@ -52,7 +52,7 @@ Route::put('datauser/{id}', [UserController::class, 'update'])->middleware('auth
 Route::delete('datauser/{id}', [UserController::class, 'destroy'])->middleware('auth:sanctum');
 
 // kadiv
-Route::get('kadiv', [KadivController::class, 'index']);
+Route::get('kadivall', [KadivController::class, 'index']);
 Route::get('kadiv/{id}', [KadivController::class, 'show']);
 Route::post('kadiv', [KadivController::class, 'store']);
 Route::put('kadiv/{id}', [KadivController::class, 'update']);
