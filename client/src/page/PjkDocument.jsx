@@ -10,6 +10,7 @@ function PjkDocument() {
     const [unitOrganisasi, setUnitOrganisasi] = useState('');
     const [pejabatYangBerwenangDiDivisi, setPejabatYangBerwenangDiDivisi] = useState('');
     const [nik, setNik] = useState('');
+    const [nomorPjk, setNomorPjk] = useState('');
 
     useEffect(() => {
         try {
@@ -79,6 +80,13 @@ function PjkDocument() {
 
     function handlePejabatDivisiChange(e) {
         setPejabatYangBerwenangDiDivisi(e.target.value);
+    }
+
+    function handleNomorPjkChange(e) {
+        setNomorPjk(e.target.value);
+        if (nomorPjk.match(/[<>]/)) {
+            setNomorPjk('Nomor Pjk Tidak dapat di isi dengan simbol <>!*');
+        }
     }
 
     const handleSubmit = (event) => {
@@ -164,6 +172,11 @@ function PjkDocument() {
                         <div className="flex justify-center pb-10">
                             <span className="text-4xl text-blue-950">INPUT DATA DOKUMEN</span>
                         </div>
+                        {nomorPjk == 'Nomor Pjk Tidak dapat di isi dengan simbol <>!*' ? (
+                            <div className="flex justify-center pb-10">
+                                <span className="text-red-600">{'Nomor PJK Tidak dapat di isi dengan simbol <>!*'}</span>
+                            </div>
+                        ) : null}
                         <form
                             action=""
                             onSubmit={handleSubmit}
@@ -171,6 +184,7 @@ function PjkDocument() {
                             <input
                                 type="text"
                                 name="nomor_pjk"
+                                onChange={handleNomorPjkChange}
                                 placeholder="NOMOR PJK"
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
                             />
@@ -261,25 +275,25 @@ function PjkDocument() {
                                 />
                             </div>
                             <input
-                                type="text"
+                                type="number"
                                 name="jumlah_pengambilan"
                                 placeholder="JUMLAH PENGAMBILAN"
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
                             />
                             <input
-                                type="text"
+                                type="number"
                                 name="jumlah_pjk"
                                 placeholder="JUMLAH PJK"
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
                             />
                             <input
-                                type="text"
+                                type="number"
                                 name="jumlah_setor"
                                 placeholder="JUMLAH SETOR"
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
                             />
                             <input
-                                type="text"
+                                type="number"
                                 name="saldo"
                                 placeholder="SALDO"
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"

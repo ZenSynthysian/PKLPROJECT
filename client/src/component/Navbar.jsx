@@ -74,15 +74,17 @@ function Navbar() {
                             </div>
                         </Link>
                     </div>
-                    <div className="group w-full flex justify-center items-center">
-                        <Link
-                            to={'/adminmenu'}
-                            className="flex border-b-4 w-24 group-hover:w-full p-5 items-center ease-in-out transition-all duration-100 hover:bg-blue-400 hover:bg-opacity-30 justify-center border-blue-400">
-                            <div>
-                                <span className="text-nowrap">Menu Admin</span>
-                            </div>
-                        </Link>
-                    </div>
+                    {localStorage.getItem('role') !== 'admin' ? null : (
+                        <div className="group w-full flex justify-center items-center">
+                            <Link
+                                to={'/adminmenu'}
+                                className="flex border-b-4 w-24 group-hover:w-full p-5 items-center ease-in-out transition-all duration-100 hover:bg-blue-400 hover:bg-opacity-30 justify-center border-blue-400">
+                                <div>
+                                    <span className="text-nowrap">Menu Admin</span>
+                                </div>
+                            </Link>
+                        </div>
+                    )}
                 </div>
                 <div>
                     <button

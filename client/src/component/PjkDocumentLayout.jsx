@@ -36,7 +36,7 @@ function PjkDocumentLayout() {
         try {
             // setIsLoading(true);
             axios
-                .put(`${import.meta.env.VITE_SERVER_API}api/pkl/${nomorpjkparam}`, docData, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+                .put(`${import.meta.env.VITE_SERVER_API}api/pjk/${nomorpjkparam}`, docData, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
                 .then((response) => {
                     console.log(response.data);
                 });
@@ -55,7 +55,7 @@ function PjkDocumentLayout() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pkl/${nomorpjkparam}`, {
+                const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pjk/${nomorpjkparam}`, {
                     withCredentials: true,
                     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
                 });
@@ -98,6 +98,12 @@ function PjkDocumentLayout() {
             });
         }
     }, [dataPjk, editMode]);
+
+    useEffect(() => {
+        if (docData.valuta == null) {
+            setDocData({ ...docData, valuta: 'IDR' });
+        }
+    }, [docData]);
 
     return (
         <>
