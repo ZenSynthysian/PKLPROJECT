@@ -39,76 +39,36 @@ Route::post('pjk/bulk-delete', [PjkController::class, 'bulkDelete'])->middleware
 
 
 // Rute untuk autentikasi pengguna
-Route::post('registeruser', [AuthController::class, 'registeruser']);
+
 Route::post('loginuser', [AuthController::class, 'loginuser']);
 
 Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
+    Route::post('registeruser', [AuthController::class, 'registeruser']);
     Route::post('logoutuser', [AuthController::class, 'logoutuser'])->middleware('auth:sanctum');
-});
-
-Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::get('user', [AuthController::class, 'index'])->middleware('auth:sanctum');
-});
-
-Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::get('user/{id}', [AuthController::class, 'show'])->middleware('auth:sanctum');
-});
-
-Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::put('user/{id}', [AuthController::class, 'update'])->middleware('auth:sanctum');
-});
-
-Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::delete('user/{id}', [AuthController::class, 'destroy'])->middleware('auth:sanctum');
 });
-
-
-
 
 // data Pribadi
 Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::get('datauser', [UserController::class, 'index'])->middleware('auth:sanctum');
-});
-
-Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::get('datauser/{id}', [UserController::class, 'show'])->middleware('auth:sanctum');
-});
-
-Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::post('datauser', [UserController::class, 'store'])->middleware('auth:sanctum');
-});
-
-Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::put('datauser/{id}', [UserController::class, 'update'])->middleware('auth:sanctum');
-});
-
-Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::delete('datauser/{id}', [UserController::class, 'destroy'])->middleware('auth:sanctum');
 });
-
-
-
 
 // kadiv
 Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::get('kadivall', [KadivController::class, 'index'])->middleware('auth:sanctum');
-});
-
-Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::get('kadiv/{id}', [KadivController::class, 'show'])->middleware('auth:sanctum');
-});
-
-Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::post('kadiv', [KadivController::class, 'store'])->middleware('auth:sanctum');
-});
-
-Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::put('kadiv/{id}', [KadivController::class, 'update'])->middleware('auth:sanctum');
-});
-
-Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::delete('kadiv/{id}', [KadivController::class, 'destroy'])->middleware('auth:sanctum');
 });
+
 
 // middleware khusus role admin
 // Membuat grup route yang hanya dapat diakses oleh pengguna dengan role 'admin'
