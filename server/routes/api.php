@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\PklController;
+use App\Http\Controllers\Api\PjkController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\KadivController;
@@ -21,18 +21,18 @@ Route::get('/', function () {
 })->name('login');
 
 // Rute yang dilindungi oleh Sanctum
-Route::get('pkl', [PklController::class, 'index'])->middleware('auth:sanctum');
+Route::get('pjk', [PjkController::class, 'index'])->middleware('auth:sanctum');;
 
-// Rute tanpa autentikasi untuk melihat detail PKL
-Route::get('pkl/{nomor_pjk}', [PklController::class, 'show'])->middleware('auth:sanctum');
+// Rute tanpa autentikasi untuk melihat detail PJK
+Route::get('pjk/{nomor_pjk}', [PjkController::class, 'show'])->middleware('auth:sanctum');;
 
 // Rute untuk operasi CRUD lainnya
-Route::post('pkl', [PklController::class, 'store'])->middleware('auth:sanctum');
-Route::put('pkl/{nomor_pjk}', [PklController::class, 'update'])->middleware('auth:sanctum');
-Route::delete('pkl/{nomor_pjk}', [PklController::class, 'destroy'])->middleware('auth:sanctum');
+Route::post('pjk', [PjkController::class, 'store'])->middleware('auth:sanctum');;
+Route::put('pjk/{nomor_pjk}', [PjkController::class, 'update'])->middleware('auth:sanctum');;
+Route::delete('pjk/{nomor_pjk}', [PjkController::class, 'destroy'])->middleware('auth:sanctum');;
 
 // Rute untuk delete Selection
-Route::post('pkl/bulk-delete', [PklController::class, 'bulkDelete'])
+Route::post('pjk/bulk-delete', [PjkController::class, 'bulkDelete'])
     ->middleware('auth:sanctum');
 
 // Rute untuk autentikasi pengguna
@@ -52,8 +52,8 @@ Route::put('datauser/{id}', [UserController::class, 'update'])->middleware('auth
 Route::delete('datauser/{id}', [UserController::class, 'destroy'])->middleware('auth:sanctum');
 
 // kadiv
-Route::get('kadivall', [KadivController::class, 'index']);
-Route::get('kadiv/{id}', [KadivController::class, 'show']);
-Route::post('kadiv', [KadivController::class, 'store']);
-Route::put('kadiv/{id}', [KadivController::class, 'update']);
-Route::delete('kadiv/{id}', [KadivController::class, 'destroy']);
+Route::get('kadivall', [KadivController::class, 'index'])->middleware('auth:sanctum');;
+Route::get('kadiv/{id}', [KadivController::class, 'show'])->middleware('auth:sanctum');;
+Route::post('kadiv', [KadivController::class, 'store'])->middleware('auth:sanctum');;
+Route::put('kadiv/{id}', [KadivController::class, 'update'])->middleware('auth:sanctum');;
+Route::delete('kadiv/{id}', [KadivController::class, 'destroy'])->middleware('auth:sanctum');;

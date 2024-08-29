@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 28, 2024 at 04:57 AM
+-- Generation Time: Aug 29, 2024 at 04:04 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -133,6 +133,15 @@ CREATE TABLE `kadiv` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `kadiv`
+--
+
+INSERT INTO `kadiv` (`id`, `divisi`, `nama`, `nik`, `created_at`, `updated_at`) VALUES
+(2, 'kaya', 'alif', '123', '2024-08-27 20:12:14', '2024-08-27 20:12:14'),
+(3, 'gfff', 'raujl', '321', '2024-08-27 20:15:37', '2024-08-27 20:30:17'),
+(4, 'pf', 'marsel sonjaya', '012345', '2024-08-27 20:29:09', '2024-08-27 20:29:09');
 
 -- --------------------------------------------------------
 
@@ -267,10 +276,10 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pkl`
+-- Table structure for table `pjk`
 --
 
-CREATE TABLE `pkl` (
+CREATE TABLE `pjk` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nomor_pjk` varchar(255) DEFAULT NULL,
   `kepada` varchar(255) DEFAULT NULL,
@@ -303,11 +312,10 @@ CREATE TABLE `pkl` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `pkl`
+-- Dumping data for table `pjk`
 --
 
-INSERT INTO `pkl` (`id`, `nomor_pjk`, `kepada`, `kode_anggaran`, `wbs_cc`, `refrensi`, `no_permohonan_uang_muka`, `jumlah_pencairan`, `nama`, `no_rekening`, `nama_dan_alamat_bank`, `unit_organisasi`, `awal_pelaksanaan`, `akhir_pelaksanaan`, `jumlah_pengambilan`, `jumlah_pjk`, `jumlah_setor`, `saldo`, `pejabat_yang_berwenang`, `tempat_tanggal_tanda_tangan`, `nik`, `nama_ttd`, `catatan_kadiv`, `nama_catatan_kadiv`, `sn`, `nomor_tanda_terima_uang`, `valuta`, `created_at`, `updated_at`) VALUES
-(11, '2211344a', 'dimasadw', '12fwa345', 'asda', 'alifdwaa', '12345dwasdd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 10, 123132, 12321, 312312, 'Ujang', '2024-08-09', NULL, NULL, NULL, NULL, NULL, NULL, 'USD', '2024-08-21 23:08:58', '2024-08-26 00:30:41'),
+INSERT INTO `pjk` (`id`, `nomor_pjk`, `kepada`, `kode_anggaran`, `wbs_cc`, `refrensi`, `no_permohonan_uang_muka`, `jumlah_pencairan`, `nama`, `no_rekening`, `nama_dan_alamat_bank`, `unit_organisasi`, `awal_pelaksanaan`, `akhir_pelaksanaan`, `jumlah_pengambilan`, `jumlah_pjk`, `jumlah_setor`, `saldo`, `pejabat_yang_berwenang`, `tempat_tanggal_tanda_tangan`, `nik`, `nama_ttd`, `catatan_kadiv`, `nama_catatan_kadiv`, `sn`, `nomor_tanda_terima_uang`, `valuta`, `created_at`, `updated_at`) VALUES
 (12, '22113', 'dimasadwswsws', '12fwa345', NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 312312, 'Ujang', '2024-06-09', NULL, NULL, NULL, NULL, NULL, NULL, 'IDR', '2024-08-21 23:09:07', '2024-08-26 19:54:12'),
 (14, '22113555111333', 'dimasadw', '12fwa345', NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 312312, 'Ujang', '2024-08-09', NULL, NULL, NULL, NULL, NULL, NULL, 'IDR', '2024-08-21 23:09:37', '2024-08-21 23:09:37'),
 (16, '22113', 'dimasadw111111', '12fwa345', NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 312312, 'Ujang', '2024-08-09', NULL, NULL, NULL, NULL, NULL, NULL, 'IDR', '2024-08-21 23:08:58', '2024-08-21 23:08:58'),
@@ -434,9 +442,9 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indexes for table `pkl`
+-- Indexes for table `pjk`
 --
-ALTER TABLE `pkl`
+ALTER TABLE `pjk`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -480,7 +488,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `kadiv`
 --
 ALTER TABLE `kadiv`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -495,9 +503,9 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
--- AUTO_INCREMENT for table `pkl`
+-- AUTO_INCREMENT for table `pjk`
 --
-ALTER TABLE `pkl`
+ALTER TABLE `pjk`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --

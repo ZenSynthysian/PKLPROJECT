@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Pkl;
+use App\Models\Pjk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class PklController extends Controller
+class PjkController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data = Pkl::orderBy('pejabat_yang_berwenang')->get();
+        $data = Pjk::orderBy('pejabat_yang_berwenang')->get();
         return response()->json([
             'status' => true,
             'message' => 'Data ditemukan',
@@ -27,7 +27,7 @@ class PklController extends Controller
      */
     public function store(Request $request)
     {
-        $dataPkl = new Pkl;
+        $dataPjk = new Pjk;
 
         $rules = [
             'nomor_pjk' => 'required',
@@ -65,35 +65,35 @@ class PklController extends Controller
             ]);
         }
 
-        $dataPkl->nomor_pjk = $request->nomor_pjk;
-        $dataPkl->kepada = $request->kepada;
-        $dataPkl->kode_anggaran = $request->kode_anggaran;
-        $dataPkl->wbs_cc = $request->wbs_cc;
-        $dataPkl->refrensi = $request->refrensi;
-        $dataPkl->no_permohonan_uang_muka = $request->no_permohonan_uang_muka;
-        $dataPkl->jumlah_pencairan = $request->jumlah_pencairan;
-        $dataPkl->nama = $request->nama;
-        $dataPkl->no_rekening = $request->no_rekening;
-        $dataPkl->nama_dan_alamat_bank = $request->nama_dan_alamat_bank;
-        $dataPkl->unit_organisasi = $request->unit_organisasi;
-        $dataPkl->awal_pelaksanaan = $request->awal_pelaksanaan;
-        $dataPkl->akhir_pelaksanaan = $request->akhir_pelaksanaan;
-        $dataPkl->jumlah_pengambilan = $request->jumlah_pengambilan;
-        $dataPkl->jumlah_pjk = $request->jumlah_pjk;
-        $dataPkl->jumlah_setor = $request->jumlah_setor;
-        $dataPkl->saldo = $request->saldo;
-        $dataPkl->pejabat_yang_berwenang = $request->pejabat_yang_berwenang;
-        $dataPkl->tempat_tanggal_tanda_tangan = $request->tempat_tanggal_tanda_tangan;
-        $dataPkl->nik = $request->nik;
-        $dataPkl->nama_ttd = $request->nama_ttd;
-        $dataPkl->catatan_kadiv = $request->catatan_kadiv;
-        $dataPkl->nama_catatan_kadiv = $request->nama_catatan_kadiv;
-        $dataPkl->sn = $request->sn;
-        $dataPkl->nomor_tanda_terima_uang = $request->nomor_tanda_terima_uang;
-        $dataPkl->valuta = $request->valuta;
+        $dataPjk->nomor_pjk = $request->nomor_pjk;
+        $dataPjk->kepada = $request->kepada;
+        $dataPjk->kode_anggaran = $request->kode_anggaran;
+        $dataPjk->wbs_cc = $request->wbs_cc;
+        $dataPjk->refrensi = $request->refrensi;
+        $dataPjk->no_permohonan_uang_muka = $request->no_permohonan_uang_muka;
+        $dataPjk->jumlah_pencairan = $request->jumlah_pencairan;
+        $dataPjk->nama = $request->nama;
+        $dataPjk->no_rekening = $request->no_rekening;
+        $dataPjk->nama_dan_alamat_bank = $request->nama_dan_alamat_bank;
+        $dataPjk->unit_organisasi = $request->unit_organisasi;
+        $dataPjk->awal_pelaksanaan = $request->awal_pelaksanaan;
+        $dataPjk->akhir_pelaksanaan = $request->akhir_pelaksanaan;
+        $dataPjk->jumlah_pengambilan = $request->jumlah_pengambilan;
+        $dataPjk->jumlah_pjk = $request->jumlah_pjk;
+        $dataPjk->jumlah_setor = $request->jumlah_setor;
+        $dataPjk->saldo = $request->saldo;
+        $dataPjk->pejabat_yang_berwenang = $request->pejabat_yang_berwenang;
+        $dataPjk->tempat_tanggal_tanda_tangan = $request->tempat_tanggal_tanda_tangan;
+        $dataPjk->nik = $request->nik;
+        $dataPjk->nama_ttd = $request->nama_ttd;
+        $dataPjk->catatan_kadiv = $request->catatan_kadiv;
+        $dataPjk->nama_catatan_kadiv = $request->nama_catatan_kadiv;
+        $dataPjk->sn = $request->sn;
+        $dataPjk->nomor_tanda_terima_uang = $request->nomor_tanda_terima_uang;
+        $dataPjk->valuta = $request->valuta;
 
 
-        $post = $dataPkl->save();
+        $post = $dataPjk->save();
 
         return response()->json([
             'status' => true,
@@ -107,7 +107,7 @@ class PklController extends Controller
 
     public function show(string $nomor_pjk)
     {
-        $data = Pkl::where('nomor_pjk', $nomor_pjk)->get();
+        $data = Pjk::where('nomor_pjk', $nomor_pjk)->get();
         if ($data) {
             return response()->json([
                 'status' => true,
@@ -127,8 +127,8 @@ class PklController extends Controller
      */
     public function update(Request $request, string $nomor_pjk)
     {
-        $dataPkl = Pkl::where('nomor_pjk', $nomor_pjk)->first();
-        if (empty($dataPkl)) {
+        $dataPjk = Pjk::where('nomor_pjk', $nomor_pjk)->first();
+        if (empty($dataPjk)) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data tidak ditemukan'
@@ -171,34 +171,35 @@ class PklController extends Controller
             ]);
         }
 
-        $dataPkl->nomor_pjk = $request->nomor_pjk;
-        $dataPkl->kepada = $request->kepada;
-        $dataPkl->kode_anggaran = $request->kode_anggaran;
-        $dataPkl->wbs_cc = $request->wbs_cc;
-        $dataPkl->refrensi = $request->refrensi;
-        $dataPkl->no_permohonan_uang_muka = $request->no_permohonan_uang_muka;
-        $dataPkl->jumlah_pencairan = $request->jumlah_pencairan;
-        $dataPkl->nama = $request->nama;
-        $dataPkl->no_rekening = $request->no_rekening;
-        $dataPkl->nama_dan_alamat_bank = $request->nama_dan_alamat_bank;
-        $dataPkl->unit_organisasi = $request->unit_organisasi;
-        $dataPkl->awal_pelaksanaan = $request->awal_pelaksanaan;
-        $dataPkl->akhir_pelaksanaan = $request->akhir_pelaksanaan;
-        $dataPkl->jumlah_pengambilan = $request->jumlah_pengambilan;
-        $dataPkl->jumlah_pjk = $request->jumlah_pjk;
-        $dataPkl->jumlah_setor = $request->jumlah_setor;
-        $dataPkl->saldo = $request->saldo;
-        $dataPkl->pejabat_yang_berwenang = $request->pejabat_yang_berwenang;
-        $dataPkl->tempat_tanggal_tanda_tangan = $request->tempat_tanggal_tanda_tangan;
-        $dataPkl->nik = $request->nik;
-        $dataPkl->nama_ttd = $request->nama_ttd;
-        $dataPkl->catatan_kadiv = $request->catatan_kadiv;
-        $dataPkl->nama_catatan_kadiv = $request->nama_catatan_kadiv;
-        $dataPkl->sn = $request->sn;
-        $dataPkl->nomor_tanda_terima_uang = $request->nomor_tanda_terima_uang;
-        $dataPkl->valuta = $request->valuta;
+       
+        $dataPjk->nomor_pjk = $request->nomor_pjk;
+        $dataPjk->kepada = $request->kepada;
+        $dataPjk->kode_anggaran = $request->kode_anggaran;
+        $dataPjk->wbs_cc = $request->wbs_cc;
+        $dataPjk->refrensi = $request->refrensi;
+        $dataPjk->no_permohonan_uang_muka = $request->no_permohonan_uang_muka;
+        $dataPjk->jumlah_pencairan = $request->jumlah_pencairan;
+        $dataPjk->nama = $request->nama;
+        $dataPjk->no_rekening = $request->no_rekening;
+        $dataPjk->nama_dan_alamat_bank = $request->nama_dan_alamat_bank;
+        $dataPjk->unit_organisasi = $request->unit_organisasi;
+        $dataPjk->awal_pelaksanaan = $request->awal_pelaksanaan;
+        $dataPjk->akhir_pelaksanaan = $request->akhir_pelaksanaan;
+        $dataPjk->jumlah_pengambilan = $request->jumlah_pengambilan;
+        $dataPjk->jumlah_pjk = $request->jumlah_pjk;
+        $dataPjk->jumlah_setor = $request->jumlah_setor;
+        $dataPjk->saldo = $request->saldo;
+        $dataPjk->pejabat_yang_berwenang = $request->pejabat_yang_berwenang;
+        $dataPjk->tempat_tanggal_tanda_tangan = $request->tempat_tanggal_tanda_tangan;
+        $dataPjk->nik = $request->nik;
+        $dataPjk->nama_ttd = $request->nama_ttd;
+        $dataPjk->catatan_kadiv = $request->catatan_kadiv;
+        $dataPjk->nama_catatan_kadiv = $request->nama_catatan_kadiv;
+        $dataPjk->sn = $request->sn;
+        $dataPjk->nomor_tanda_terima_uang = $request->nomor_tanda_terima_uang;
+        $dataPjk->valuta = $request->valuta;
 
-        $post = $dataPkl->save();
+        $post = $dataPjk->save();
 
         return response()->json([
             'status' => true,
@@ -211,8 +212,8 @@ class PklController extends Controller
      */
     public function destroy(string $nomor_pjk)
     {
-        $dataPkl = Pkl::where('nomor_pjk', $nomor_pjk)->first();
-        if (empty($dataPkl)) {
+        $dataPjk = Pjk::where('nomor_pjk', $nomor_pjk)->first();
+        if (empty($dataPjk)) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data tidak ditemukan'
@@ -221,7 +222,7 @@ class PklController extends Controller
 
 
 
-        $post = $dataPkl->delete();
+        $post = $dataPjk->delete();
 
         return response()->json([
             'status' => true,
@@ -234,7 +235,7 @@ class PklController extends Controller
         // Validate the request
         $request->validate([
             'ids' => 'required|array', // Ensure 'ids' is an array
-            'ids.*' => 'exists:pkl,nomor_pjk' // Ensure each ID exists in the table
+            'ids.*' => 'exists:pjk,nomor_pjk' // Ensure each ID exists in the table
         ]);
 
         // Fetch the IDs to be deleted
@@ -242,7 +243,7 @@ class PklController extends Controller
 
         // Attempt to delete the records
         try {
-            $deletedCount = Pkl::whereIn('nomor_pjk', $ids)->delete();
+            $deletedCount = Pjk::whereIn('nomor_pjk', $ids)->delete();
 
             if ($deletedCount === 0) {
                 return response()->json([
