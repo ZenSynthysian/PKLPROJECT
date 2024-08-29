@@ -44,7 +44,7 @@ function PjkDocumentTable() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pkl`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
+                const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pjk`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
                 setTable(response.data.data);
             } catch (error) {
                 console.log(error.message || error);
@@ -60,7 +60,7 @@ function PjkDocumentTable() {
 
     async function handleClear() {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pkl`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
+            const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pjk`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
             setTable(response.data.data);
         } catch (error) {
             console.log(error.message || error);
@@ -76,7 +76,7 @@ function PjkDocumentTable() {
                 denyButtonText: `Batal`,
             }).then(async (result) => {
                 if (result.isConfirmed) {
-                    await axios.delete(`${import.meta.env.VITE_SERVER_API}api/pkl/${nomor_pjk}`, {
+                    await axios.delete(`${import.meta.env.VITE_SERVER_API}api/pjk/${nomor_pjk}`, {
                         withCredentials: true,
                         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
                     });
@@ -109,7 +109,7 @@ function PjkDocumentTable() {
                 if (result.isConfirmed) {
                     // Perform bulk delete
                     await axios.post(
-                        `${import.meta.env.VITE_SERVER_API}api/pkl/bulk-delete`,
+                        `${import.meta.env.VITE_SERVER_API}api/pjk/bulk-delete`,
                         {
                             ids: selectedIds,
                         },
@@ -137,7 +137,7 @@ function PjkDocumentTable() {
         e.preventDefault();
 
         try {
-            const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pkl/${searchValue}`, {
+            const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pjk/${searchValue}`, {
                 withCredentials: true,
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
             });

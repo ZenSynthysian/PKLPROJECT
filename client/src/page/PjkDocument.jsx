@@ -144,12 +144,12 @@ function PjkDocument() {
                 });
 
             axios
-                .post(`${import.meta.env.VITE_SERVER_API}api/pkl`, data, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+                .post(`${import.meta.env.VITE_SERVER_API}api/pjk`, data, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
                 .then(() => {
                     window.location.replace(`/pjk/detail/${data.nomor_pjk}`);
                 })
                 .catch((error) => {
-                    console.error('ERROR ON POST api/pkl ' + error.response.data.message || error);
+                    console.error('ERROR ON POST api/pjk ' + error.response.data.message || error);
                 });
         } catch (error) {
             console.log(error.message || error);
