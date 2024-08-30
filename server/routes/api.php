@@ -42,17 +42,17 @@ Route::post('pjk/bulk-delete', [PjkController::class, 'bulkDelete'])->middleware
 
 Route::post('loginuser', [AuthController::class, 'loginuser']);
 
-Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
+Route::middleware(['auth:sanctum', RoleMiddleware::class . ':admin'])->group(function () {
     Route::post('registeruser', [AuthController::class, 'registeruser']);
-    Route::post('logoutuser', [AuthController::class, 'logoutuser'])->middleware('auth:sanctum');
-    Route::get('user', [AuthController::class, 'index'])->middleware('auth:sanctum');
-    Route::get('user/{id}', [AuthController::class, 'show'])->middleware('auth:sanctum');
-    Route::put('user/{id}', [AuthController::class, 'update'])->middleware('auth:sanctum');
-    Route::delete('user/{id}', [AuthController::class, 'destroy'])->middleware('auth:sanctum');
+    Route::post('logoutuser', [AuthController::class, 'logoutuser']);
+    Route::get('user', [AuthController::class, 'index']);
+    Route::get('user/{id}', [AuthController::class, 'show']);
+    Route::put('user/{id}', [AuthController::class, 'update']);
+    Route::delete('user/{id}', [AuthController::class, 'destroy']);
 });
 
 // data Pribadi
-Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
+Route::middleware(['auth:sanctum', RoleMiddleware::class . ':admin'])->group(function () {
     Route::get('datauser', [UserController::class, 'index'])->middleware('auth:sanctum');
     Route::get('datauser/{id}', [UserController::class, 'show'])->middleware('auth:sanctum');
     Route::post('datauser', [UserController::class, 'store'])->middleware('auth:sanctum');
@@ -61,7 +61,7 @@ Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
 });
 
 // kadiv
-Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
+Route::middleware(['auth:sanctum', RoleMiddleware::class . ':admin'])->group(function () {
     Route::get('kadivall', [KadivController::class, 'index'])->middleware('auth:sanctum');
     Route::get('kadiv/{id}', [KadivController::class, 'show'])->middleware('auth:sanctum');
     Route::post('kadiv', [KadivController::class, 'store'])->middleware('auth:sanctum');
