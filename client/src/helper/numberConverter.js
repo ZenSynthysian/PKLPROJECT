@@ -5,12 +5,13 @@
  */
 function numberToWords(num) {
     // Define the units, teens, tens, thousands, and thousands labels
-    const units = ['', 'Satu', 'Dua', 'Tiga', 'Empat', 'Lima', 'Enam', 'Tujuh', 'Delapan', 'Sembilan'];
+    const units = ['Nol', 'Satu', 'Dua', 'Tiga', 'Empat', 'Lima', 'Enam', 'Tujuh', 'Delapan', 'Sembilan'];
     const teens = ['Sepuluh', 'Sebelas', 'Dua belas', 'Tiga belas', 'Empat belas', 'Lima belas', 'Enam belas', 'Tujuh belas', 'Delapan belas', 'Sembilan belas'];
     const tens = ['', 'Sepuluh', 'Dua puluh', 'Tiga puluh', 'Empat puluh', 'Lima puluh', 'Enam puluh', 'Tujuh puluh', 'Delapan puluh', 'Sembilan puluh'];
     const thousands = ['', 'Ribu', 'Juta', 'Miliar', 'Triliun'];
 
     // Handle the special cases of 0 and 00
+    if (num === null) return 'NOL';
     if (num === 0) return 'NOL';
     if (num === 0) return 'Nol';
 
@@ -20,7 +21,8 @@ function numberToWords(num) {
      * @returns {string} - The word representation of the number.
      */
     function convertHundreds(n) {
-        if (n === 0) return '';
+        // if (n === 0) return 'NOL';
+        // if (n === null) return 'asd';
         if (n < 10) return units[n].toUpperCase();
         if (n < 20) return teens[n - 10].toUpperCase();
         if (n < 100) {
@@ -56,5 +58,7 @@ function numberToWords(num) {
 }
 
 // Contoh penggunaan
+
+console.log(numberToWords(null));
 
 export const numberToWord = numberToWords;

@@ -11,6 +11,7 @@ function PjkDocumentLayout() {
     const [dataPjk, setDataPjk] = useState([]);
     const [editMode, setEditMode] = useState(false);
     const [docData, setDocData] = useState({});
+    const [mataUang, setMataUang] = useState('');
     // const [isLoading, setIsLoading] = useState(false);
 
     const formatDate = (dateStr) => {
@@ -104,6 +105,14 @@ function PjkDocumentLayout() {
             setDocData({ ...docData, valuta: 'IDR' });
         }
     }, [docData]);
+
+    useEffect(() => {
+        if (docData.valuta == 'IDR') {
+            setMataUang('RUPIAH');
+        } else if (docData.valuta == 'USD') {
+            setMataUang('DOLAR');
+        }
+    }, [docData.valuta]);
 
     return (
         <>
@@ -444,7 +453,7 @@ function PjkDocumentLayout() {
                                         />
                                     ) : (
                                         <div className="flex items-center justify-end pr-1 w-full border border-black">
-                                            <span>{CurrencyFormater(`${docData.valuta}`, docData.jumlah_pengambilan)},00</span>
+                                            <span>{docData.jumlah_pengambilan === null ? '-' : CurrencyFormater(`${docData.valuta}`, docData.jumlah_pengambilan)}</span>
                                         </div>
                                     )}
                                 </td>
@@ -458,7 +467,8 @@ function PjkDocumentLayout() {
                                 <td className="pl-7 absolute w-[35.7rem]">
                                     <div className="flex flex-col items-center">
                                         <div className="w-full ab h-3 border border-black border-b-transparent">
-                                            <div className="-translate-y-[0.14rem]">{numberToWord(docData.jumlah_pengambilan)} RUPIAH</div>
+                                            <div className="-translate-y-[0.14rem]">{numberToWord(docData.jumlah_pengambilan) + ` ${mataUang}`}</div>
+                                            {console.log(docData.jumlah_pengambilan)}
                                         </div>
                                         <div className="w-full border border-black">
                                             <div className="h-4"></div>
@@ -495,7 +505,7 @@ function PjkDocumentLayout() {
                                         />
                                     ) : (
                                         <div className="flex items-center pr-1 w-full border border-black justify-end">
-                                            <span>{CurrencyFormater(`${docData.valuta}`, docData.jumlah_pjk)},00</span>
+                                            <span>{docData.jumlah_pjk === null ? '-' : CurrencyFormater(`${docData.valuta}`, docData.jumlah_pjk)}</span>
                                         </div>
                                     )}
                                 </td>
@@ -507,7 +517,9 @@ function PjkDocumentLayout() {
                                 <td className="pl-7 absolute w-[35.7rem]">
                                     <div className="flex flex-col items-center">
                                         <div className="w-full ab h-3 border border-black border-b-transparent">
-                                            <div className="-translate-y-[0.14rem]">{numberToWord(docData.jumlah_pjk)} RUPIAH</div>
+                                            <div className="-translate-y-[0.14rem]">
+                                                {numberToWord(docData.jumlah_pjk)} {mataUang}
+                                            </div>
                                         </div>
                                         <div className="w-full border border-black">
                                             <div className="h-4"></div>
@@ -543,7 +555,7 @@ function PjkDocumentLayout() {
                                         />
                                     ) : (
                                         <div className="flex items-center pr-1 w-full border border-black justify-end">
-                                            <span>{CurrencyFormater(`${docData.valuta}`, docData.jumlah_setor)}</span>
+                                            <span>{docData.jumlah_setor === null ? '-' : CurrencyFormater(`${docData.valuta}`, docData.jumlah_setor)}</span>
                                         </div>
                                     )}
                                 </td>
@@ -555,7 +567,9 @@ function PjkDocumentLayout() {
                                 <td className="pl-7 absolute w-[35.7rem]">
                                     <div className="flex flex-col items-center">
                                         <div className="w-full ab h-3 border border-black border-b-transparent">
-                                            <div className="-translate-y-[0.14rem]">{numberToWord(docData.jumlah_setor)} RUPIAH</div>
+                                            <div className="-translate-y-[0.14rem]">
+                                                {numberToWord(docData.jumlah_setor)} {mataUang}
+                                            </div>
                                         </div>
                                         <div className="w-full border border-black">
                                             <div className="h-4"></div>
@@ -592,7 +606,7 @@ function PjkDocumentLayout() {
                                         />
                                     ) : (
                                         <div className="flex items-center pr-1 w-full border border-black justify-end">
-                                            <span>{CurrencyFormater(`${docData.valuta}`, docData.saldo)}</span>
+                                            <span>{docData.saldo === null ? '-' : CurrencyFormater(`${docData.valuta}`, docData.saldo)}</span>
                                         </div>
                                     )}
                                 </td>
@@ -603,7 +617,9 @@ function PjkDocumentLayout() {
                                 <td className="pl-7 absolute w-[35.7rem]">
                                     <div className="flex flex-col items-center">
                                         <div className="w-full ab h-3 border border-black border-b-transparent">
-                                            <div className="-translate-y-[0.14rem]">{numberToWord(docData.saldo)} RUPIAH</div>
+                                            <div className="-translate-y-[0.14rem]">
+                                                {numberToWord(docData.saldo)} {mataUang}
+                                            </div>
                                         </div>
                                         <div className="w-full border border-black">
                                             <div className="h-4"></div>
