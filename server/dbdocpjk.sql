@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 10, 2024 at 11:26 AM
+-- Generation Time: Sep 10, 2024 at 02:10 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -427,7 +427,9 @@ CREATE TABLE `kadiv` (
 INSERT INTO `kadiv` (`id`, `divisi`, `nama`, `nik`, `created_at`, `updated_at`) VALUES
 (2, 'kaya', 'alif', '123', '2024-08-27 20:12:14', '2024-08-27 20:12:14'),
 (3, 'gfff', 'raujl', '321', '2024-08-27 20:15:37', '2024-08-27 20:30:17'),
-(4, 'pf', 'marsel sonjaya', '012345', '2024-08-27 20:29:09', '2024-08-27 20:29:09');
+(4, 'pf', 'marsel sonjaya', '012345', '2024-08-27 20:29:09', '2024-08-27 20:29:09'),
+(5, 'KADIV AKUTANSI', 'MOCHAMAD ARIEF', NULL, '2024-09-10 00:30:57', '2024-09-10 00:30:57'),
+(6, NULL, 'ROBIE TAWAKAL', '100023', '2024-09-10 00:30:57', '2024-09-10 00:30:57');
 
 -- --------------------------------------------------------
 
@@ -558,8 +560,9 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (74, 'App\\Models\\User', 5, 'api-pkl', '1d1036ca6c694cd72b85328be571aeef67a14188e9d3f6b2d273c8b4afdb46e3', '[\"*\"]', NULL, NULL, '2024-08-26 19:20:41', '2024-08-26 19:20:41'),
 (75, 'App\\Models\\User', 5, 'api-pkl', '17381864206a68d875c88b3b8e791268102069391bbd4ad482cd87b7e7979ec1', '[\"*\"]', NULL, NULL, '2024-08-26 19:21:33', '2024-08-26 19:21:33'),
 (82, 'App\\Models\\User', 5, 'api-pkl', 'e42ab01f868981f468dfb83b81c80f69b509af9faf217c04f4580934a1db4b4c', '[\"*\"]', NULL, NULL, '2024-08-26 20:26:29', '2024-08-26 20:26:29'),
-(83, 'App\\Models\\User', 5, 'api-pkl', 'ae7267bc0f758f48e241f281343f502811769b93ca1f7c9512fbfffa5a761bf3', '[\"*\"]', '2024-09-10 00:09:03', NULL, '2024-09-10 00:08:07', '2024-09-10 00:09:03'),
-(84, 'App\\Models\\User', 5, 'api-pkl', '8b598ace006c3e6d71b46a49a6fbd91712a6ba3597b6e1b25626b2c03ef4e1f6', '[\"*\"]', '2024-09-10 02:25:22', NULL, '2024-09-10 02:25:01', '2024-09-10 02:25:22');
+(83, 'App\\Models\\User', 5, 'api-pkl', 'ae7267bc0f758f48e241f281343f502811769b93ca1f7c9512fbfffa5a761bf3', '[\"*\"]', '2024-09-10 00:52:37', NULL, '2024-09-10 00:08:07', '2024-09-10 00:52:37'),
+(84, 'App\\Models\\User', 5, 'api-pkl', '03892dd223712010cfa97e0c6740549c211cdede8f32cd9fe4984c9e716ccb9e', '[\"*\"]', '2024-09-10 03:32:04', NULL, '2024-09-10 03:14:26', '2024-09-10 03:32:04'),
+(85, 'App\\Models\\User', 5, 'api-pkl', '79492c9e1d319e94513a5b50b62cc6af6522bc4cb643dd595289154911efa8ed', '[\"*\"]', '2024-09-10 04:53:12', NULL, '2024-09-10 03:29:27', '2024-09-10 04:53:12');
 
 -- --------------------------------------------------------
 
@@ -587,13 +590,14 @@ CREATE TABLE `pjk` (
   `jumlah_setor` int(50) DEFAULT NULL,
   `saldo` int(50) DEFAULT NULL,
   `pejabat_yang_berwenang` varchar(255) DEFAULT NULL,
-  `tempat_tanggal_tanda_tangan` varchar(255) DEFAULT NULL,
+  `tempat_tanggal_tanda_tangan` varchar(225) DEFAULT NULL,
   `nik` varchar(255) DEFAULT NULL,
   `nama_ttd` varchar(255) DEFAULT NULL,
   `catatan_kadiv` varchar(255) DEFAULT NULL,
   `nama_catatan_kadiv` varchar(255) DEFAULT NULL,
   `sn` varchar(255) DEFAULT NULL,
   `nomor_tanda_terima_uang` varchar(32) DEFAULT NULL,
+  `tempat` varchar(20) NOT NULL,
   `valuta` varchar(20) DEFAULT 'IDR',
   `valuta2` varchar(20) DEFAULT 'IDR',
   `valuta3` varchar(20) DEFAULT 'IDR',
@@ -606,11 +610,12 @@ CREATE TABLE `pjk` (
 -- Dumping data for table `pjk`
 --
 
-INSERT INTO `pjk` (`id`, `nomor_pjk`, `kepada`, `kode_anggaran`, `wbs_cc`, `refrensi`, `no_permohonan_uang_muka`, `jumlah_pencairan`, `nama`, `no_rekening`, `nama_dan_alamat_bank`, `unit_organisasi`, `awal_pelaksanaan`, `akhir_pelaksanaan`, `jumlah_pengambilan`, `jumlah_pjk`, `jumlah_setor`, `saldo`, `pejabat_yang_berwenang`, `tempat_tanggal_tanda_tangan`, `nik`, `nama_ttd`, `catatan_kadiv`, `nama_catatan_kadiv`, `sn`, `nomor_tanda_terima_uang`, `valuta`, `valuta2`, `valuta3`, `valuta4`, `created_at`, `updated_at`) VALUES
-(12, '22113', 'dimasadwswsws', NULL, NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 0, 'Ujang', '2024-06-09', NULL, NULL, NULL, NULL, NULL, NULL, 'IDR', 'IDR', 'IDR', 'IDR', '2024-08-21 23:09:07', '2024-09-10 00:08:47'),
-(14, '22113555111333', 'dimasadw', '12fwa345', NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 312312, 'Ujang', '2024-08-09', NULL, NULL, NULL, NULL, NULL, NULL, 'IDR', 'IDR', 'IDR', 'IDR', '2024-08-21 23:09:37', '2024-08-21 23:09:37'),
-(16, '22113', 'dimasadw111111', '12fwa345', NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 312312, 'Ujang', '2024-08-09', NULL, NULL, NULL, NULL, NULL, NULL, 'IDR', 'IDR', 'IDR', 'IDR', '2024-08-21 23:08:58', '2024-08-21 23:08:58'),
-(17, 'PR-0000-NP-2405', 'KADIV AKUTANSI', 'E21', NULL, 'PC0000-FP-2311-00011', 'PU-2311-00007', NULL, 'DIAH PARAMITA', '130101006322508', 'BANK RAKYAT INDONESIA', 'PF', '2023-11-10', '2023-11-10', 35800000, 29373803, 672400000, NULL, 'ROBIE TAWAKAL', '2024-05-06', NULL, NULL, NULL, NULL, 'sdd', NULL, 'IDR', 'IDR', 'IDR', 'IDR', '2024-08-25 23:33:06', '2024-08-26 00:14:47');
+INSERT INTO `pjk` (`id`, `nomor_pjk`, `kepada`, `kode_anggaran`, `wbs_cc`, `refrensi`, `no_permohonan_uang_muka`, `jumlah_pencairan`, `nama`, `no_rekening`, `nama_dan_alamat_bank`, `unit_organisasi`, `awal_pelaksanaan`, `akhir_pelaksanaan`, `jumlah_pengambilan`, `jumlah_pjk`, `jumlah_setor`, `saldo`, `pejabat_yang_berwenang`, `tempat_tanggal_tanda_tangan`, `nik`, `nama_ttd`, `catatan_kadiv`, `nama_catatan_kadiv`, `sn`, `nomor_tanda_terima_uang`, `tempat`, `valuta`, `valuta2`, `valuta3`, `valuta4`, `created_at`, `updated_at`) VALUES
+(12, '22113', 'dimasadwswsws', NULL, NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 0, 'Ujang', '2024-06-09', NULL, NULL, NULL, NULL, NULL, NULL, '', 'IDR', 'IDR', 'IDR', 'IDR', '2024-08-21 23:09:07', '2024-09-10 00:23:27'),
+(14, '22113555111333', 'dimasadw', '12fwa345', NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 312312, 'Ujang', '2024-08-09', NULL, NULL, NULL, NULL, NULL, NULL, '', 'IDR', 'IDR', 'IDR', 'IDR', '2024-08-21 23:09:37', '2024-08-21 23:09:37'),
+(16, '22113', 'dimasadw111111', '12fwa345', NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 312312, 'Ujang', '2024-08-09', NULL, NULL, NULL, NULL, NULL, NULL, '', 'IDR', 'IDR', 'IDR', 'IDR', '2024-08-21 23:08:58', '2024-08-21 23:08:58'),
+(17, 'PR-0000-NP-2405', 'KADIV AKUTANSI', 'E21', NULL, 'PC0000-FP-2311-00011', 'PU-2311-00007', NULL, 'DIAH PARAMITA', '130101006322508', 'BANK RAKYAT INDONESIA', 'PF', '2023-11-10', '2023-11-10', 35800000, 29373803, 672400000, NULL, 'ROBIE TAWAKAL', '2024-05-06', NULL, NULL, NULL, NULL, 'sdd', NULL, '', 'IDR', 'IDR', 'IDR', 'IDR', '2024-08-25 23:33:06', '2024-08-26 00:14:47'),
+(19, 'SC0000-NP-2408-00001', 'KADIV AKUTANSI', NULL, '-', 'HD0000-FP-2209-00080', 'PU-2303-00011', NULL, 'AHMAD SETIAWAN PN', '501050725509', 'BANK RAKYAT INDONESIA', NULL, '2023-03-20', '2023-03-24', 111000000, 108500000, 2500000, 0, 'ROBIE TAWAKAL', 'Agustus 2024', '100023', NULL, NULL, 'MOCHAMAD ARIEF', NULL, '-', 'Bandung', 'IDR', 'IDR', 'IDR', 'IDR', '2024-09-10 00:30:58', '2024-09-10 04:33:38');
 
 -- --------------------------------------------------------
 
@@ -779,7 +784,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `kadiv`
 --
 ALTER TABLE `kadiv`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -791,13 +796,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `pjk`
 --
 ALTER TABLE `pjk`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `users`
