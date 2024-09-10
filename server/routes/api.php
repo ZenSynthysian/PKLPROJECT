@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\PjkController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\KadivController;
+use App\Http\Controllers\Api\CurrenciesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
@@ -69,10 +70,7 @@ Route::middleware(['auth:sanctum', RoleMiddleware::class . ':admin'])->group(fun
     Route::delete('kadiv/{id}', [KadivController::class, 'destroy'])->middleware('auth:sanctum');
 });
 
-
-// middleware khusus role admin
-// Membuat grup route yang hanya dapat diakses oleh pengguna dengan role 'admin'
-// Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
-// Mendefinisikan route ke /admin-dashboard yang menggunakan AdminController dengan metode index
-// Route::get('/admin-dashboard', [AuthController::class, 'index']);
-// });
+// Currencies
+Route::middleware(['auth:sanctum', RoleMiddleware::class . ':admin'])->group(function () {
+    Route::get('currencies/{code}', [CurrenciesController::class, 'show'])->middleware('auth:sanctum');
+});

@@ -91,6 +91,9 @@ class PjkController extends Controller
         $dataPjk->sn = $request->sn;
         $dataPjk->nomor_tanda_terima_uang = $request->nomor_tanda_terima_uang;
         $dataPjk->valuta = $request->valuta;
+        $dataPjk->valuta2 = $request->valuta2;
+        $dataPjk->valuta3 = $request->valuta3;
+        $dataPjk->valuta4 = $request->valuta4;
 
 
         $post = $dataPjk->save();
@@ -198,6 +201,9 @@ class PjkController extends Controller
         $dataPjk->sn = $request->sn;
         $dataPjk->nomor_tanda_terima_uang = $request->nomor_tanda_terima_uang;
         $dataPjk->valuta = $request->valuta;
+        $dataPjk->valuta2 = $request->valuta2;
+        $dataPjk->valuta3 = $request->valuta3;
+        $dataPjk->valuta4 = $request->valuta4;
 
         $post = $dataPjk->save();
 

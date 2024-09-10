@@ -36,6 +36,9 @@ class Pjk extends Model
         'nama_catatan_kadiv',
         'sn',
         'nomor_tanda_terima_uang',
-        'valuta'
+        'valuta',
+        'valuta2',
+        'valuta3',
+        'valuta4'
     ];
 }
