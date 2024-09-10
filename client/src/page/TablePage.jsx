@@ -6,11 +6,11 @@ function TablePage() {
         <>
             <div className="flex justify-center pt-10 text-3xl w-screen">MENU TABLE</div>
 
-            <div className="grid grid-cols-4 p-7 gap-4 pl-32">
+            <div className="flex justify-center items-center p-10 gap-4 pl-32">
                 <SelectionComponent
                     link={'/tablemenu/pjk'}
                     image={documentSVG}
-                    tittle={'PJK'}
+                    tittle={'TABLE PJK'}
                 />
             </div>
         </>

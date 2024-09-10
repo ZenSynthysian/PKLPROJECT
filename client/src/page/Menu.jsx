@@ -6,7 +6,7 @@ function Menu() {
         <>
             <div>
                 <div className="flex justify-center pt-10 text-3xl w-screen">MENU DOCUMENT</div>
-                <div className="grid grid-cols-4 p-7 pl-32 gap-4">
+                <div className="flex justify-center items-center p-10 pl-32 gap-4 ">
                     <SelectionComponent
                         link={'/pjk'}
                         image={documentSVG}

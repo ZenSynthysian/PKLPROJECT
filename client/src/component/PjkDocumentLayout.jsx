@@ -111,6 +111,10 @@ function PjkDocumentLayout() {
             setMataUang('RUPIAH');
         } else if (docData.valuta == 'USD') {
             setMataUang('DOLAR');
+        } else if (docData.valuta == 'EUR') {
+            setMataUang('EURO');
+        } else if (docData.valuta == 'MYR') {
+            ('RINGGIT');
         }
     }, [docData.valuta]);
 
