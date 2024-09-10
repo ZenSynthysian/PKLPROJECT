@@ -66,3 +66,8 @@ button {
         transform: translate(0, -0px);
     }
 }
+
+.space-after-comma::after {
+    content: ', ';
+    margin-left: 1rem; /* Sesuaikan jarak sesuai kebutuhan */
+}

@@ -11,7 +11,8 @@ function numberToWords(num) {
     const thousands = ['', 'Ribu', 'Juta', 'Miliar', 'Triliun'];
 
     // Handle the special cases of 0 and 00
-    if (num === null) return 'NOL';
+    if (num === null) return '';
+    if (num === '-') return '';
     if (num === 0) return 'NOL';
     if (num === 0) return 'Nol';
 

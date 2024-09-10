@@ -4,7 +4,7 @@ import { numberToWord } from '../helper/numberConverter';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { CurrencyFormater } from '../helper/CurrencyFormater';
-import { monthNameFormater } from '../helper/monthNameFormater';
+// import { monthNameFormater } from '../helper/monthNameFormater';
 
 function PjkDocumentLayout() {
     const { nomorpjkparam } = useParams();
@@ -12,6 +12,9 @@ function PjkDocumentLayout() {
     const [editMode, setEditMode] = useState(false);
     const [docData, setDocData] = useState({});
     const [mataUang, setMataUang] = useState('');
+    const [mataUang2, setMataUang2] = useState('');
+    const [mataUang3, setMataUang3] = useState('');
+    const [mataUang4, setMataUang4] = useState('');
     // const [isLoading, setIsLoading] = useState(false);
 
     const formatDate = (dateStr) => {
@@ -19,15 +22,15 @@ function PjkDocumentLayout() {
         return `${day}/${month}/${year}`;
     };
 
-    const formatDateTandaTangan = (dateStr) => {
-        try {
-            const [year, month, day] = String(dateStr).split('-');
-            const nameMonth = monthNameFormater(month).toUpperCase();
-            return `${day} ${nameMonth} ${year}`;
-        } catch (error) {
-            null;
-        }
-    };
+    // const formatDateTandaTangan = (dateStr) => {
+    //     try {
+    //         const [year, month, day] = String(dateStr).split('-');
+    //         const nameMonth = monthNameFormater(month).toUpperCase();
+    //         return `${day} ${nameMonth} ${year}`;
+    //     } catch (error) {
+    //         null;
+    //     }
+    // };
 
     const toggleEditMode = () => {
         setEditMode(!editMode);
@@ -40,6 +43,9 @@ function PjkDocumentLayout() {
                 .put(`${import.meta.env.VITE_SERVER_API}api/pjk/${nomorpjkparam}`, docData, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
                 .then((response) => {
                     console.log(response.data);
+                })
+                .catch((error) => {
+                    console.log(error.message || error);
                 });
 
             setEditMode(false);
@@ -94,29 +100,75 @@ function PjkDocumentLayout() {
                 saldo: dataPjk?.saldo,
                 pejabat_yang_berwenang: dataPjk?.pejabat_yang_berwenang,
                 tempat_tanggal_tanda_tangan: dataPjk?.tempat_tanggal_tanda_tangan,
+                tempat: dataPjk?.tempat,
                 valuta: dataPjk?.valuta,
+                valuta2: dataPjk?.valuta2,
+                valuta3: dataPjk?.valuta3,
+                valuta4: dataPjk?.valuta4,
                 nama_catatan_kadiv: dataPjk?.nama_catatan_kadiv,
             });
         }
     }, [dataPjk, editMode]);
 
-    useEffect(() => {
-        if (docData.valuta == null) {
-            setDocData({ ...docData, valuta: 'IDR' });
-        }
-    }, [docData]);
+    // useEffect(() => {
+    //     if (docData.valuta == null) {
+    //         setDocData({ ...docData, valuta: 'IDR' });
+    //     }
+    // }, [docData]);
 
     useEffect(() => {
-        if (docData.valuta == 'IDR') {
-            setMataUang('RUPIAH');
-        } else if (docData.valuta == 'USD') {
-            setMataUang('DOLAR');
-        } else if (docData.valuta == 'EUR') {
-            setMataUang('EURO');
-        } else if (docData.valuta == 'MYR') {
-            ('RINGGIT');
+        try {
+            axios
+                .get(`${import.meta.env.VITE_SERVER_API}api/currencies/${docData.valuta}`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+                .then((response) => {
+                    setMataUang(response.data.data[0].currency.toUpperCase());
+                })
+                .catch((error) => {
+                    console.log(error.message || error);
+                });
+        } catch (error) {
+            console.log(error.message || error);
         }
-    }, [docData.valuta]);
+
+        try {
+            axios
+                .get(`${import.meta.env.VITE_SERVER_API}api/currencies/${docData.valuta2}`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+                .then((response) => {
+                    setMataUang2(response.data.data[0].currency.toUpperCase());
+                })
+                .catch((error) => {
+                    console.log(error.message || error);
+                });
+        } catch (error) {
+            console.log(error.message || error);
+        }
+
+        try {
+            axios
+                .get(`${import.meta.env.VITE_SERVER_API}api/currencies/${docData.valuta3}`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+                .then((response) => {
+                    setMataUang3(response.data.data[0].currency.toUpperCase());
+                })
+                .catch((error) => {
+                    console.log(error.message || error);
+                });
+        } catch (error) {
+            console.log(error.message || error);
+        }
+
+        try {
+            axios
+                .get(`${import.meta.env.VITE_SERVER_API}api/currencies/${docData.valuta4}`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+                .then((response) => {
+                    setMataUang4(response.data.data[0].currency.toUpperCase());
+                })
+                .catch((error) => {
+                    console.log(error.message || error);
+                });
+        } catch (error) {
+            console.log(error.message || error);
+        }
+    }, [docData.valuta, docData.valuta2, docData.valuta3, docData.valuta4]);
 
     return (
         <>
@@ -191,7 +243,7 @@ function PjkDocumentLayout() {
                                 <tr className="">
                                     <td className="w-28">Anggaran</td>
                                     <td className="w-10">:</td>
-                                    <td className="border h-1 w-1 border-black">
+                                    <td className="border h-[1rem] w-8 border-black">
                                         {editMode ? (
                                             <input
                                                 className="relative z-20 outline-none w-6"
@@ -205,7 +257,7 @@ function PjkDocumentLayout() {
                                         )}
                                     </td>
                                 </tr>
-                                <tr className="absolute flex gap-4 translate-x-20 translate-y-6">
+                                <tr className="absolute flex gap-4 translate-x-20 translate-y-8">
                                     <td className="text-end">SN</td>
                                     <td className="pr-5">:</td>
                                     {editMode ? (
@@ -219,13 +271,13 @@ function PjkDocumentLayout() {
                                             />
                                         </td>
                                     ) : (
-                                        <td className="border w-8 border-black h-4 translate-y-[0.1rem]">{docData.sn}</td>
+                                        <td className="border w-8 border-black h-[1.2rem] translate-y-[0.1rem]">{docData.sn}</td>
                                     )}
                                 </tr>
                             </table>
                         </div>
                     </div>
-                    <div className="border-t-[1mm] pl-8 border-black">
+                    <div className="border-t-[1mm] pl-8 border-black pt-2">
                         <table>
                             <tr>
                                 <td className="pr-7">1</td>
@@ -441,7 +493,7 @@ function PjkDocumentLayout() {
                                             name="valuta"
                                         />
                                     ) : (
-                                        <div className="flex items-center pl-1 w-[20%] border border-black">
+                                        <div className="flex items-center pl-1 h-[1.1rem] w-[20%] border border-black">
                                             <span>{docData.valuta}</span>
                                         </div>
                                     )}
@@ -472,7 +524,6 @@ function PjkDocumentLayout() {
                                     <div className="flex flex-col items-center">
                                         <div className="w-full ab h-3 border border-black border-b-transparent">
                                             <div className="-translate-y-[0.14rem]">{numberToWord(docData.jumlah_pengambilan) + ` ${mataUang}`}</div>
-                                            {console.log(docData.jumlah_pengambilan)}
                                         </div>
                                         <div className="w-full border border-black">
                                             <div className="h-4"></div>
@@ -494,9 +545,19 @@ function PjkDocumentLayout() {
                                 <td>Jumlah PJK</td>
                                 <td className="pl-16">:</td>
                                 <td className="pl-7">
-                                    <div className="flex items-center pl-1 w-[20%] border border-black">
-                                        <span>{docData.valuta}</span>
-                                    </div>
+                                    {editMode ? (
+                                        <input
+                                            className="relative z-20 outline-none border border-black w-32"
+                                            type="text"
+                                            onChange={handleChange}
+                                            value={docData.valuta2}
+                                            name="valuta2"
+                                        />
+                                    ) : (
+                                        <div className="flex items-center pl-1 h-[1.1rem] w-[20%] border border-black">
+                                            <span>{docData.valuta2}</span>
+                                        </div>
+                                    )}
                                 </td>
                                 <td className="pl-7 w-[2.in]">
                                     {editMode ? (
@@ -509,7 +570,7 @@ function PjkDocumentLayout() {
                                         />
                                     ) : (
                                         <div className="flex items-center pr-1 w-full border border-black justify-end">
-                                            <span>{docData.jumlah_pjk === null ? '-' : CurrencyFormater(`${docData.valuta}`, docData.jumlah_pjk)}</span>
+                                            <span>{docData.jumlah_pjk === null ? '-' : CurrencyFormater(`${docData.valuta2}`, docData.jumlah_pjk)}</span>
                                         </div>
                                     )}
                                 </td>
@@ -522,7 +583,7 @@ function PjkDocumentLayout() {
                                     <div className="flex flex-col items-center">
                                         <div className="w-full ab h-3 border border-black border-b-transparent">
                                             <div className="-translate-y-[0.14rem]">
-                                                {numberToWord(docData.jumlah_pjk)} {mataUang}
+                                                {numberToWord(docData.jumlah_pjk)} {mataUang2}
                                             </div>
                                         </div>
                                         <div className="w-full border border-black">
@@ -544,9 +605,19 @@ function PjkDocumentLayout() {
                                 <td>Jumlah Setor</td>
                                 <td className="pl-16">:</td>
                                 <td className="pl-7">
-                                    <div className="flex items-center pl-1 w-[20%] border border-black">
-                                        <span>{docData.valuta}</span>
-                                    </div>
+                                    {editMode ? (
+                                        <input
+                                            className="relative z-20 outline-none border border-black w-32"
+                                            type="text"
+                                            onChange={handleChange}
+                                            value={docData.valuta3}
+                                            name="valuta3"
+                                        />
+                                    ) : (
+                                        <div className="flex items-center pl-1 h-[1.1rem] w-[20%] border border-black">
+                                            <span>{docData.valuta3}</span>
+                                        </div>
+                                    )}
                                 </td>
                                 <td className="pl-7 w-[2.in]">
                                     {editMode ? (
@@ -559,7 +630,7 @@ function PjkDocumentLayout() {
                                         />
                                     ) : (
                                         <div className="flex items-center pr-1 w-full border border-black justify-end">
-                                            <span>{docData.jumlah_setor === null ? '-' : CurrencyFormater(`${docData.valuta}`, docData.jumlah_setor)}</span>
+                                            <span>{docData.jumlah_setor === null ? '-' : CurrencyFormater(`${docData.valuta3}`, docData.jumlah_setor)}</span>
                                         </div>
                                     )}
                                 </td>
@@ -572,7 +643,7 @@ function PjkDocumentLayout() {
                                     <div className="flex flex-col items-center">
                                         <div className="w-full ab h-3 border border-black border-b-transparent">
                                             <div className="-translate-y-[0.14rem]">
-                                                {numberToWord(docData.jumlah_setor)} {mataUang}
+                                                {numberToWord(docData.jumlah_setor)} {mataUang3}
                                             </div>
                                         </div>
                                         <div className="w-full border border-black">
@@ -595,9 +666,19 @@ function PjkDocumentLayout() {
                                 <td>Saldo</td>
                                 <td className="pl-16">:</td>
                                 <td className="pl-7">
-                                    <div className="flex items-center pl-1 w-[20%] border border-black">
-                                        <span>{docData.valuta}</span>
-                                    </div>
+                                    {editMode ? (
+                                        <input
+                                            className="relative z-20 outline-none border border-black w-32"
+                                            type="text"
+                                            onChange={handleChange}
+                                            value={docData.valuta4}
+                                            name="valuta4"
+                                        />
+                                    ) : (
+                                        <div className="flex items-center pl-1 h-[1.1rem] w-[20%] border border-black">
+                                            <span>{docData.valuta4}</span>
+                                        </div>
+                                    )}
                                 </td>
                                 <td className="pl-7 w-[2.in]">
                                     {editMode ? (
@@ -610,7 +691,7 @@ function PjkDocumentLayout() {
                                         />
                                     ) : (
                                         <div className="flex items-center pr-1 w-full border border-black justify-end">
-                                            <span>{docData.saldo === null ? '-' : CurrencyFormater(`${docData.valuta}`, docData.saldo)}</span>
+                                            <span>{docData.saldo === null ? '-' : CurrencyFormater(`${docData.valuta4}`, docData.saldo)}</span>
                                         </div>
                                     )}
                                 </td>
@@ -622,7 +703,7 @@ function PjkDocumentLayout() {
                                     <div className="flex flex-col items-center">
                                         <div className="w-full ab h-3 border border-black border-b-transparent">
                                             <div className="-translate-y-[0.14rem]">
-                                                {numberToWord(docData.saldo)} {mataUang}
+                                                {numberToWord(docData.saldo)} {Number.isInteger(docData.saldo) ? mataUang4 : ''}
                                             </div>
                                         </div>
                                         <div className="w-full border border-black">
@@ -646,17 +727,30 @@ function PjkDocumentLayout() {
 
                         <div className="pr-14">
                             <div className="flex justify-end">
-                                <div className="flex flex-col gap-[3.8rem]">
+                                <div className="flex flex-col gap-[4.1rem]">
                                     {editMode ? (
-                                        <input
-                                            className="relative z-20 outline-none border border-black w-32"
-                                            type="date"
-                                            onChange={handleChange} //tempat_tanggal_tanda_tangan
-                                            value={docData.tempat_tanggal_tanda_tangan}
-                                            name="tempat_tanggal_tanda_tangan"
-                                        />
+                                        <div>
+                                            <input
+                                                className="relative z-20 outline-none border border-black w-14"
+                                                type="text"
+                                                onChange={handleChange} //tempat_tanggal_tanda_tangan
+                                                value={docData.tempat}
+                                                name="tempat"
+                                            />
+                                            ,<span className="pr-4" />
+                                            <input
+                                                className="relative z-20 outline-none border border-black w-32"
+                                                type="text"
+                                                onChange={handleChange} //tempat_tanggal_tanda_tangan
+                                                value={docData.tempat_tanggal_tanda_tangan}
+                                                name="tempat_tanggal_tanda_tangan"
+                                            />
+                                        </div>
                                     ) : (
-                                        <div className="text-center">Bandung, {formatDateTandaTangan(docData.tempat_tanggal_tanda_tangan)}</div>
+                                        <div className="text-center">
+                                            {docData.tempat},<span className="pr-7" />
+                                            {docData.tempat_tanggal_tanda_tangan}
+                                        </div>
                                     )}
                                     <div className="flex flex-col">
                                         {editMode ? (
@@ -687,22 +781,22 @@ function PjkDocumentLayout() {
                                                 )}
                                             </p>
                                         </div>
-                                        <div>Pejabat yang berwenang</div>
+                                        <div className="italic">Pejabat yang berwenang</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="flex flex-col pl-9 gap-2">
-                            <div className="flex">
+                        <div className="flex flex-col pl-9 gap-2 -translate-y-7">
+                            <div className="flex translate-y-">
                                 <div className="border border-black w-7 h-4"></div>
                                 <div className="pl-[35px]">Disetujui</div>
                             </div>
-                            <div className="flex">
+                            <div className="flex translate-y-">
                                 <div className="border border-black w-7 h-4"></div>
                                 <div className="pl-[35px]">Dikembalikan</div>
                             </div>
-                            <div className="flex flex-col gap-14">
+                            <div className="flex flex-col gap-16">
                                 <div>
                                     <div>Catatan</div>
                                     {editMode ? (
@@ -729,7 +823,7 @@ function PjkDocumentLayout() {
                                     ) : (
                                         <div className="font-bold border-b-2 border-black w-fit">{docData?.nama_catatan_kadiv}</div>
                                     )}
-                                    <div className="">Pejabat yang berwenang</div>
+                                    <div className="italic">Pejabat yang berwenang</div>
                                 </div>
                             </div>
                         </div>

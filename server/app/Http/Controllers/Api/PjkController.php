@@ -90,6 +90,7 @@ class PjkController extends Controller
         $dataPjk->nama_catatan_kadiv = $request->nama_catatan_kadiv;
         $dataPjk->sn = $request->sn;
         $dataPjk->nomor_tanda_terima_uang = $request->nomor_tanda_terima_uang;
+        $dataPjk->tempat = $request->tempat;
         $dataPjk->valuta = $request->valuta;
         $dataPjk->valuta2 = $request->valuta2;
         $dataPjk->valuta3 = $request->valuta3;
@@ -174,7 +175,7 @@ class PjkController extends Controller
             ]);
         }
 
-       
+
         $dataPjk->nomor_pjk = $request->nomor_pjk;
         $dataPjk->kepada = $request->kepada;
         $dataPjk->kode_anggaran = $request->kode_anggaran;
@@ -200,6 +201,7 @@ class PjkController extends Controller
         $dataPjk->nama_catatan_kadiv = $request->nama_catatan_kadiv;
         $dataPjk->sn = $request->sn;
         $dataPjk->nomor_tanda_terima_uang = $request->nomor_tanda_terima_uang;
+        $dataPjk->tempat = $request->tempat;
         $dataPjk->valuta = $request->valuta;
         $dataPjk->valuta2 = $request->valuta2;
         $dataPjk->valuta3 = $request->valuta3;

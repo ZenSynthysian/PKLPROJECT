@@ -36,6 +36,7 @@ class Pjk extends Model
         'nama_catatan_kadiv',
         'sn',
         'nomor_tanda_terima_uang',
+        'tempat',
         'valuta',
         'valuta2',
         'valuta3',

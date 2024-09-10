@@ -11,6 +11,25 @@ function PjkDocument() {
     const [pejabatYangBerwenangDiDivisi, setPejabatYangBerwenangDiDivisi] = useState('');
     const [nik, setNik] = useState('');
     const [nomorPjk, setNomorPjk] = useState('');
+    const [jumlah_pengambilan, setJumlahPengambilan] = useState('');
+    const [jumlah_pjk, setJumlahPjk] = useState('');
+    const [jumlah_setor, setJumlahSetor] = useState('');
+
+    useEffect(() => {
+        setJumlahSetor(jumlah_pengambilan - jumlah_pjk);
+    }, [jumlah_pengambilan, jumlah_pjk]);
+
+    function handleJumlahPengambilanChange(e) {
+        setJumlahPengambilan(e.target.value);
+    }
+
+    function handleJumlahPjkChange(e) {
+        setJumlahPjk(e.target.value);
+    }
+
+    function handleJumlahSetorChange(e) {
+        setJumlahSetor(e.target.value);
+    }
 
     useEffect(() => {
         try {
@@ -187,6 +206,7 @@ function PjkDocument() {
                                 onChange={handleNomorPjkChange}
                                 placeholder="NOMOR PJK"
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
+                                required
                             />
                             <input
                                 type="text"
@@ -221,7 +241,7 @@ function PjkDocument() {
                             />
                             <input
                                 type="text"
-                                name="jumlah_pencairan"
+                                name="nomor_tanda_terima_uang"
                                 placeholder="NO TANDA TERIMA UANG"
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
                             />
@@ -277,18 +297,24 @@ function PjkDocument() {
                             <input
                                 type="number"
                                 name="jumlah_pengambilan"
+                                onChange={handleJumlahPengambilanChange}
+                                value={jumlah_pengambilan}
                                 placeholder="JUMLAH PENGAMBILAN"
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
                             />
                             <input
                                 type="number"
                                 name="jumlah_pjk"
+                                onChange={handleJumlahPjkChange}
+                                value={jumlah_pjk}
                                 placeholder="JUMLAH PJK"
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
                             />
                             <input
                                 type="number"
                                 name="jumlah_setor"
+                                onChange={handleJumlahSetorChange}
+                                value={jumlah_setor}
                                 placeholder="JUMLAH SETOR"
                                 className="text-center h-10 outline-none placeholder:text-center border-b-2 border-blue-700 focus:border-blue-400 focus:border-b-4 rounded transition-all duration-75"
                             />

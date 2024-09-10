@@ -5,7 +5,7 @@ function SelectionComponent(props) {
     return (
         <>
             <Link to={props.link}>
-                <div className="flex group flex-col justify-center items-center border-2 w-[15rem] bg-white rounded-lg border-blue-500 shadow-2xl">
+                <div className="flex group flex-col justify-center items-center border-2 w-[15  rem] bg-white rounded-lg border-blue-500 shadow-2xl">
                     <img
                         src={props.image}
                         alt={props.tittle}
