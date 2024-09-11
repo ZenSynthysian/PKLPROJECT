@@ -60,21 +60,27 @@ class CurrenciesController extends Controller
      * Display the specified resource.
      */
 
-    public function show(string $code)
-    {
-        $data = Currencies::where('code', $code)->get();
-        if ($data) {
-            return response()->json([
-                'status' => true,
-                'message' => 'Data ditemukan',
-                'data' => $data
-            ], 200);
-        } else {
-            return response()->json([
-                'status' => false,
-                'message' => 'Data tidak ditemukan'
-            ]);
-        }
+     public function show(string $code, string $code2 = null, string $code3 = null, string $code4 = null)
+     {
+         // Buat array berisi kode yang valid (tidak null)
+         $codes = array_filter([$code, $code2, $code3, $code4]);
+     
+         // Ambil data berdasarkan array kode yang diberikan
+         $data = Currencies::whereIn('code', $codes)->get();
+     
+         // Cek apakah data ditemukan
+         if (!$data->isEmpty()) {
+             return response()->json([
+                 'status' => true,
+                 'message' => 'Data ditemukan',
+                 'data' => $data
+             ], 200);
+         } else {
+             return response()->json([
+                 'status' => false,
+                 'message' => 'Data tidak ditemukan'
+             ], 404);
+         }
     }
 
     /**

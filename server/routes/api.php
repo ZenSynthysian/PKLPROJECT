@@ -72,5 +72,5 @@ Route::middleware(['auth:sanctum', RoleMiddleware::class . ':admin'])->group(fun
 
 // Currencies
 Route::middleware(['auth:sanctum', RoleMiddleware::class . ':admin'])->group(function () {
-    Route::get('currencies/{code}', [CurrenciesController::class, 'show'])->middleware('auth:sanctum');
+    Route::get('currencies/{code}/{code2?}/{code3?}/{code4?}', [CurrenciesController::class, 'show'])->middleware('auth:sanctum');
 });
