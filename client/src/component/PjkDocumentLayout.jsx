@@ -119,48 +119,15 @@ function PjkDocumentLayout() {
     useEffect(() => {
         try {
             axios
-                .get(`${import.meta.env.VITE_SERVER_API}api/currencies/${docData.valuta}`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
-                .then((response) => {
-                    setMataUang(response.data.data[0].currency.toUpperCase());
+                .get(`${import.meta.env.VITE_SERVER_API}api/currencies/${docData.valuta}/${docData.valuta2}/${docData.valuta3}/${docData.valuta4}`, {
+                    withCredentials: true,
+                    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
                 })
-                .catch((error) => {
-                    console.log(error.message || error);
-                });
-        } catch (error) {
-            console.log(error.message || error);
-        }
-
-        try {
-            axios
-                .get(`${import.meta.env.VITE_SERVER_API}api/currencies/${docData.valuta2}`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
                 .then((response) => {
-                    setMataUang2(response.data.data[0].currency.toUpperCase());
-                })
-                .catch((error) => {
-                    console.log(error.message || error);
-                });
-        } catch (error) {
-            console.log(error.message || error);
-        }
-
-        try {
-            axios
-                .get(`${import.meta.env.VITE_SERVER_API}api/currencies/${docData.valuta3}`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
-                .then((response) => {
-                    setMataUang3(response.data.data[0].currency.toUpperCase());
-                })
-                .catch((error) => {
-                    console.log(error.message || error);
-                });
-        } catch (error) {
-            console.log(error.message || error);
-        }
-
-        try {
-            axios
-                .get(`${import.meta.env.VITE_SERVER_API}api/currencies/${docData.valuta4}`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
-                .then((response) => {
-                    setMataUang4(response.data.data[0].currency.toUpperCase());
+                    setMataUang(response.data[0].currency.toUpperCase());
+                    setMataUang2(response.data[1].currency.toUpperCase());
+                    setMataUang3(response.data[2].currency.toUpperCase());
+                    setMataUang4(response.data[3].currency.toUpperCase());
                 })
                 .catch((error) => {
                     console.log(error.message || error);
@@ -523,7 +490,9 @@ function PjkDocumentLayout() {
                                 <td className="pl-7 absolute w-[35.7rem]">
                                     <div className="flex flex-col items-center">
                                         <div className="w-full ab h-3 border border-black border-b-transparent">
-                                            <div className="-translate-y-[0.14rem]">{numberToWord(docData.jumlah_pengambilan) + ` ${mataUang}`}</div>
+                                            <div className="-translate-y-[0.14rem]">
+                                                {numberToWord(docData.jumlah_pengambilan) + ` ${Number.isInteger(docData.jumlah_pengambilan) ? mataUang : ''}`}
+                                            </div>
                                         </div>
                                         <div className="w-full border border-black">
                                             <div className="h-4"></div>
@@ -583,7 +552,7 @@ function PjkDocumentLayout() {
                                     <div className="flex flex-col items-center">
                                         <div className="w-full ab h-3 border border-black border-b-transparent">
                                             <div className="-translate-y-[0.14rem]">
-                                                {numberToWord(docData.jumlah_pjk)} {mataUang2}
+                                                {numberToWord(docData.jumlah_pjk)} {Number.isInteger(docData.jumlah_pjk) ? mataUang2 : ''}
                                             </div>
                                         </div>
                                         <div className="w-full border border-black">
@@ -643,7 +612,7 @@ function PjkDocumentLayout() {
                                     <div className="flex flex-col items-center">
                                         <div className="w-full ab h-3 border border-black border-b-transparent">
                                             <div className="-translate-y-[0.14rem]">
-                                                {numberToWord(docData.jumlah_setor)} {mataUang3}
+                                                {numberToWord(docData.jumlah_setor)} {Number.isInteger(docData.jumlah_setor) ? mataUang3 : ''}
                                             </div>
                                         </div>
                                         <div className="w-full border border-black">

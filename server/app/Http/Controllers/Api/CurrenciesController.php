@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Currencies;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class CurrenciesController extends Controller
 {
@@ -60,27 +61,30 @@ class CurrenciesController extends Controller
      * Display the specified resource.
      */
 
-     public function show(string $code, string $code2 = null, string $code3 = null, string $code4 = null)
-     {
-         // Buat array berisi kode yang valid (tidak null)
-         $codes = array_filter([$code, $code2, $code3, $code4]);
-     
-         // Ambil data berdasarkan array kode yang diberikan
-         $data = Currencies::whereIn('code', $codes)->get();
-     
-         // Cek apakah data ditemukan
-         if (!$data->isEmpty()) {
-             return response()->json([
-                 'status' => true,
-                 'message' => 'Data ditemukan',
-                 'data' => $data
-             ], 200);
-         } else {
-             return response()->json([
-                 'status' => false,
-                 'message' => 'Data tidak ditemukan'
-             ], 404);
-         }
+    public function show(string $code, string $code2 = null, string $code3 = null, string $code4 = null)
+    {
+        // Buat sub-query untuk setiap kode mata uang
+        $queries = [];
+
+        $codes = [$code, $code2, $code3, $code4];
+        foreach ($codes as $code) {
+            if ($code) {
+                $queries[] = DB::table('currencies')
+                    ->where('code', $code)
+                    ->limit(1);
+            }
+        }
+
+        // Gabungkan sub-query dengan UNION ALL
+        $query = $queries[0];
+        for ($i = 1; $i < count($queries); $i++) {
+            $query = $query->unionAll($queries[$i]);
+        }
+
+        // Ambil hasil
+        $result = $query->get();
+
+        return response()->json($result);
     }
 
     /**
