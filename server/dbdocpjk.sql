@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 10, 2024 at 02:10 PM
+-- Generation Time: Sep 12, 2024 at 06:48 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -373,6 +373,17 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `folder`
+--
+
+CREATE TABLE `folder` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `jobs`
 --
 
@@ -562,7 +573,10 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (82, 'App\\Models\\User', 5, 'api-pkl', 'e42ab01f868981f468dfb83b81c80f69b509af9faf217c04f4580934a1db4b4c', '[\"*\"]', NULL, NULL, '2024-08-26 20:26:29', '2024-08-26 20:26:29'),
 (83, 'App\\Models\\User', 5, 'api-pkl', 'ae7267bc0f758f48e241f281343f502811769b93ca1f7c9512fbfffa5a761bf3', '[\"*\"]', '2024-09-10 00:52:37', NULL, '2024-09-10 00:08:07', '2024-09-10 00:52:37'),
 (84, 'App\\Models\\User', 5, 'api-pkl', '03892dd223712010cfa97e0c6740549c211cdede8f32cd9fe4984c9e716ccb9e', '[\"*\"]', '2024-09-10 03:32:04', NULL, '2024-09-10 03:14:26', '2024-09-10 03:32:04'),
-(85, 'App\\Models\\User', 5, 'api-pkl', '79492c9e1d319e94513a5b50b62cc6af6522bc4cb643dd595289154911efa8ed', '[\"*\"]', '2024-09-10 04:53:12', NULL, '2024-09-10 03:29:27', '2024-09-10 04:53:12');
+(85, 'App\\Models\\User', 5, 'api-pkl', '79492c9e1d319e94513a5b50b62cc6af6522bc4cb643dd595289154911efa8ed', '[\"*\"]', '2024-09-10 04:53:12', NULL, '2024-09-10 03:29:27', '2024-09-10 04:53:12'),
+(86, 'App\\Models\\User', 5, 'api-pkl', 'b5ce3899ddbd096f545e4336c370b32bded1bbe0ec31a553ea5fbaff0c463a16', '[\"*\"]', NULL, NULL, '2024-09-10 19:15:55', '2024-09-10 19:15:55'),
+(87, 'App\\Models\\User', 5, 'api-pkl', 'ae2d1a3f08de77970403b5ac20554a160752e586d94ce56124b2431438e41d9f', '[\"*\"]', '2024-09-10 20:40:23', NULL, '2024-09-10 19:39:06', '2024-09-10 20:40:23'),
+(88, 'App\\Models\\User', 5, 'api-pkl', '2991e4704b4fd6462dd6c69f10b7a7e56a39a570a185c243e08c58b53a3764d5', '[\"*\"]', '2024-09-11 20:33:29', NULL, '2024-09-11 20:25:27', '2024-09-11 20:33:29');
 
 -- --------------------------------------------------------
 
@@ -572,6 +586,7 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 
 CREATE TABLE `pjk` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `folder` varchar(255) DEFAULT NULL,
   `nomor_pjk` varchar(255) DEFAULT NULL,
   `kepada` varchar(255) DEFAULT NULL,
   `kode_anggaran` varchar(255) DEFAULT NULL,
@@ -596,12 +611,12 @@ CREATE TABLE `pjk` (
   `catatan_kadiv` varchar(255) DEFAULT NULL,
   `nama_catatan_kadiv` varchar(255) DEFAULT NULL,
   `sn` varchar(255) DEFAULT NULL,
-  `nomor_tanda_terima_uang` varchar(32) DEFAULT NULL,
-  `tempat` varchar(20) NOT NULL,
-  `valuta` varchar(20) DEFAULT 'IDR',
-  `valuta2` varchar(20) DEFAULT 'IDR',
-  `valuta3` varchar(20) DEFAULT 'IDR',
-  `valuta4` varchar(20) DEFAULT 'IDR',
+  `nomor_tanda_terima_uang` varchar(255) DEFAULT NULL,
+  `tempat` varchar(255) DEFAULT NULL,
+  `valuta` varchar(255) DEFAULT 'IDR',
+  `valuta2` varchar(255) DEFAULT 'IDR',
+  `valuta3` varchar(255) DEFAULT 'IDR',
+  `valuta4` varchar(255) DEFAULT 'IDR',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -610,12 +625,47 @@ CREATE TABLE `pjk` (
 -- Dumping data for table `pjk`
 --
 
-INSERT INTO `pjk` (`id`, `nomor_pjk`, `kepada`, `kode_anggaran`, `wbs_cc`, `refrensi`, `no_permohonan_uang_muka`, `jumlah_pencairan`, `nama`, `no_rekening`, `nama_dan_alamat_bank`, `unit_organisasi`, `awal_pelaksanaan`, `akhir_pelaksanaan`, `jumlah_pengambilan`, `jumlah_pjk`, `jumlah_setor`, `saldo`, `pejabat_yang_berwenang`, `tempat_tanggal_tanda_tangan`, `nik`, `nama_ttd`, `catatan_kadiv`, `nama_catatan_kadiv`, `sn`, `nomor_tanda_terima_uang`, `tempat`, `valuta`, `valuta2`, `valuta3`, `valuta4`, `created_at`, `updated_at`) VALUES
-(12, '22113', 'dimasadwswsws', NULL, NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 0, 'Ujang', '2024-06-09', NULL, NULL, NULL, NULL, NULL, NULL, '', 'IDR', 'IDR', 'IDR', 'IDR', '2024-08-21 23:09:07', '2024-09-10 00:23:27'),
-(14, '22113555111333', 'dimasadw', '12fwa345', NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 312312, 'Ujang', '2024-08-09', NULL, NULL, NULL, NULL, NULL, NULL, '', 'IDR', 'IDR', 'IDR', 'IDR', '2024-08-21 23:09:37', '2024-08-21 23:09:37'),
-(16, '22113', 'dimasadw111111', '12fwa345', NULL, 'alifdwa', '12345dwasd', 2223, 'dimasdaw', '13010106322508k,o', '1234daw', '3321', '2024-08-14', '2024-08-16', 2232, 123132, 12321, 312312, 'Ujang', '2024-08-09', NULL, NULL, NULL, NULL, NULL, NULL, '', 'IDR', 'IDR', 'IDR', 'IDR', '2024-08-21 23:08:58', '2024-08-21 23:08:58'),
-(17, 'PR-0000-NP-2405', 'KADIV AKUTANSI', 'E21', NULL, 'PC0000-FP-2311-00011', 'PU-2311-00007', NULL, 'DIAH PARAMITA', '130101006322508', 'BANK RAKYAT INDONESIA', 'PF', '2023-11-10', '2023-11-10', 35800000, 29373803, 672400000, NULL, 'ROBIE TAWAKAL', '2024-05-06', NULL, NULL, NULL, NULL, 'sdd', NULL, '', 'IDR', 'IDR', 'IDR', 'IDR', '2024-08-25 23:33:06', '2024-08-26 00:14:47'),
-(19, 'SC0000-NP-2408-00001', 'KADIV AKUTANSI', NULL, '-', 'HD0000-FP-2209-00080', 'PU-2303-00011', NULL, 'AHMAD SETIAWAN PN', '501050725509', 'BANK RAKYAT INDONESIA', NULL, '2023-03-20', '2023-03-24', 111000000, 108500000, 2500000, 0, 'ROBIE TAWAKAL', 'Agustus 2024', '100023', NULL, NULL, 'MOCHAMAD ARIEF', NULL, '-', 'Bandung', 'IDR', 'IDR', 'IDR', 'IDR', '2024-09-10 00:30:58', '2024-09-10 04:33:38');
+INSERT INTO `pjk` (`id`, `folder`, `nomor_pjk`, `kepada`, `kode_anggaran`, `wbs_cc`, `refrensi`, `no_permohonan_uang_muka`, `jumlah_pencairan`, `nama`, `no_rekening`, `nama_dan_alamat_bank`, `unit_organisasi`, `awal_pelaksanaan`, `akhir_pelaksanaan`, `jumlah_pengambilan`, `jumlah_pjk`, `jumlah_setor`, `saldo`, `pejabat_yang_berwenang`, `tempat_tanggal_tanda_tangan`, `nik`, `nama_ttd`, `catatan_kadiv`, `nama_catatan_kadiv`, `sn`, `nomor_tanda_terima_uang`, `tempat`, `valuta`, `valuta2`, `valuta3`, `valuta4`, `created_at`, `updated_at`) VALUES
+(101, NULL, 'Raden Kambali Saragih', 'Kani Handayani S.Sos', 'Luis Martana Setiawan', 'Calista Astuti S.E.I', 'Ajeng Astuti', 'Upik Hendri Nashiruddin M.TI.', 66, 'Daliman Haryanto', 'Cawisadi Capa Anggriawan', 'Lutfan Upik Sihombing S.I.Kom', 'Gilang Thamrin', '2003-02-11', '1993-03-01', 61, 44, 34, 93, 'Lanjar Januar', 'Karimah Rahmi Kusmawati S.H.', 'Yessi Novitasari', 'Anita Calista Nasyiah', 'Puti Lestari', NULL, 'Silvia Wahyuni S.Gz', 'Balapati Siregar S.Gz', 'Elma Yolanda', 'Patricia Paulin Suartini', 'Tami Wirda Laksita M.Farm', 'Talia Raisa Hasanah', 'Arsipatra Hutapea', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(102, NULL, 'Caturangga Maheswara', 'Ibrahim Saptono', 'Ophelia Suartini', 'Chelsea Mayasari', 'Putri Suryatmi M.M.', 'Elisa Yolanda', 36, 'Legawa Prasetyo S.Farm', 'Jayeng Dabukke S.I.Kom', 'Ana Andriani', 'Yessi Ciaobella Usada S.Pt', '1986-06-19', '2000-10-07', 20, 74, 1, 64, 'Ophelia Ciaobella Wahyuni', 'Lili Nasyidah', 'Eka Edi Hutapea S.T.', 'Kambali Sitorus', 'Kiandra Suartini', NULL, 'Raihan Ikhsan Napitupulu', 'Ratih Prastuti S.Pt', 'Maya Lailasari', 'Adikara Gunarto', 'Emong Laswi Irawan S.T.', 'Wakiman Prasetya S.H.', 'Cakrawangsa Samosir', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(103, NULL, 'Prayitna Saefullah', 'Kenes Pangestu', 'Bakianto Sitompul', 'Jaka Ajiono Ramadan S.E.I', 'Manah Halim', 'Hendri Bahuwarna Wahyudin', 99, 'Lasmanto Jumadi Dongoran S.Kom', 'Wira Jagaraga Prakasa', 'Taufik Waluyo Kusumo M.Kom.', 'Jamal Waskita', '2013-06-01', '1974-10-23', 18, 26, 23, 38, 'Cahyo Irawan S.E.I', 'Wani Kusmawati M.Pd', 'Darman Maheswara', 'Salsabila Mulyani', 'Hasta Winarno', NULL, 'Maya Puspita', 'Maria Namaga', 'Widya Karimah Suartini', 'Natalia Betania Mardhiyah', 'Zaenab Zulaika', 'Mulyanto Sihombing', 'Jasmin Melani', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(104, NULL, 'Cahyo Manullang', 'Hasan Suryono', 'Puti Nasyidah', 'Wardi Yahya Widodo S.Ked', 'Elvina Sudiati', 'Putri Rahayu', 84, 'Bahuwarna Tirtayasa Putra S.Sos', 'Umi Bella Yolanda', 'Rahmi Usada', 'Maida Farida', '2000-06-05', '1973-07-28', 97, 67, 45, 32, 'Dono Marpaung M.Kom.', 'Mahmud Suwarno', 'Reza Harjasa Sihombing S.IP', 'Jindra Ardianto', 'Prayogo Wijaya', NULL, 'Dadi Mandala', 'Nadine Nasyidah S.Psi', 'Devi Hassanah', 'Laras Astuti', 'Jasmin Zalindra Lailasari', 'Empluk Marpaung', 'Lili Purnawati S.IP', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(105, NULL, 'Kamidin Lurhur Rajasa', 'Diana Ika Utami', 'Rafid Emong Pangestu M.Ak', 'Belinda Pudjiastuti', 'Eman Luwar Rajata', 'Alika Yuni Yuliarti M.TI.', 70, 'Warsita Waskita M.Ak', 'Yessi Diana Nasyiah S.I.Kom', 'Mala Melani', 'Eva Purwanti', '1972-06-26', '1972-11-09', 73, 8, 95, 83, 'Saka Lazuardi', 'Mariadi Mahendra S.Kom', 'Pardi Pradana', 'Fitriani Pratiwi', 'Hari Pangestu M.Pd', NULL, 'Umaya Yoga Thamrin S.Gz', 'Gatra Narji Budiyanto S.Ked', 'Legawa Baktianto Uwais M.TI.', 'Zaenab Titin Hastuti S.H.', 'Cemplunk Maheswara S.Ked', 'Siti Handayani', 'Jaga Mangunsong', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(106, NULL, 'Jati Parman Nainggolan S.H.', 'Irwan Argono Sinaga', 'Genta Puspita', 'Laras Kuswandari', 'Ilyas Nugraha Rajasa M.Ak', 'Unjani Faizah Puspasari', 9, 'Rahmi Fitria Namaga', 'Luhung Mansur S.Pd', 'Vanya Purwanti', 'Lega Damanik', '2001-12-20', '2023-10-14', 67, 56, 52, 16, 'Raden Jarwi Mansur', 'Jasmin Uchita Padmasari', 'Titi Laksita', 'Gaiman Dongoran', 'Titin Maryati', NULL, 'Bakti Daliono Hidayanto M.M.', 'Eva Yulianti', 'Mulyanto Rajasa', 'Bakiono Respati Waskita', 'Zizi Laksmiwati', 'Edi Budiyanto', 'Almira Mayasari M.Farm', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(107, NULL, 'Puji Laras Riyanti S.Pt', 'Dadi Saputra', 'Almira Bella Sudiati', 'Purwa Marpaung', 'Nyoman Lazuardi', 'Sarah Yuliarti', 74, 'Lintang Lestari', 'Bella Sudiati', 'Nadia Rika Fujiati', 'Sakura Yuliarti', '2013-07-03', '2011-12-22', 51, 24, 32, 6, 'Tari Samiah Permata', 'Yunita Dian Uyainah S.T.', 'Anggabaya Manullang', 'Bancar Gunawan S.Farm', 'Bakidin Wijaya', NULL, 'Muhammad Asirwada Irawan', 'Margana Mandala', 'Puji Mayasari', 'Dadap Jamal Maheswara S.Pt', 'Sabrina Rahimah', 'Jumari Sihombing S.Psi', 'Betania Namaga S.E.', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(108, NULL, 'Ridwan Damanik', 'Raden Tomi Sinaga', 'Ami Aryani S.Ked', 'Kani Yulianti S.Ked', 'Cakrabirawa Wacana', 'Pranawa Ade Maheswara S.I.Kom', 49, 'Rahmi Aisyah Nasyidah', 'Karna Najib Iswahyudi', 'Gambira Lazuardi S.E.I', 'Kasiran Tamba', '2010-11-20', '1993-01-22', 17, 40, 19, 21, 'Argono Hidayat S.E.', 'Ophelia Riyanti', 'Lega Pradipta', 'Mulya Kuswoyo', 'Carub Uwais', NULL, 'Olga Edward Wahyudin', 'Vanya Eli Pratiwi', 'Qori Rahmawati S.Psi', 'Lili Purwanti', 'Warji Mandala', 'Lintang Rahmi Namaga M.Pd', 'Kasim Galak Prabowo S.IP', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(109, NULL, 'Ridwan Eja Narpati M.TI.', 'Upik Pranowo S.T.', 'Silvia Maryati', 'Indah Handayani', 'Fitria Gawati Lestari', 'Karta Dabukke', 6, 'Septi Sudiati M.Pd', 'Zaenab Febi Yulianti S.H.', 'Bagiya Hutasoit', 'Kuncara Zulkarnain', '1971-01-29', '1986-10-07', 95, 96, 32, 87, 'Rachel Usamah S.E.I', 'Syahrini Pertiwi', 'Wardaya Damanik', 'Danu Danuja Saptono', 'Kala Lazuardi S.Ked', NULL, 'Ophelia Suryatmi', 'Banawa Marbun', 'Raina Puspita', 'Juli Lailasari', 'Rina Lala Suryatmi', 'Kadir Pradipta', 'Maria Purwanti S.Psi', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(110, NULL, 'Jelita Winarsih', 'Karja Nababan', 'Adika Pangestu Maheswara M.Kom.', 'Wirda Aryani', 'Aurora Utami S.Psi', 'Aisyah Mayasari', 100, 'Harsaya Purwanto Kusumo', 'Emas Unggul Pradipta S.IP', 'Vino Dongoran', 'Harsana Sihombing', '2013-01-24', '2007-06-19', 50, 39, 52, 3, 'Elma Ghaliyati Lailasari', 'Clara Zelda Kuswandari S.E.', 'Mariadi Prayoga', 'Anita Rahimah', 'Wakiman Prakasa', NULL, 'Harsana Malik Firgantoro S.Psi', 'Amalia Yulia Mandasari S.E.', 'Tirta Mursinin Anggriawan S.IP', 'Padma Novi Zulaika', 'Anggabaya Pradipta', 'Hendri Aslijan Tampubolon', 'Darmaji Sihotang', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(111, NULL, 'Rosman Hakim', 'Suci Oktaviani', 'Natalia Yuliarti', 'Oni Farida S.H.', 'Cager Banawa Hakim', 'Cici Lestari', 71, 'Ella Maryati', 'Tedi Mansur', 'Rahmi Susanti', 'Lutfan Mansur S.E.I', '2006-08-16', '1970-01-03', 10, 81, 41, 21, 'Kezia Winarsih', 'Ridwan Artanto Santoso S.Pd', 'Asmianto Balamantri Saefullah S.Psi', 'Vega Prayoga', 'Hani Wijayanti S.Farm', NULL, 'Rika Wahyuni', 'Ami Prastuti', 'Ghaliyati Pudjiastuti S.I.Kom', 'Gilda Rahayu', 'Cinta Melani', 'Damu Permadi M.Farm', 'Banara Uwais', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(112, NULL, 'Umaya Mustofa Prasetyo M.M.', 'Rangga Waskita', 'Irnanto Hakim', 'Damu Sihombing', 'Vanesa Yuliarti S.Gz', 'Ilsa Gabriella Handayani S.H.', 70, 'Lili Kusmawati', 'Jaeman Oskar Dongoran', 'Ade Wibisono', 'Ibrani Lazuardi', '2020-02-10', '2002-12-13', 24, 80, 98, 41, 'Rahmi Siska Laksmiwati M.Farm', 'Mutia Haryanti', 'Amelia Yulianti', 'Gangsar Wacana', 'Karimah Puspasari', NULL, 'Wira Rajata', 'Harimurti Pangestu', 'Puput Pratiwi S.Pt', 'Mila Usamah', 'Ghaliyati Ophelia Mayasari S.Pt', 'Saiful Dongoran', 'Eman Tarihoran', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(113, NULL, 'Novi Maryati', 'Indra Uwais', 'Yuni Mila Hassanah S.Sos', 'Edward Rajasa', 'Surya Setiawan', 'Opan Januar', 57, 'Kartika Yulianti', 'Maryanto Marpaung', 'Jelita Wijayanti', 'Septi Laksita', '2008-06-29', '1983-01-21', 52, 4, 26, 34, 'Lasmanto Wibowo', 'Widya Vanya Wahyuni M.Ak', 'Dina Ajeng Mulyani S.Sos', 'Michelle Tina Novitasari S.Ked', 'Maria Padmasari', NULL, 'Mustika Daniswara Budiyanto', 'Saka Kemba Nababan M.Kom.', 'Rika Maryati S.Farm', 'Dian Hassanah', 'Vicky Wahyuni', 'Tasnim Tampubolon', 'Elisa Sabrina Usamah S.T.', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(114, NULL, 'Upik Gunawan', 'Keisha Riyanti', 'Siti Lalita Yuliarti', 'Padmi Yuniar', 'Prakosa Putra', 'Citra Padma Laksita S.H.', 18, 'Sarah Wastuti S.T.', 'Gatra Maulana', 'Malik Kusumo', 'Dadi Pradana', '1982-12-22', '2016-04-15', 43, 99, 9, 84, 'Agnes Rahmawati S.T.', 'Rahmi Mulyani', 'Taufan Salahudin', 'Mahdi Damanik M.Kom.', 'Zelda Uchita Hastuti', NULL, 'Rina Oktaviani', 'Ophelia Putri Kusmawati', 'Ciaobella Agustina', 'Titin Puspasari M.M.', 'Mujur Rajasa', 'Agus Napitupulu', 'Maimunah Nadia Laksmiwati M.TI.', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(115, NULL, 'Marsudi Natsir', 'Gilda Elma Yulianti M.Kom.', 'Mala Ophelia Hariyah', 'Cahyono Anggriawan', 'Limar Prakasa', 'Sadina Uchita Nurdiyanti', 42, 'Farhunnisa Utami', 'Gamanto Digdaya Tamba', 'Ami Usamah', 'Catur Jarwa Firgantoro', '1983-03-31', '1977-04-19', 63, 84, 25, 9, 'Karman Utama', 'Amalia Kiandra Hassanah', 'Mulyono Simanjuntak M.Ak', 'Laswi Prasetya Setiawan S.H.', 'Dinda Fitriani Agustina S.Ked', NULL, 'Zahra Andriani S.Gz', 'Niyaga Gunawan', 'Lala Mulyani S.Kom', 'Najwa Pratiwi', 'Titin Malika Lailasari M.Kom.', 'Nova Farida', 'Kairav Gunawan S.Sos', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(116, NULL, 'Zulfa Fujiati', 'Keisha Agustina M.TI.', 'Vivi Andriani', 'Zahra Putri Pudjiastuti S.Pd', 'Sakura Hassanah S.E.', 'Abyasa Rajata', 64, 'Patricia Suartini', 'Yessi Puspita', 'Jamal Langgeng Saefullah S.E.I', 'Empluk Kurniawan', '2004-10-04', '2006-07-09', 81, 31, 33, 78, 'Karya Saptono', 'Lalita Uyainah M.Ak', 'Jamil Wacana M.Farm', 'Tira Endah Mayasari', 'Taufan Ganjaran Nugroho M.M.', NULL, 'Lanjar Opung Permadi S.E.I', 'Nurul Safitri', 'Gading Jefri Santoso S.Ked', 'Jelita Suartini', 'Lala Lailasari', 'Hasna Susanti', 'Mulyono Aditya Putra M.Kom.', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(117, NULL, 'Febi Ulva Uyainah', 'Farah Hastuti M.Farm', 'Candra Saadat Jailani', 'Maria Rahmawati', 'Violet Gasti Namaga', 'Pia Tari Safitri S.Psi', 61, 'Kenzie Permadi', 'Yani Pertiwi', 'Elma Pratiwi', 'Kania Sudiati M.Kom.', '2001-05-16', '1973-10-29', 30, 34, 83, 70, 'Cagak Setiawan', 'Samiah Nasyiah', 'Yani Puspita S.Kom', 'Nadia Suryatmi S.T.', 'Kamila Ida Nuraini', NULL, 'Agus Santoso M.Pd', 'Diah Nuraini', 'Jamalia Haryanti', 'Nyoman Balapati Gunawan', 'Cahyadi Nasim Simanjuntak', 'Maria Hastuti', 'Gaiman Kuswoyo', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(118, NULL, 'Raisa Wastuti M.M.', 'Vicky Nadia Suryatmi', 'Melinda Andriani', 'Najam Budiyanto', 'Hairyanto Reza Hutasoit', 'Maya Melani S.I.Kom', 65, 'Tami Halimah', 'Jabal Situmorang', 'Hartana Kurniawan', 'Kezia Wahyuni', '1978-02-14', '2008-07-01', 78, 28, 31, 51, 'Arta Sihombing S.I.Kom', 'Nasrullah Endra Putra S.Sos', 'Siti Laksmiwati S.Psi', 'Prasetyo Januar', 'Kenari Habibi S.Kom', NULL, 'Tiara Nadine Kusmawati', 'Emin Hidayat S.Gz', 'Najam Irawan', 'Halima Riyanti S.Psi', 'Sabrina Shania Yulianti M.M.', 'Balamantri Gatot Pratama', 'Icha Ratih Pertiwi', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(119, NULL, 'Respati Putra S.Kom', 'Rahmi Yuliarti S.T.', 'Yunita Sarah Purwanti M.M.', 'Aurora Alika Rahimah S.E.I', 'Budi Raharja Halim', 'Raharja Natsir', 92, 'Banawi Widodo', 'Gandewa Pradipta', 'Narji Mulya Mansur M.Pd', 'Putri Lala Uyainah', '2020-08-27', '1999-05-13', 51, 5, 88, 81, 'Balidin Sihotang S.E.I', 'Zelaya Ira Astuti M.TI.', 'Galar Gadang Hutapea S.Psi', 'Cawisono Ega Wacana', 'Violet Suartini', NULL, 'Abyasa Samosir', 'Oni Puspita', 'Dagel Kusuma Simanjuntak', 'Citra Nasyidah', 'Artanto Thamrin', 'Farah Andriani', 'Ayu Usamah', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(120, NULL, 'Oliva Winarsih S.Gz', 'Candra Rudi Damanik', 'Tasnim Pranowo', 'Emil Wibisono M.M.', 'Karen Susanti', 'Kani Ifa Rahayu S.E.I', 66, 'Dasa Luthfi Budiman S.Kom', 'Cengkir Kawaya Narpati', 'Fitriani Mardhiyah', 'Iriana Laksmiwati', '2004-12-11', '1987-06-08', 48, 49, 38, 19, 'Najam Marbun', 'Widya Siska Aryani M.Kom.', 'Jane Rahayu M.M.', 'Maya Kusmawati M.Kom.', 'Najwa Fathonah Usada', NULL, 'Rahmi Aisyah Usamah', 'Cayadi Kusumo', 'Koko Raditya Mangunsong S.IP', 'Michelle Mayasari S.Pd', 'Yusuf Marpaung S.Sos', 'Puji Amelia Nurdiyanti', 'Lala Dalima Andriani', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(121, NULL, 'Oni Yuliana Prastuti S.I.Kom', 'Edi Halim S.Pd', 'Gandi Jaga Sitompul', 'Lulut Hendri Sihombing', 'Harto Wibisono', 'Gabriella Nasyiah', 81, 'Febi Paramita Padmasari', 'Umi Natalia Hariyah', 'Kamaria Rahayu', 'Candrakanta Iswahyudi', '2007-11-16', '2007-09-21', 87, 24, 37, 61, 'Ida Ratna Namaga', 'Tantri Amalia Lestari S.Gz', 'Qori Mandasari', 'Kani Suartini S.T.', 'Darijan Megantara', NULL, 'Ika Rahmawati', 'Enteng Kusumo', 'Carub Pangestu', 'Mahfud Sirait', 'Rudi Siregar', 'Sabar Prasetyo S.T.', 'Laras Hartati', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(122, NULL, 'Vicky Uyainah', 'Siska Yulianti', 'Lasmanto Ikin Wibowo S.Ked', 'Rina Yulianti', 'Karen Rahayu', 'Jail Wijaya S.Pd', 53, 'Makara Saputra M.TI.', 'Uchita Zizi Padmasari', 'Agnes Novitasari S.E.I', 'Widya Wahyuni', '2006-05-13', '1974-10-29', 66, 4, 77, 56, 'Raden Jailani', 'Rafi Salahudin S.H.', 'Ani Astuti S.Psi', 'Lidya Pratiwi S.Pt', 'Tiara Halimah', NULL, 'Drajat Lazuardi', 'Cakrawala Prasasta', 'Mumpuni Olga Kuswoyo S.Kom', 'Cecep Mandala', 'Rahmat Maryadi S.Kom', 'Nrima Nababan S.Gz', 'Belinda Restu Pertiwi', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(123, NULL, 'Zulaikha Lili Laksita', 'Ciaobella Yuliarti S.Gz', 'Citra Kezia Uyainah M.M.', 'Mahfud Uwais', 'Banawa Dadi Waskita S.Pt', 'Fitria Nasyiah', 52, 'Abyasa Ramadan', 'Shakila Riyanti', 'Ayu Mulyani', 'Vanesa Pudjiastuti S.H.', '1980-08-02', '2006-07-02', 91, 25, 67, 22, 'Daru Cahyo Uwais', 'Syahrini Yolanda', 'Ivan Simbolon', 'Violet Mandasari', 'Abyasa Widodo', NULL, 'Darsirah Mumpuni Sitompul S.Pd', 'Latif Prayoga', 'Jumadi Hutagalung', 'Raina Astuti', 'Calista Fujiati M.Kom.', 'Latika Wastuti S.Psi', 'Farhunnisa Maryati S.Farm', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(124, NULL, 'Cawisadi Nalar Pratama S.Gz', 'Elma Padmasari M.Kom.', 'Jarwi Liman Gunawan S.Farm', 'Eli Rachel Lailasari', 'Indah Tina Hartati', 'Vanya Hartati', 11, 'Harsaya Firmansyah', 'Agnes Suartini', 'Taufik Sinaga', 'Titi Rahimah', '2000-04-30', '1977-03-13', 97, 77, 12, 47, 'Tiara Laksmiwati', 'Qori Nasyidah', 'Suci Ina Nuraini S.Pt', 'Purwadi Setiawan', 'Ganjaran Pranowo S.H.', NULL, 'Diana Usamah', 'Malika Haryanti', 'Kiandra Maryati', 'Baktiadi Ajimin Lazuardi', 'Taswir Rajasa', 'Harsana Atma Wasita M.Ak', 'Rina Purnawati', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(125, NULL, 'Novi Ana Kusmawati M.Kom.', 'Kuncara Satya Suwarno M.Pd', 'Wage Paiman Sihombing', 'Fitriani Prastuti', 'Uda Purwa Pangestu M.TI.', 'Ajeng Almira Yulianti', 59, 'Caket Nashiruddin', 'Catur Salahudin', 'Ira Amelia Hassanah', 'Jefri Bakiadi Prabowo', '1983-10-24', '2021-10-25', 58, 86, 2, 20, 'Ihsan Najmudin', 'Oliva Lili Anggraini', 'Elvin Nababan S.Sos', 'Titi Clara Hasanah', 'Johan Nugroho', NULL, 'Tania Pertiwi', 'Karsa Mansur S.H.', 'Gina Pertiwi', 'Nasab Budiman', 'Jumadi Mansur S.IP', 'Bahuwarna Kasim Haryanto M.Pd', 'Jayeng Jumadi Hutagalung', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(126, NULL, 'Betania Andriani', 'Hamzah Saiful Santoso', 'Endra Pangestu Marbun', 'Ganda Waskita M.TI.', 'Cawuk Simanjuntak', 'Empluk Suryono M.Farm', 46, 'Pranata Tampubolon', 'Harsanto Firmansyah', 'Uchita Patricia Nasyiah S.Pt', 'Kamidin Harimurti Firgantoro S.E.', '2016-06-15', '2013-02-06', 59, 68, 88, 72, 'Timbul Martani Lazuardi M.Farm', 'Kenari Simbolon', 'Salman Latupono', 'Calista Maryati', 'Devi Yolanda', NULL, 'Prakosa Pranata Habibi S.Pt', 'Farah Aryani', 'Galur Haryanto S.Farm', 'Wage Winarno S.Pt', 'Edi Damanik M.Pd', 'Imam Hakim S.Pd', 'Vino Pradana', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(127, NULL, 'Faizah Safitri', 'Queen Nuraini', 'Daryani Nrima Hidayanto', 'Enteng Uwais', 'Bahuwirya Haryanto', 'Vanesa Hartati', 100, 'Mila Mulyani', 'Gawati Lalita Nasyidah S.Pd', 'Dewi Wijayanti', 'Iriana Tiara Astuti', '2021-11-08', '1986-01-24', 9, 36, 36, 62, 'Baktiadi Gunawan', 'Sabrina Fujiati', 'Sari Hesti Laksita M.Ak', 'Kamaria Prastuti', 'Jarwadi Haryanto', NULL, 'Cagak Prakasa', 'Zulaikha Pudjiastuti', 'Zelda Zulaika S.Farm', 'Carub Manullang', 'Bakianto Saputra', 'Ophelia Zulfa Aryani S.Sos', 'Wawan Manullang M.Pd', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(128, NULL, 'Candrakanta Sitorus', 'Tami Oliva Rahayu M.M.', 'Bakiadi Bakda Budiman M.Pd', 'Gatra Balamantri Budiyanto S.H.', 'Tari Hastuti', 'Dalimin Narji Setiawan', 16, 'Ade Puspasari', 'Agnes Prastuti S.Ked', 'Ihsan Darijan Wasita S.E.', 'Hendra Pranata Sitompul M.Kom.', '1993-06-16', '1990-04-14', 45, 86, 90, 53, 'Erik Luwes Wasita M.Kom.', 'Shakila Purwanti', 'Amelia Mardhiyah', 'Janet Rahmawati', 'Kartika Nurdiyanti', NULL, 'Oliva Yulianti', 'Clara Winarsih', 'Hartaka Manullang S.Farm', 'Tari Novi Nurdiyanti S.Pd', 'Uda Maheswara', 'Nrima Pratama S.H.', 'Salwa Hastuti M.Ak', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(129, NULL, 'Nadine Puspasari', 'Asmadi Januar', 'Ani Yolanda M.Ak', 'Titi Rahimah', 'Gandi Prasetya', 'Malik Karna Kuswoyo', 12, 'Gandewa Hidayanto', 'Salimah Laksmiwati', 'Raihan Uwais M.Farm', 'Irma Ani Wijayanti', '2001-02-21', '2001-12-21', 21, 86, 96, 37, 'Fitriani Laksita', 'Bahuwirya Nugroho M.Pd', 'Raina Hassanah', 'Elvin Danu Suwarno', 'Amelia Sudiati', NULL, 'Kambali Aditya Suwarno S.E.', 'Karsana Jagapati Tarihoran M.TI.', 'Paiman Kusumo', 'Aisyah Lailasari', 'Reksa Sihombing', 'Michelle Palastri', 'Yani Puti Mayasari S.I.Kom', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(130, NULL, 'Galur Sinaga', 'Slamet Xanana Sihombing S.Ked', 'Cornelia Hartati', 'Lalita Rahimah', 'Rahayu Icha Uyainah S.IP', 'Jagaraga Siregar', 89, 'Wardaya Putu Gunawan', 'Darimin Gaduh Waskita S.Farm', 'Prayogo Jagaraga Marbun', 'Gangsa Mahendra', '1992-11-26', '2003-11-25', 41, 23, 49, 90, 'Tasnim Santoso', 'Kanda Hidayanto', 'Yuliana Eka Puspita S.Psi', 'Kamila Sarah Puspita', 'Vicky Prastuti', NULL, 'Gasti Zamira Padmasari M.Kom.', 'Fathonah Rahmi Fujiati M.TI.', 'Sari Kuswandari', 'Prima Haryanto', 'Wardi Kuswoyo S.Psi', 'Joko Hidayat', 'Dinda Pudjiastuti S.E.', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(131, NULL, 'Vicky Anggraini', 'Kunthara Jayadi Waskita', 'Martana Lazuardi', 'Ganep Laswi Suryono S.Psi', 'Juli Wahyuni S.Pd', 'Among Baktianto Wibisono', 52, 'Amelia Astuti S.Kom', 'Taufan Manah Pradipta S.T.', 'Lantar Tasnim Rajasa', 'Satya Kurniawan', '1980-03-28', '2010-10-24', 84, 55, 63, 17, 'Yuni Sarah Rahimah', 'Rachel Yolanda', 'Usman Januar', 'Putri Wahyuni', 'Dadap Pranowo', NULL, 'Salwa Olivia Winarsih', 'Cahyo Dongoran S.Kom', 'Taswir Haryanto S.E.', 'Halima Hartati S.E.', 'Heryanto Narpati', 'Yance Fujiati M.Farm', 'Farah Pudjiastuti M.M.', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(132, NULL, 'Farah Wahyuni M.M.', 'Suci Purwanti', 'Niyaga Budiman', 'Abyasa Radit Samosir', 'Kamal Samosir S.Pt', 'Padmi Yance Suryatmi S.Pt', 72, 'Zelaya Rahmi Handayani S.E.', 'Yuni Siska Usamah S.Psi', 'Warsita Prayitna Hardiansyah', 'Hafshah Lailasari', '1980-12-08', '2016-04-30', 18, 22, 10, 39, 'Diah Melani S.I.Kom', 'Belinda Kuswandari', 'Nadine Usamah', 'Rahmi Lailasari M.Ak', 'Marwata Maheswara', NULL, 'Emin Hakim S.E.', 'Among Prasetyo Sirait', 'Yono Nababan', 'Indah Widiastuti', 'Rama Kuswoyo', 'Sarah Nasyidah S.H.', 'Puput Yuliarti', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(133, NULL, 'Natalia Irma Nurdiyanti S.E.', 'Joko Lazuardi M.Farm', 'Karimah Aryani S.IP', 'Ciaobella Hartati', 'Rusman Kuncara Firmansyah', 'Ina Nasyidah', 84, 'Rahman Mandala M.Ak', 'Mariadi Utama S.H.', 'Salman Dirja Marpaung S.Ked', 'Jefri Karsa Wibisono M.Kom.', '1980-10-28', '2001-04-30', 89, 56, 67, 43, 'Qori Haryanti', 'Jatmiko Uwais', 'Karya Mahfud Gunawan', 'Asmuni Firmansyah', 'Darimin Jailani', NULL, 'Gangsa Firmansyah', 'Vera Hastuti S.T.', 'Laras Laksmiwati', 'Cakrabirawa Atmaja Wibisono S.Farm', 'Tania Ulya Mardhiyah', 'Manah Prabowo', 'Mahmud Mujur Maulana', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(134, NULL, 'Gandi Rafi Dabukke S.E.', 'Ridwan Waluyo', 'Jamalia Astuti', 'Najwa Yuniar M.TI.', 'Perkasa Budiman', 'Darman Pangestu Wahyudin M.Ak', 24, 'Karimah Karimah Novitasari S.Ked', 'Keisha Halimah', 'Lidya Mandasari', 'Vinsen Nashiruddin', '1998-07-11', '1987-11-10', 37, 86, 70, 25, 'Lili Usamah', 'Icha Hartati', 'Laila Pratiwi', 'Maida Uyainah', 'Keisha Tiara Haryanti S.Psi', NULL, 'Gabriella Prastuti', 'Cahyadi Hutapea', 'Prakosa Saptono', 'Cemani Marpaung', 'Tira Mayasari S.IP', 'Alika Mayasari', 'Zalindra Haryanti S.Sos', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(135, NULL, 'Kenari Sihombing S.Pd', 'Sadina Rahmi Palastri S.Kom', 'Yusuf Kurniawan', 'Tantri Victoria Lestari S.Ked', 'Martani Widodo', 'Carla Melani', 87, 'Cemeti Suryono', 'Gandi Hardiansyah', 'Nasim Napitupulu', 'Elisa Rahmawati M.Kom.', '1970-10-08', '2008-03-16', 78, 4, 59, 16, 'Dacin Kurnia Nugroho S.I.Kom', 'Gaman Catur Wijaya S.Psi', 'Latika Permata', 'Mumpuni Latupono S.Gz', 'Kamila Puspasari', NULL, 'Zalindra Rahayu', 'Mustika Wacana', 'Bakti Budiman', 'Prabu Wibisono', 'Taufan Pratama', 'Sadina Suryatmi', 'Rahmi Permata', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(136, NULL, 'Karna Rajasa S.Sos', 'Julia Usamah', 'Lulut Rajata', 'Rika Zulaika', 'Vivi Eli Hartati', 'Ani Handayani', 61, 'Maras Hutasoit', 'Fitria Prastuti', 'Vino Emas Megantara', 'Calista Hasanah', '1991-04-21', '2010-11-11', 54, 34, 90, 37, 'Martani Rajata', 'Anom Mansur', 'Kamal Saefullah', 'Artawan Najmudin S.Kom', 'Hesti Faizah Andriani S.Psi', NULL, 'Samsul Naradi Sihombing', 'Bahuwirya Maryadi S.T.', 'Hilda Hassanah S.Pt', 'Omar Maheswara', 'Tina Sudiati', 'Jumadi Sitompul', 'Hadi Setya Rajata', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(137, NULL, 'Vicky Aryani', 'Xanana Gilang Halim', 'Gina Mulyani M.TI.', 'Cakrabuana Tampubolon S.Kom', 'Farah Winarsih S.Pd', 'Faizah Aryani S.Kom', 52, 'Kamila Rahimah', 'Manah Satya Mahendra M.Pd', 'Rina Hartati', 'Hendri Sabri Megantara', '1974-06-02', '2004-04-12', 55, 96, 97, 40, 'Sidiq Megantara', 'Ajeng Vicky Mulyani S.Pd', 'Agnes Gasti Kusmawati', 'Eka Purnawati', 'Sari Rahimah', NULL, 'Indah Palastri', 'Digdaya Mulya Mansur', 'Amalia Rahmawati', 'Bakiadi Hasim Sihombing M.Ak', 'Maya Mila Sudiati S.E.I', 'Dinda Aryani', 'Omar Nainggolan', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(138, NULL, 'Uchita Kamaria Pratiwi S.I.Kom', 'Darmaji Banawi Jailani S.Sos', 'Ilsa Puspasari', 'Najib Adiarja Maulana M.TI.', 'Harjasa Nugroho', 'Usyi Rahimah', 39, 'Marsito Simbolon S.Pd', 'Citra Safitri', 'Lidya Nuraini', 'Maria Zalindra Palastri', '1972-07-05', '1995-06-17', 44, 81, 82, 34, 'Cakrawala Sitorus', 'Kusuma Rajata', 'Cawisadi Januar S.Psi', 'Dimaz Suryono', 'Jumadi Karya Hutasoit', NULL, 'Ira Puspasari S.E.', 'Kamila Ana Pertiwi M.Ak', 'Cornelia Wulandari', 'Muhammad Anggriawan', 'Vanya Gilda Laksita', 'Gara Daru Marpaung', 'Wahyu Mangunsong', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(139, NULL, 'Paramita Chelsea Halimah', 'Kasiran Situmorang', 'Asmuni Sihotang', 'Ika Padmasari', 'Cayadi Gadang Nainggolan M.TI.', 'Mursinin Hakim', 91, 'Fitriani Ratna Lestari M.TI.', 'Malika Hassanah S.Kom', 'Karya Irawan', 'Prabowo Wahyudin M.Kom.', '1980-08-18', '1975-01-23', 9, 19, 91, 88, 'Lantar Hidayat', 'Pranawa Hidayanto', 'Silvia Tira Hastuti', 'Cahyo Ramadan S.T.', 'Febi Anggraini', NULL, 'Amelia Prastuti', 'Eli Purnawati', 'Dariati Megantara', 'Hasim Atmaja Wacana', 'Nalar Paiman Megantara S.I.Kom', 'Zulaikha Uchita Zulaika S.IP', 'Janet Umi Yuliarti', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(140, NULL, 'Banawa Teguh Pradipta', 'Gilda Hamima Handayani S.T.', 'Jumari Garda Suryono', 'Budi Asirwanda Prakasa M.Kom.', 'Rahayu Aurora Suartini S.Pd', 'Intan Tira Pudjiastuti', 52, 'Ega Setiawan', 'Pranata Halim', 'Juli Permata', 'Atmaja Hutapea M.Ak', '1998-11-21', '1978-04-21', 100, 8, 30, 47, 'Gamanto Salahudin', 'Danang Maheswara', 'Hasta Maulana', 'Yulia Ella Laksita', 'Jamalia Mardhiyah', NULL, 'Darmana Mansur', 'Drajat Wacana', 'Warsita Bagiya Mahendra', 'Warsita Parman Napitupulu', 'Bagya Pradipta', 'Paulin Syahrini Nurdiyanti', 'Jane Diah Uyainah', '2024-09-11 20:24:50', '2024-09-11 20:24:50');
 
 -- --------------------------------------------------------
 
@@ -699,6 +749,12 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `folder`
+--
+ALTER TABLE `folder`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `jobs`
 --
 ALTER TABLE `jobs`
@@ -775,6 +831,12 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `folder`
+--
+ALTER TABLE `folder`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
@@ -796,13 +858,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `pjk`
 --
 ALTER TABLE `pjk`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT for table `users`

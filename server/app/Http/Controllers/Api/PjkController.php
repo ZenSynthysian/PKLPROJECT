@@ -66,7 +66,8 @@ class PjkController extends Controller
                 'data' => $validator->errors()
             ]);
         }
-
+        
+        $dataPjk->folder = $request->folder;
         $dataPjk->nomor_pjk = $request->nomor_pjk;
         $dataPjk->kepada = $request->kepada;
         $dataPjk->kode_anggaran = $request->kode_anggaran;
@@ -177,7 +178,7 @@ class PjkController extends Controller
             ]);
         }
 
-
+        $dataPjk->folder = $request->folder;
         $dataPjk->nomor_pjk = $request->nomor_pjk;
         $dataPjk->kepada = $request->kepada;
         $dataPjk->kode_anggaran = $request->kode_anggaran;

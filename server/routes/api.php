@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\KadivController;
 use App\Http\Controllers\Api\CurrenciesController;
+use App\Http\Controllers\Api\FolderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
@@ -73,4 +74,13 @@ Route::middleware(['auth:sanctum', RoleMiddleware::class . ':admin'])->group(fun
 // Currencies
 Route::middleware(['auth:sanctum', RoleMiddleware::class . ':admin'])->group(function () {
     Route::get('currencies/{code}/{code2?}/{code3?}/{code4?}', [CurrenciesController::class, 'show'])->middleware('auth:sanctum');
+});
+
+// folder
+Route::middleware(['auth:sanctum', RoleMiddleware::class . ':admin'])->group(function () {
+    Route::get('folder', [FolderController::class, 'index'])->middleware('auth:sanctum');
+    Route::get('folder/{titile}', [FolderController::class, 'show'])->middleware('auth:sanctum');
+    Route::post('folder', [FolderController::class, 'store'])->middleware('auth:sanctum');
+    Route::put('folder/{title}', [FolderController::class, 'update'])->middleware('auth:sanctum');
+    Route::delete('folder/{title}', [FolderController::class, 'destroy'])->middleware('auth:sanctum');
 });
