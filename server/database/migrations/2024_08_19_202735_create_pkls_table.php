@@ -31,6 +31,18 @@ return new class extends Migration
             $table->integer('jumlah_setor');
             $table->integer('saldo');
             $table->string('pejabat_yang_berwenang');
+            $table->string('tempat_tanggal_tanda_tangan');
+            $table->string('nik');
+            $table->string('nama_ttd');
+            $table->string('catatan_kadiv');
+            $table->string('nama_catatan_kadiv');
+            $table->string('sn');
+            $table->string('nomor_tanda_terima_uang');
+            $table->string('tempat');
+            $table->string('valuta');
+            $table->string('valuta2');
+            $table->string('valuta3');
+            $table->string('valuta4');
             $table->timestamps();
         });
     }
@@ -40,6 +52,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pkl');
+        Schema::dropIfExists('');
     }
 };

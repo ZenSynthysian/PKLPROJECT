@@ -14,7 +14,9 @@ class PjkController extends Controller
      */
     public function index()
     {
-        $data = Pjk::orderBy('pejabat_yang_berwenang')->get();
+        // Mengambil data dengan pagination 30 item per halaman
+        $data = Pjk::paginate(30);
+    
         return response()->json([
             'status' => true,
             'message' => 'Data ditemukan',

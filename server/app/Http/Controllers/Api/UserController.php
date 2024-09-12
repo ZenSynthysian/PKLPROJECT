@@ -30,10 +30,7 @@ class UserController extends Controller
         $dataData = new Datauser;
 
         $rules = [
-            'nama' => 'required',
-            'no_rek' => 'required',
-            'nama_alamat_bank' => 'required',
-            'unit_organisasi' => 'required',
+            'nama' => 'required'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -124,10 +121,7 @@ class UserController extends Controller
         }
 
         $rules = [
-            'nama' => 'required',
-            'no_rek' => 'required',
-            'nama_alamat_bank' => 'required',
-            'unit_organisasi' => 'required',
+            'nama' => 'required'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
