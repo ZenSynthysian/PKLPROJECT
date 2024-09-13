@@ -23,13 +23,11 @@ Route::get('/', function () {
     ], 401);
 })->name('login');
 
-// Rute yang dilindungi oleh Sanctum
-Route::get('pjk', [PjkController::class, 'index'])->middleware('auth:sanctum');
-
-// Rute tanpa autentikasi untuk melihat detail PJK
-Route::get('pjk/{nomor_pjk}', [PjkController::class, 'show'])->middleware('auth:sanctum');
 
 // Rute untuk operasi CRUD lainnya
+Route::get('pjk', [PjkController::class, 'index'])->middleware('auth:sanctum');
+Route::get('pjk/{nomor_pjk}', [PjkController::class, 'show'])->middleware('auth:sanctum');
+Route::get('pjk/{folder}', [PjkController::class, 'showfolder'])->middleware('auth:sanctum');
 Route::post('pjk', [PjkController::class, 'store']);
 Route::put('pjk/{nomor_pjk}', [PjkController::class, 'update'])->middleware('auth:sanctum');
 Route::delete('pjk/{nomor_pjk}', [PjkController::class, 'destroy'])->middleware('auth:sanctum');
@@ -79,8 +77,8 @@ Route::middleware(['auth:sanctum', RoleMiddleware::class . ':admin'])->group(fun
 // folder
 Route::middleware(['auth:sanctum', RoleMiddleware::class . ':admin'])->group(function () {
     Route::get('folder', [FolderController::class, 'index'])->middleware('auth:sanctum');
-    Route::get('folder/{titile}', [FolderController::class, 'show'])->middleware('auth:sanctum');
+    Route::get('folder/{title}', [FolderController::class, 'show'])->middleware('auth:sanctum');
     Route::post('folder', [FolderController::class, 'store'])->middleware('auth:sanctum');
     Route::put('folder/{title}', [FolderController::class, 'update'])->middleware('auth:sanctum');
-    Route::delete('folder/{title}', [FolderController::class, 'destroy'])->middleware('auth:sanctum');
+    Route::delete('/folder/{title}', [FolderController::class, 'destroy'])->middleware('auth:sanctum');
 });

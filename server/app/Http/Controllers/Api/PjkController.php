@@ -98,6 +98,7 @@ class PjkController extends Controller
         $dataPjk->valuta2 = $request->valuta2;
         $dataPjk->valuta3 = $request->valuta3;
         $dataPjk->valuta4 = $request->valuta4;
+        $dataPjk->folder = $request->folder;
 
 
         $post = $dataPjk->save();
@@ -115,6 +116,23 @@ class PjkController extends Controller
     public function show(string $nomor_pjk)
     {
         $data = Pjk::where('nomor_pjk', $nomor_pjk)->get();
+        if ($data) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data ditemukan',
+                'data' => $data
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
+            ]);
+        }
+    }
+
+    public function showfolder(string $folder)
+    {
+        $data = Pjk::where('folder', $folder)->get();
         if ($data) {
             return response()->json([
                 'status' => true,
@@ -209,6 +227,8 @@ class PjkController extends Controller
         $dataPjk->valuta2 = $request->valuta2;
         $dataPjk->valuta3 = $request->valuta3;
         $dataPjk->valuta4 = $request->valuta4;
+        $dataPjk->folder = $request->folder;
+
 
         $post = $dataPjk->save();
 
