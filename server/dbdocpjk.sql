@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 12, 2024 at 06:48 AM
+-- Generation Time: Sep 13, 2024 at 05:59 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -378,8 +378,18 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `folder` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) DEFAULT NULL
+  `title` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `folder`
+--
+
+INSERT INTO `folder` (`id`, `title`, `created_at`, `updated_at`) VALUES
+(5, '1111', '2024-09-11 23:36:53', '2024-09-12 20:31:27'),
+(16, '1234', '2024-09-12 20:13:45', '2024-09-12 20:13:45');
 
 -- --------------------------------------------------------
 
@@ -576,7 +586,8 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (85, 'App\\Models\\User', 5, 'api-pkl', '79492c9e1d319e94513a5b50b62cc6af6522bc4cb643dd595289154911efa8ed', '[\"*\"]', '2024-09-10 04:53:12', NULL, '2024-09-10 03:29:27', '2024-09-10 04:53:12'),
 (86, 'App\\Models\\User', 5, 'api-pkl', 'b5ce3899ddbd096f545e4336c370b32bded1bbe0ec31a553ea5fbaff0c463a16', '[\"*\"]', NULL, NULL, '2024-09-10 19:15:55', '2024-09-10 19:15:55'),
 (87, 'App\\Models\\User', 5, 'api-pkl', 'ae2d1a3f08de77970403b5ac20554a160752e586d94ce56124b2431438e41d9f', '[\"*\"]', '2024-09-10 20:40:23', NULL, '2024-09-10 19:39:06', '2024-09-10 20:40:23'),
-(88, 'App\\Models\\User', 5, 'api-pkl', '2991e4704b4fd6462dd6c69f10b7a7e56a39a570a185c243e08c58b53a3764d5', '[\"*\"]', '2024-09-11 20:33:29', NULL, '2024-09-11 20:25:27', '2024-09-11 20:33:29');
+(88, 'App\\Models\\User', 5, 'api-pkl', '2991e4704b4fd6462dd6c69f10b7a7e56a39a570a185c243e08c58b53a3764d5', '[\"*\"]', '2024-09-12 00:05:01', NULL, '2024-09-11 20:25:27', '2024-09-12 00:05:01'),
+(89, 'App\\Models\\User', 5, 'api-pkl', 'bbb06a013ebc9e237b8856dad0ff978f351b7659e772cf72a3fdab26b501d1ce', '[\"*\"]', '2024-09-12 20:57:59', NULL, '2024-09-12 20:11:28', '2024-09-12 20:57:59');
 
 -- --------------------------------------------------------
 
@@ -650,7 +661,7 @@ INSERT INTO `pjk` (`id`, `folder`, `nomor_pjk`, `kepada`, `kode_anggaran`, `wbs_
 (122, NULL, 'Vicky Uyainah', 'Siska Yulianti', 'Lasmanto Ikin Wibowo S.Ked', 'Rina Yulianti', 'Karen Rahayu', 'Jail Wijaya S.Pd', 53, 'Makara Saputra M.TI.', 'Uchita Zizi Padmasari', 'Agnes Novitasari S.E.I', 'Widya Wahyuni', '2006-05-13', '1974-10-29', 66, 4, 77, 56, 'Raden Jailani', 'Rafi Salahudin S.H.', 'Ani Astuti S.Psi', 'Lidya Pratiwi S.Pt', 'Tiara Halimah', NULL, 'Drajat Lazuardi', 'Cakrawala Prasasta', 'Mumpuni Olga Kuswoyo S.Kom', 'Cecep Mandala', 'Rahmat Maryadi S.Kom', 'Nrima Nababan S.Gz', 'Belinda Restu Pertiwi', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
 (123, NULL, 'Zulaikha Lili Laksita', 'Ciaobella Yuliarti S.Gz', 'Citra Kezia Uyainah M.M.', 'Mahfud Uwais', 'Banawa Dadi Waskita S.Pt', 'Fitria Nasyiah', 52, 'Abyasa Ramadan', 'Shakila Riyanti', 'Ayu Mulyani', 'Vanesa Pudjiastuti S.H.', '1980-08-02', '2006-07-02', 91, 25, 67, 22, 'Daru Cahyo Uwais', 'Syahrini Yolanda', 'Ivan Simbolon', 'Violet Mandasari', 'Abyasa Widodo', NULL, 'Darsirah Mumpuni Sitompul S.Pd', 'Latif Prayoga', 'Jumadi Hutagalung', 'Raina Astuti', 'Calista Fujiati M.Kom.', 'Latika Wastuti S.Psi', 'Farhunnisa Maryati S.Farm', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
 (124, NULL, 'Cawisadi Nalar Pratama S.Gz', 'Elma Padmasari M.Kom.', 'Jarwi Liman Gunawan S.Farm', 'Eli Rachel Lailasari', 'Indah Tina Hartati', 'Vanya Hartati', 11, 'Harsaya Firmansyah', 'Agnes Suartini', 'Taufik Sinaga', 'Titi Rahimah', '2000-04-30', '1977-03-13', 97, 77, 12, 47, 'Tiara Laksmiwati', 'Qori Nasyidah', 'Suci Ina Nuraini S.Pt', 'Purwadi Setiawan', 'Ganjaran Pranowo S.H.', NULL, 'Diana Usamah', 'Malika Haryanti', 'Kiandra Maryati', 'Baktiadi Ajimin Lazuardi', 'Taswir Rajasa', 'Harsana Atma Wasita M.Ak', 'Rina Purnawati', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
-(125, NULL, 'Novi Ana Kusmawati M.Kom.', 'Kuncara Satya Suwarno M.Pd', 'Wage Paiman Sihombing', 'Fitriani Prastuti', 'Uda Purwa Pangestu M.TI.', 'Ajeng Almira Yulianti', 59, 'Caket Nashiruddin', 'Catur Salahudin', 'Ira Amelia Hassanah', 'Jefri Bakiadi Prabowo', '1983-10-24', '2021-10-25', 58, 86, 2, 20, 'Ihsan Najmudin', 'Oliva Lili Anggraini', 'Elvin Nababan S.Sos', 'Titi Clara Hasanah', 'Johan Nugroho', NULL, 'Tania Pertiwi', 'Karsa Mansur S.H.', 'Gina Pertiwi', 'Nasab Budiman', 'Jumadi Mansur S.IP', 'Bahuwarna Kasim Haryanto M.Pd', 'Jayeng Jumadi Hutagalung', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
+(125, '2024', 'Novi Ana Kusmawati M.Kom.', 'Kuncara Satya Suwarno M.Pd', 'Wage Paiman Sihombing', 'Fitriani Prastuti', 'Uda Purwa Pangestu M.TI.', 'Ajeng Almira Yulianti', 59, 'Caket Nashiruddin', 'Catur Salahudin', 'Ira Amelia Hassanah', 'Jefri Bakiadi Prabowo', '1983-10-24', '2021-10-25', 58, 86, 2, 20, 'Ihsan Najmudin', 'Oliva Lili Anggraini', 'Elvin Nababan S.Sos', 'Titi Clara Hasanah', 'Johan Nugroho', NULL, 'Tania Pertiwi', 'Karsa Mansur S.H.', 'Gina Pertiwi', 'Nasab Budiman', 'Jumadi Mansur S.IP', 'Bahuwarna Kasim Haryanto M.Pd', 'Jayeng Jumadi Hutagalung', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
 (126, NULL, 'Betania Andriani', 'Hamzah Saiful Santoso', 'Endra Pangestu Marbun', 'Ganda Waskita M.TI.', 'Cawuk Simanjuntak', 'Empluk Suryono M.Farm', 46, 'Pranata Tampubolon', 'Harsanto Firmansyah', 'Uchita Patricia Nasyiah S.Pt', 'Kamidin Harimurti Firgantoro S.E.', '2016-06-15', '2013-02-06', 59, 68, 88, 72, 'Timbul Martani Lazuardi M.Farm', 'Kenari Simbolon', 'Salman Latupono', 'Calista Maryati', 'Devi Yolanda', NULL, 'Prakosa Pranata Habibi S.Pt', 'Farah Aryani', 'Galur Haryanto S.Farm', 'Wage Winarno S.Pt', 'Edi Damanik M.Pd', 'Imam Hakim S.Pd', 'Vino Pradana', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
 (127, NULL, 'Faizah Safitri', 'Queen Nuraini', 'Daryani Nrima Hidayanto', 'Enteng Uwais', 'Bahuwirya Haryanto', 'Vanesa Hartati', 100, 'Mila Mulyani', 'Gawati Lalita Nasyidah S.Pd', 'Dewi Wijayanti', 'Iriana Tiara Astuti', '2021-11-08', '1986-01-24', 9, 36, 36, 62, 'Baktiadi Gunawan', 'Sabrina Fujiati', 'Sari Hesti Laksita M.Ak', 'Kamaria Prastuti', 'Jarwadi Haryanto', NULL, 'Cagak Prakasa', 'Zulaikha Pudjiastuti', 'Zelda Zulaika S.Farm', 'Carub Manullang', 'Bakianto Saputra', 'Ophelia Zulfa Aryani S.Sos', 'Wawan Manullang M.Pd', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
 (128, NULL, 'Candrakanta Sitorus', 'Tami Oliva Rahayu M.M.', 'Bakiadi Bakda Budiman M.Pd', 'Gatra Balamantri Budiyanto S.H.', 'Tari Hastuti', 'Dalimin Narji Setiawan', 16, 'Ade Puspasari', 'Agnes Prastuti S.Ked', 'Ihsan Darijan Wasita S.E.', 'Hendra Pranata Sitompul M.Kom.', '1993-06-16', '1990-04-14', 45, 86, 90, 53, 'Erik Luwes Wasita M.Kom.', 'Shakila Purwanti', 'Amelia Mardhiyah', 'Janet Rahmawati', 'Kartika Nurdiyanti', NULL, 'Oliva Yulianti', 'Clara Winarsih', 'Hartaka Manullang S.Farm', 'Tari Novi Nurdiyanti S.Pd', 'Uda Maheswara', 'Nrima Pratama S.H.', 'Salwa Hastuti M.Ak', '2024-09-11 20:24:50', '2024-09-11 20:24:50'),
@@ -834,7 +845,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `folder`
 --
 ALTER TABLE `folder`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -858,7 +869,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT for table `pjk`

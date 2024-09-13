@@ -77,7 +77,7 @@ class FolderController extends Controller
      */
     public function update(Request $request, string $title)
     {
-        $dataFolder = Folder::where('title', $title)->get();
+        $dataFolder = Folder::where('title', $title)->first();
         if (empty($dataFolder)) {
             return response()->json([
                 'status' => false,
@@ -112,7 +112,7 @@ class FolderController extends Controller
      */
     public function destroy(string $title)
     {
-        $dataFolder = Folder::where('title', $title)->get();
+        $dataFolder = Folder::where('title', $title)->first();
         if (empty($dataFolder)) {
             return response()->json([
                 'status' => false,

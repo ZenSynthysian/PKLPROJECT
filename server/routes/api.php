@@ -27,7 +27,7 @@ Route::get('/', function () {
 // Rute untuk operasi CRUD lainnya
 Route::get('pjk', [PjkController::class, 'index'])->middleware('auth:sanctum');
 Route::get('pjk/{nomor_pjk}', [PjkController::class, 'show'])->middleware('auth:sanctum');
-Route::get('pjk/{folder}', [PjkController::class, 'showfolder'])->middleware('auth:sanctum');
+Route::get('pjk/folder/{folder}', [PjkController::class, 'showfolder'])->middleware('auth:sanctum');
 Route::post('pjk', [PjkController::class, 'store']);
 Route::put('pjk/{nomor_pjk}', [PjkController::class, 'update'])->middleware('auth:sanctum');
 Route::delete('pjk/{nomor_pjk}', [PjkController::class, 'destroy'])->middleware('auth:sanctum');
