@@ -130,7 +130,25 @@ class PjkController extends Controller
         }
     }
 
-    public function showfolder(string $folder, string $nomor_pjk)
+    public function showfolder(string $folder)
+{
+    $data = Pjk::where('folder', $folder)->paginate(30);
+
+    if ($data->isNotEmpty()) {
+        return response()->json([
+            'status' => true,
+            'message' => 'Data ditemukan',
+            'data' => $data
+        ], 200);
+    } else {
+        return response()->json([
+            'status' => false,
+            'message' => 'Data tidak ditemukan'
+        ], 404);
+    }
+}
+
+public function showfolderpjk(string $folder, string $nomor_pjk)
 {
     $data = Pjk::where('folder', $folder)
                 ->where('nomor_pjk', $nomor_pjk)
@@ -149,7 +167,6 @@ class PjkController extends Controller
         ], 404);
     }
 }
-
     /**
      * Update the specified resource in storage.
      */
