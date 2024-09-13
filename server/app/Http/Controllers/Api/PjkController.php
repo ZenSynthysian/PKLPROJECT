@@ -15,7 +15,7 @@ class PjkController extends Controller
     public function index()
     {
         // Mengambil data dengan pagination 30 item per halaman
-        $data = Pjk::paginate(30);
+        $data = Pjk::orderBy('nomor_pjk')->paginate(30);
     
         return response()->json([
             'status' => true,
@@ -115,7 +115,7 @@ class PjkController extends Controller
 
     public function show(string $nomor_pjk)
     {
-        $data = Pjk::where('nomor_pjk', $nomor_pjk)->get();
+        $data = Pjk::where('nomor_pjk', $nomor_pjk)->paginate(30);
         if ($data) {
             return response()->json([
                 'status' => true,
@@ -130,22 +130,25 @@ class PjkController extends Controller
         }
     }
 
-    public function showfolder(string $folder)
-    {
-        $data = Pjk::where('folder', $folder)->get();
-        if ($data) {
-            return response()->json([
-                'status' => true,
-                'message' => 'Data ditemukan',
-                'data' => $data
-            ], 200);
-        } else {
-            return response()->json([
-                'status' => false,
-                'message' => 'Data tidak ditemukan'
-            ]);
-        }
+    public function showfolder(string $folder, string $nomor_pjk)
+{
+    $data = Pjk::where('folder', $folder)
+                ->where('nomor_pjk', $nomor_pjk)
+                ->paginate(30);
+
+    if ($data->isNotEmpty()) {
+        return response()->json([
+            'status' => true,
+            'message' => 'Data ditemukan',
+            'data' => $data
+        ], 200);
+    } else {
+        return response()->json([
+            'status' => false,
+            'message' => 'Data tidak ditemukan'
+        ], 404);
     }
+}
 
     /**
      * Update the specified resource in storage.

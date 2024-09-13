@@ -13,14 +13,15 @@ class KadivController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $data = Kadiv::orderBy('divisi')->get();
-        return response()->json([
-            'status' => true,
-            'message' => 'Data ditemukan',
-            'data' => $data
-        ], 200);
-    }
+{
+    // Paginate dengan 30 data per halaman
+    $data = Kadiv::orderBy('divisi')->paginate(30);
+    return response()->json([
+        'status' => true,
+        'message' => 'Data ditemukan',
+        'data' => $data
+    ], 200);
+}
 
     /**
      * Store a newly created resource in storage.
@@ -63,7 +64,7 @@ class KadivController extends Controller
         $data = Kadiv::where('nama', 'LIKE', '%' . $id . '%')
             ->orWhere('id', 'LIKE', '%' . $id . '%')
             ->orWhere('divisi', 'LIKE', '%' . $id . '%')
-            ->get();
+            ->paginate(30); // Membatasi 30 item per halaman
 
         if ($data->count() > 0) {
             // Fetch and process the data based on 'nama'

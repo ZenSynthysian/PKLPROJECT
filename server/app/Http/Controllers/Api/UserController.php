@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = Datauser::orderBy('nama')->get();
+        $data = Datauser::orderBy('nama')->paginate(30);
         return response()->json([
             'status' => true,
             'message' => 'Data ditemukan',
@@ -64,7 +64,7 @@ class UserController extends Controller
         // Fetch all data entries that have 'nama' or 'id' containing the specified ID
         $data = Datauser::where('nama', 'LIKE', '%' . $id . '%')
             ->orWhere('id', 'LIKE', '%' . $id . '%')
-            ->get();
+            ->paginate(30);
 
         if ($data->count() > 0) {
             // Group by 'nama'
