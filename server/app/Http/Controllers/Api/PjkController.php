@@ -16,7 +16,7 @@ class PjkController extends Controller
     {
         // Mengambil data dengan pagination 30 item per halaman
         $data = Pjk::orderBy('nomor_pjk')->paginate(30);
-    
+
         return response()->json([
             'status' => true,
             'message' => 'Data ditemukan',
@@ -66,7 +66,7 @@ class PjkController extends Controller
                 'data' => $validator->errors()
             ]);
         }
-        
+
         $dataPjk->folder = $request->folder;
         $dataPjk->nomor_pjk = $request->nomor_pjk;
         $dataPjk->kepada = $request->kepada;
@@ -115,7 +115,7 @@ class PjkController extends Controller
 
     public function show(string $nomor_pjk)
     {
-        $data = Pjk::where('nomor_pjk', $nomor_pjk)->paginate(30);
+        $data = Pjk::where('nomor_pjk', 'LIKE', '%' . $nomor_pjk . '%')->paginate(30);
         if ($data) {
             return response()->json([
                 'status' => true,
@@ -130,43 +130,112 @@ class PjkController extends Controller
         }
     }
 
+    public function showNomorPjk()
+    {
+        // Mengambil semua nomor_pjk dari model Pjk
+        $allNomorPjk = Pjk::pluck('nomor_pjk');
+
+        // Inisialisasi variabel untuk menyimpan nomor PJK terbaru
+        $latestNomorPjk = null;
+
+        foreach ($allNomorPjk as $nomorPjk) {
+            // Memisahkan bagian nomor PJK
+            preg_match('/^(.*?)-(.*?)-(\d{2})(\d{2})-(\d{5})$/', $nomorPjk, $matches);
+
+            if ($matches) {
+                // Mengatur nomor PJK terbaru berdasarkan tahun, bulan, dan urutan
+                $currentNomorPjk = [
+                    'kode' => $matches[1], // SC0000
+                    'unitOrganisasi' => $matches[2], // NP
+                    'tahun' => (int)$matches[3], // Tahun
+                    'bulan' => (int)$matches[4], // Bulan
+                    'urutan' => (int)$matches[5] + 1, // Urutan
+                ];
+
+                // Periksa apakah ini adalah yang terbaru
+                if (
+                    is_null($latestNomorPjk) ||
+                    $this->isLatest($currentNomorPjk, $latestNomorPjk)
+                ) {
+                    $latestNomorPjk = $currentNomorPjk;
+                }
+            }
+        }
+
+        if ($latestNomorPjk) {
+            return response()->json([
+                'kode' => $latestNomorPjk['kode'],
+                'unitOrganisasi' => $latestNomorPjk['unitOrganisasi'],
+                'tahun' => $latestNomorPjk['tahun'],
+                'bulan' => str_pad($latestNomorPjk['bulan'], 2, '0', STR_PAD_LEFT),
+                'urutan' => str_pad($latestNomorPjk['urutan'], 5, '0', STR_PAD_LEFT),
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => false,
+            'message' => 'Data tidak ditemukan'
+        ], 404);
+    }
+
+    // Fungsi untuk menentukan apakah nomor PJK saat ini lebih baru
+    private function isLatest($current, $latest)
+    {
+        if ($latest === null) {
+            return true; // Jika latest null, current otomatis dianggap lebih baru
+        }
+
+        if ($current['tahun'] > $latest['tahun']) {
+            return true;
+        } elseif ($current['tahun'] === $latest['tahun']) {
+            if ($current['bulan'] > $latest['bulan']) {
+                return true;
+            } elseif ($current['bulan'] === $latest['bulan']) {
+                return $current['urutan'] > $latest['urutan'];
+            }
+        }
+
+        return false;
+    }
+
+
     public function showfolder(string $folder)
-{
-    $data = Pjk::where('folder', $folder)->paginate(30);
+    {
+        $data = Pjk::where('folder', $folder)->paginate(30);
 
-    if ($data->isNotEmpty()) {
-        return response()->json([
-            'status' => true,
-            'message' => 'Data ditemukan',
-            'data' => $data
-        ], 200);
-    } else {
-        return response()->json([
-            'status' => false,
-            'message' => 'Data tidak ditemukan'
-        ], 404);
+        if ($data->isNotEmpty()) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data ditemukan',
+                'data' => $data
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
+            ], 404);
+        }
     }
-}
 
-public function showfolderpjk(string $folder, string $nomor_pjk)
-{
-    $data = Pjk::where('folder', $folder)
-                ->where('nomor_pjk', $nomor_pjk)
-                ->paginate(30);
+    public function showfolderpjk(string $folder, string $nomor_pjk)
+    {
+        $data = Pjk::where('folder', $folder)
+            ->where('nomor_pjk', 'LIKE', '%' . $nomor_pjk . '%')
+            ->paginate(30);
 
-    if ($data->isNotEmpty()) {
-        return response()->json([
-            'status' => true,
-            'message' => 'Data ditemukan',
-            'data' => $data
-        ], 200);
-    } else {
-        return response()->json([
-            'status' => false,
-            'message' => 'Data tidak ditemukan'
-        ], 404);
+        if ($data) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data ditemukan',
+                'data' => $data
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
+            ], 404);
+        }
     }
-}
     /**
      * Update the specified resource in storage.
      */

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-function DataKadivInput() {
+function MenuPjkInput() {
     function handleSubmit(e) {
         e.preventDefault();
 
@@ -9,10 +9,10 @@ function DataKadivInput() {
             const data = Object.fromEntries(formData);
 
             axios
-                .post(`${import.meta.env.VITE_SERVER_API}api/kadiv`, data, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+                .post(`${import.meta.env.VITE_SERVER_API}api/registeruser`, data, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
                 .then((response) => {
                     console.log(response.data);
-                    window.location.replace('/datakadivconfiguration/1');
+                    window.location.replace('/userconfiguration');
                 })
                 .catch((error) => {
                     if (error.response) {
@@ -28,30 +28,16 @@ function DataKadivInput() {
         <>
             <div className="flex justify-center items-center w-screen h-screen">
                 <div className="border-2 rounded-xl border-blue-500 p-3 flex flex-col gap-16 shadow-2xl bg-white">
-                    <div className="text-3xl text-center p-10">Buat Data Kadiv</div>
+                    <div className="text-3xl text-center p-10">Buat Folder Pjk Baru</div>
                     <form
                         className="flex flex-col gap-10 items-center"
                         onSubmit={handleSubmit}>
                         <input
-                            placeholder="Divisi"
+                            placeholder="Judul"
                             type="text"
-                            name="divisi"
+                            name="name"
                             className="w-96 p-1 outline-none border-b-2 rounded border-blue-500 focus:border-b-4 placeholder:text-start input-gradient-transition"
                         />
-                        <input
-                            placeholder="Nama"
-                            type="text"
-                            name="nama"
-                            className="w-96 p-1 outline-none border-b-2 rounded border-blue-500 focus:border-b-4 placeholder:text-start input-gradient-transition"
-                        />
-                        <div className="flex flex-col gap-3">
-                            <input
-                                placeholder="Nik"
-                                type={'text'}
-                                name="nik"
-                                className="w-96 p-1 outline-none border-b-2 rounded border-blue-500 focus:border-b-4 placeholder:text-start"
-                            />
-                        </div>
                         <input
                             type="submit"
                             value="Submit"
@@ -64,4 +50,4 @@ function DataKadivInput() {
     );
 }
 
-export default DataKadivInput;
+export default MenuPjkInput;

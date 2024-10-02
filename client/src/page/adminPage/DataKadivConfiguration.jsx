@@ -1,18 +1,26 @@
 import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 function DataKadivConfiguration() {
+    const { page } = useParams();
     const [table, setTable] = useState([]);
+    const [totalPage, setTotalPage] = useState([]);
+    const [currentPageGroup, setCurrentPageGroup] = useState(0);
+    const pagesPerGroup = 8;
 
     const fetchData = useCallback(async () => {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/kadivall`, {
+            const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/kadivall?page=${page}`, {
                 withCredentials: true,
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
             });
-            setTable(response.data.data);
+            setTable(response.data.data.data);
+
+            // Membuat array totalPage
+            const totalPages = response.data.data.last_page;
+            setTotalPage(Array.from({ length: totalPages }, (_, index) => index + 1));
         } catch (error) {
             if (error.response) {
                 alert(error.response.data.message);
@@ -20,11 +28,26 @@ function DataKadivConfiguration() {
                 console.log(error.message || error);
             }
         }
-    }, []); // Empty dependency array to fetch data only on mount
+    }, [page]); // Empty dependency array to fetch data only on mount
 
     useEffect(() => {
         fetchData(); // Fetch data when the component mounts
     }, [fetchData]);
+
+    const startPage = currentPageGroup * pagesPerGroup;
+    const endPage = Math.min(startPage + pagesPerGroup, totalPage.length);
+
+    const handlePrev = () => {
+        if (currentPageGroup > 0) {
+            setCurrentPageGroup(currentPageGroup - 1);
+        }
+    };
+
+    const handleNext = () => {
+        if (endPage < totalPage.length) {
+            setCurrentPageGroup(currentPageGroup + 1);
+        }
+    };
 
     async function handleDelete(id) {
         try {
@@ -105,6 +128,32 @@ function DataKadivConfiguration() {
                             })}
                         </tbody>
                     </table>
+                </div>
+                <div className="flex">
+                    <button
+                        className="rounded-full border-pink-700 border-2 w-10 h-10 text-2xl text-pink-700 m-5 bg-white text-center items-center justify-center"
+                        onClick={handlePrev}
+                        hidden={currentPageGroup === 0}>
+                        {'<'}
+                    </button>
+                    {totalPage.slice(startPage, endPage).map((data, index) => (
+                        <Link
+                            key={index + 1}
+                            to={`/datakadivconfiguration/${data}`}>
+                            <div
+                                className={`rounded-full border-pink-700 border-2 w-10 h-10 text-2xl  m-5 ${
+                                    page == data ? 'bg-pink-700 text-white' : 'bg-white text-pink-700'
+                                } text-center items-center justify-center`}>
+                                {data}
+                            </div>
+                        </Link>
+                    ))}
+                    <button
+                        className="rounded-full border-pink-700 border-2 w-10 h-10 text-2xl text-pink-700 m-5 bg-white text-center items-center justify-center"
+                        onClick={handleNext}
+                        hidden={endPage >= totalPage.length}>
+                        {'>'}
+                    </button>
                 </div>
             </div>{' '}
         </>

@@ -19,6 +19,10 @@ import DataPribadiInput from '../page/adminPage/DataPribadiInput';
 import DataKadivConfiguration from '../page/adminPage/DataKadivConfiguration';
 import EditDataKadiv from '../page/adminPage/EditDataKadiv';
 import DataKadivInput from '../page/adminPage/DataKadivInput';
+import MenuPjk from '../page/MenuPjk';
+import MenuPjkInput from '../page/MenuPjkInput';
+import MenuTablePjk from '../page/tablePage/MenuTablePjk';
+import PjkTahunDocumentTable from '../page/tablePage/PjkTahunDocumentTable';
 
 const router = createBrowserRouter([
     {
@@ -34,7 +38,23 @@ const router = createBrowserRouter([
                 ),
             },
             {
-                path: '/pjk',
+                path: '/pjk/menu',
+                element: (
+                    <PrivateRoute>
+                        <MenuPjk />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: '/pjk/menu/baru',
+                element: (
+                    <PrivateRoute>
+                        <MenuPjkInput />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: '/pjk/menu/:tahunPjk',
                 element: (
                     <PrivateRoute>
                         <PjkDocument />
@@ -58,10 +78,26 @@ const router = createBrowserRouter([
                 ),
             },
             {
-                path: '/tablemenu/pjk/',
+                path: '/tablemenu/pjk/tahun',
+                element: (
+                    <PrivateRoute>
+                        <MenuTablePjk />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: '/tablemenu/pjk/tahun/semua/:page',
                 element: (
                     <PrivateRoute>
                         <PjkDocumentTable />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: '/tablemenu/pjk/tahun/:tahun/:page',
+                element: (
+                    <PrivateRoute>
+                        <PjkTahunDocumentTable />
                     </PrivateRoute>
                 ),
             },
@@ -82,7 +118,7 @@ const router = createBrowserRouter([
                 ),
             },
             {
-                path: '/userconfiguration',
+                path: '/userconfiguration/:page',
                 element: (
                     <PrivateAdminRoute>
                         <UserConfiguration />
@@ -106,7 +142,7 @@ const router = createBrowserRouter([
                 ),
             },
             {
-                path: '/datapribadiconfiguration',
+                path: '/datapribadiconfiguration/:page',
                 element: (
                     <PrivateAdminRoute>
                         <DataPribadiConfiguration />
@@ -130,7 +166,7 @@ const router = createBrowserRouter([
                 ),
             },
             {
-                path: '/datakadivconfiguration',
+                path: '/datakadivconfiguration/:page',
                 element: (
                     <PrivateAdminRoute>
                         <DataKadivConfiguration />

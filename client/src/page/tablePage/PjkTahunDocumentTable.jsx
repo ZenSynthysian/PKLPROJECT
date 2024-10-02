@@ -4,12 +4,13 @@ import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-function PjkDocumentTable() {
+function PjkTahunDocumentTable() {
     const { page } = useParams();
     const tableRef = useRef(null);
     const [table, setTable] = useState([]);
     const [selectedIds, setSelectedIds] = useState([]);
     const [searchValue, setSearchValue] = useState('');
+    const { tahun } = useParams();
     const [totalPage, setTotalPage] = useState([]);
     const [currentPageGroup, setCurrentPageGroup] = useState(0);
     const pagesPerGroup = 20;
@@ -48,7 +49,7 @@ function PjkDocumentTable() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pjk?page=${page}`, {
+                const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pjk/folder/${tahun}?page=${page}`, {
                     withCredentials: true,
                     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
                 });
@@ -63,7 +64,7 @@ function PjkDocumentTable() {
         }
 
         fetchData();
-    }, [searchValue, page]); // Dependency array includes searchValue
+    }, [tahun, page, searchValue]); // Dependency array includes searchValue
 
     const startPage = currentPageGroup * pagesPerGroup;
     const endPage = Math.min(startPage + pagesPerGroup, totalPage.length);
@@ -86,7 +87,11 @@ function PjkDocumentTable() {
 
     async function handleClear() {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pjk`, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
+            const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pjk/folder/${tahun}`, {
+                withCredentials: true,
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+            });
+            console.log(response.data.data.data);
             setTable(response.data.data.data);
         } catch (error) {
             console.log(error.message || error);
@@ -163,7 +168,7 @@ function PjkDocumentTable() {
         e.preventDefault();
 
         try {
-            const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pjk/${searchValue}`, {
+            const response = await axios.get(`${import.meta.env.VITE_SERVER_API}api/pjk/folder/${tahun}/${searchValue}`, {
                 withCredentials: true,
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
             });
@@ -326,7 +331,7 @@ function PjkDocumentTable() {
                     {totalPage.slice(startPage, endPage).map((data, index) => (
                         <Link
                             key={index + 1}
-                            to={`/tablemenu/pjk/tahun/semua/${data}`}>
+                            to={`/tablemenu/pjk/tahun/${tahun}/${data}`}>
                             <div
                                 className={`rounded-full border-pink-700 border-2 w-10 h-10 text-2xl  m-5 ${
                                     page == data ? 'bg-pink-700 text-white' : 'bg-white text-pink-700'
@@ -347,4 +352,4 @@ function PjkDocumentTable() {
     );
 }
 
-export default PjkDocumentTable;
+export default PjkTahunDocumentTable;

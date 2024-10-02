@@ -26,6 +26,7 @@ Route::get('/', function () {
 
 // Rute untuk operasi CRUD lainnya
 Route::get('pjk', [PjkController::class, 'index'])->middleware('auth:sanctum');
+Route::get('pjk/getnomorpjk', [PjkController::class, 'showNomorPjk'])->middleware('auth:sanctum');
 Route::get('pjk/{nomor_pjk}', [PjkController::class, 'show'])->middleware('auth:sanctum');
 Route::get('pjk/folder/{folder}', [PjkController::class, 'showfolder'])->middleware('auth:sanctum');
 Route::get('pjk/folder/{folder}/{nomor_pjk}', [PjkController::class, 'showfolderpjk'])->middleware('auth:sanctum');

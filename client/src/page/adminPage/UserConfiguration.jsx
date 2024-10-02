@@ -13,6 +13,7 @@ function UserConfiguration() {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
             });
             setTable(response.data.data);
+            console.log(response.data);
         } catch (error) {
             if (error.response) {
                 alert(error.response.data.message);

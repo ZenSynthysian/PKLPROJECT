@@ -27,7 +27,7 @@ function EditDataPribadi() {
         } catch (error) {
             return console.log(error.message || error);
         }
-    }, []);
+    }, [id]);
 
     function handleChangeNama(e) {
         setNama(e.target.value);
@@ -56,7 +56,7 @@ function EditDataPribadi() {
                 .put(`${import.meta.env.VITE_SERVER_API}api/datauser/${id}`, data, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
                 .then((response) => {
                     console.log(response.data);
-                    window.location.replace('/datapribadiconfiguration');
+                    window.location.replace('/datapribadiconfiguration/1');
                 })
                 .catch((error) => {
                     if (error.response) {

@@ -8,17 +8,17 @@ function AdminMenu() {
                 <div className="flex justify-center pt-10 text-3xl w-screen">MENU ADMIN</div>
                 <div className="grid grid-cols-4 p-7 pl-32 gap-4">
                     <SelectionComponent
-                        link={'/userconfiguration'}
+                        link={'/userconfiguration/1'}
                         image={documentSVG}
                         tittle={'USER'}
                     />
                     <SelectionComponent
-                        link={'/datapribadiconfiguration'}
+                        link={'/datapribadiconfiguration/1'}
                         image={documentSVG}
                         tittle={'DATA PRIBADI'}
                     />
                     <SelectionComponent
-                        link={'/datakadivconfiguration'}
+                        link={'/datakadivconfiguration/1'}
                         image={documentSVG}
                         tittle={'DATA KADIV'}
                     />

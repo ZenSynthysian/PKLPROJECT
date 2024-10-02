@@ -12,7 +12,7 @@ function UserInput() {
                 .post(`${import.meta.env.VITE_SERVER_API}api/registeruser`, data, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
                 .then((response) => {
                     console.log(response.data);
-                    window.location.replace('/userconfiguration');
+                    window.location.replace('/userconfiguration/1');
                 })
                 .catch((error) => {
                     if (error.response) {

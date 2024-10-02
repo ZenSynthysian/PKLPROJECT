@@ -8,7 +8,7 @@ function TablePage() {
 
             <div className="flex justify-center items-center p-10 gap-4 pl-32">
                 <SelectionComponent
-                    link={'/tablemenu/pjk'}
+                    link={'/tablemenu/pjk/tahun'}
                     image={documentSVG}
                     tittle={'TABLE PJK'}
                 />

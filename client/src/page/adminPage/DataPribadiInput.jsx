@@ -12,7 +12,7 @@ function DataPribadiInput() {
                 .post(`${import.meta.env.VITE_SERVER_API}api/datauser`, data, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
                 .then((response) => {
                     console.log(response.data);
-                    window.location.replace('/datapribadiconfiguration');
+                    window.location.replace('/datapribadiconfiguration1');
                 })
                 .catch((error) => {
                     if (error.response) {

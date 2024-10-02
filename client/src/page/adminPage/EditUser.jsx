@@ -25,7 +25,7 @@ function EditUser() {
         } catch (error) {
             return console.log(error.message || error);
         }
-    }, []);
+    }, [id]);
 
     function handleChangeNama(e) {
         setNama(e.target.value);
@@ -50,7 +50,7 @@ function EditUser() {
                 .put(`${import.meta.env.VITE_SERVER_API}api/user/${id}`, data, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
                 .then((response) => {
                     console.log(response.data);
-                    window.location.replace('/userconfiguration');
+                    window.location.replace('/userconfiguration/1');
                 })
                 .catch((error) => {
                     if (error.response) {

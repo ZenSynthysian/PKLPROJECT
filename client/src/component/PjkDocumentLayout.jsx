@@ -19,7 +19,7 @@ function PjkDocumentLayout() {
 
     const formatDate = (dateStr) => {
         const [year, month, day] = String(dateStr).split('-');
-        return `${day}/${month}/${year}`;
+        return `${day}/${month}/${year.slice(2)}`;
     };
 
     // const formatDateTandaTangan = (dateStr) => {
@@ -42,7 +42,7 @@ function PjkDocumentLayout() {
             axios
                 .put(`${import.meta.env.VITE_SERVER_API}api/pjk/${nomorpjkparam}`, docData, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
                 .then((response) => {
-                    console.log(response.data);
+                    location.replace(`http://localhost:5173/pjk/detail/${docData.nomor_pjk}`);
                 })
                 .catch((error) => {
                     console.log(error.message || error);
@@ -66,7 +66,7 @@ function PjkDocumentLayout() {
                     withCredentials: true,
                     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
                 });
-                setDataPjk(response.data.data[0]);
+                setDataPjk(response.data.data.data[0]);
             } catch (error) {
                 console.log(error.message || error);
             }
@@ -106,6 +106,7 @@ function PjkDocumentLayout() {
                 valuta3: dataPjk?.valuta3,
                 valuta4: dataPjk?.valuta4,
                 nama_catatan_kadiv: dataPjk?.nama_catatan_kadiv,
+                folder: dataPjk?.folder,
             });
         }
     }, [dataPjk, editMode]);

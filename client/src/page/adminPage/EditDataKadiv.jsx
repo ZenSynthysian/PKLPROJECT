@@ -25,7 +25,7 @@ function EditDataKadiv() {
         } catch (error) {
             return console.log(error.message || error);
         }
-    }, []);
+    }, [id]);
 
     function handleChangeNama(e) {
         setNama(e.target.value);
@@ -50,7 +50,7 @@ function EditDataKadiv() {
                 .put(`${import.meta.env.VITE_SERVER_API}api/kadiv/${id}`, data, { withCredentials: true, headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
                 .then((response) => {
                     console.log(response.data);
-                    window.location.replace('/datakadivconfiguration');
+                    window.location.replace('/datakadivconfiguration/1');
                 })
                 .catch((error) => {
                     if (error.response) {

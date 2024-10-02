@@ -9,7 +9,6 @@ function UserLayout() {
                 <CursorAnimation />
                 <Navbar />
                 <Outlet />
-                {/* <Footer /> */}
             </div>
         </>
     );
